@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[lotsofwhite]{patmorin}
 \usepackage[UKenglish]{babel}
 \usepackage[T1]{fontenc}
  % Something in here is breaking cleveref
@@ -10,33 +10,34 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 %%%%
 %\usepackage{breakurl} %needed for arXiv
-\usepackage[unicode=true]{hyperref}
-\hypersetup{
-	colorlinks,
-	linkcolor={blue!60!black},
-	citecolor={black},
-	urlcolor={blue!60!black},
-	pdftitle={Grid Minors and Products}}
-%%%%
-% \usepackage[capitalise, compress, nameinlink, noabbrev]{cleveref}
+% \usepackage[unicode=true]{hyperref}
+% \hypersetup{
+% 	colorlinks,
+% 	linkcolor={blue!60!black},
+% 	citecolor={black},
+% 	urlcolor={blue!60!black},
+% 	pdftitle={Grid Minors and Products}}
+%%%
+\usepackage[capitalise, compress, nameinlink, noabbrev]{cleveref}
 \usepackage{cleveref}
 \crefname{lem}{Lemma}{Lemmas}
 \crefname{thm}{Theorem}{Theorems}
 \crefname{cor}{Corollary}{Corollaries}
-%%%%
+%%%
 \newcommand{\defn}[1]{\textcolor{Maroon}{\emph{#1}}}
+\newcommand{\mathdefn}[1]{\textcolor{Maroon}{#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
-\makeatletter
-\def\NAT@spacechar{~}
-\makeatother
-\setlength{\bibsep}{0.4ex plus 0.2ex minus 0.2ex}
+% \makeatletter
+% \def\NAT@spacechar{~}
+% \makeatother
+% \setlength{\bibsep}{0.4ex plus 0.2ex minus 0.2ex}
 %%%%%%%%%%%%%%%%%%
-\usepackage[margin=28mm]{geometry}
-\renewcommand{\baselinestretch}{1.1}
-\setlength{\footnotesep}{\baselinestretch\footnotesep}
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{1.2ex}
+% \usepackage[margin=28mm]{geometry}
+% \renewcommand{\baselinestretch}{1.1}
+% \setlength{\footnotesep}{\baselinestretch\footnotesep}
+% \setlength{\parindent}{0cm}
+% \setlength{\parskip}{1.2ex}
 % \allowdisplaybreaks
 %%%%%%%%%%
 % \usepackage{todonotes}
@@ -88,7 +89,7 @@
 %%%
 \newcommand{\david}[1]{{\color{orange} DW: #1}}
 \newcommand{\vida}[1]{{\color{DarkGreen} V: #1}}
-\newcommand{\pat}[1]{\textcolor{DarkGrey}{PM: #1}}
+\newcommand{\pat}[1]{\textcolor{Maroon}{PM: #1}}
 
 \newcommand{\worley}[1]{\textcolor{Purple}{DAW: #1}}
 %%%
@@ -117,7 +118,7 @@ Grid Minors and Products}
 Vida Dujmovi{\'c}\,\footnotemark[3]\qquad
 Pat Morin\,\footnotemark[4]\qquad
 David~R.~Wood\,\footnotemark[2]\qquad
-David~Worley\footnotemark[5]
+and David~Worley\footnotemark[5]
 }
 
 \maketitle
@@ -144,6 +145,398 @@ David~Worley\footnotemark[5]
 
 %\newpage
 %\section{\Large Introduction}
+
+
+\section{Introduction}
+
+The current research is motivated by two recent developments. The first is the use of graph product structure theory to resolve a number of longstanding open problems on planar graphs and their relatives.  The second is the role of strong excluded grid minor theorems in approximation algorithms for NP-hard problems on planar and related graph classes.  We now elaborate on both these topics.
+
+TODO: Define graph products $\boxprod$ and $\boxtimes$ and explain the planar product structure theorem.
+
+TODO: Define the subquadratic grid minor property and the state-of-the art in excluded grid minors.
+For every positive integer $k$, let $\boxplus_k$ denote the $k\times k$ \defn{grid graph}, with vertex set $V(\boxplus_k):=[k]\times[k]$ and that contains an edge with endpoints $(x_1,y_1)$ and $(x_2,y_2)$ if and only $|x_1-x_2| + |y_1-y_2|=1$.\footnote{For every positive integer $k$, $[k]:=\{1,\ldots,k\}$.}  For a graph $G$, let $\tw(G)$ denote the treewidth\footnote{TODO: definition of treewidth} of $G$ and let $\gm(G)$ denote the largest integer $k$ such that $G$ contains a $\boxplus_k$ minor.\footnote{A graph $G_1$ is a \defn{minor} of a graph $G_2$ if a graph isomorphic to $G_1$ can be obtained from a subgraph of $G_2$ through a sequence of edge contractions.}
+
+In this paper, we prove the following results:
+
+\begin{enumerate}
+   \item  For any two $n$-vertex connected graphs $G_1$ and $G_2$, $\gm(G_1\boxprod G_2) \in \Omega(\sqrt{n})$.
+   \item There exists two $n$-vertex connected graphs $G_1$ and $G_2$ (a star and a path) such that $\gm(G_1\boxprod G_2) \in O(\sqrt{n})$.
+\end{enumerate}
+
+It is known that $\tw(G_1\boxprod G_2)\in\Theta(n)$ when $G_1$ and $G_2$ are $n$-vertex connected graphs.  Thus, the first result above gives an excluded grid theorem for graph products that is much stronger than the current best bound for general graphs. Indeed, the result of \cite{CT19} only implies that $\gm(G_1\boxprod G_2) \ge n^{1/9}/\log^{O(1)} n$.  Unfortunately, our results falls just short of being strong enough to allow the SQGM framework to be directly applied to graph products and the upper bound in the second result shows that this is by necessity.  TODO: Point to future work.
+
+\section{Preliminaries}
+
+In this paper, every graph $G$ is undirected and simple with vertex set $V(G)$ and edge set $E(G)$. The \defn{order} of $G$ is denoted $|G|:=|V(G)|$.
+ See \citet{D10} for graph-theoretic definitions not given here.
+
+
+
+% For any set $S$, the \defn{induced subgraph} $G[S]$ has $V(G[S]):=S\cap V(G)$ and $E(G[S]):=\{vw\in E(G):v,w\in S\}$. For any set $S$, $G-S = G[V(G)\setminus S]$.
+
+For two graphs $G_1$ and $G_2$ we use the notation $G_1\preceq G_2$ to indicate that $G_1$ is a minor of $G_2$.  We make use of the fact that the $\preceq$ relation is transitive. The following observation follows immediately from definitions.
+
+\begin{obs}\label{minor_product}
+  Let $G_1$, $G_2$, and $H$ be graphs.  If $G_1\preceq G_2$, then $G_1\boxprod H\preceq G_2\boxprod H$.
+\end{obs}
+
+A \defn{model} of a graph $G_1$ in another graph $G_2$ is a set $\mathcal{M}:=\{B_x\subseteq V(G_2): x\in V(G_1)\}$ of subsets of $V(G_2)$, called \defn{branch sets}, indexed by the vertices of $G_1$ and such that
+\begin{compactenum}[(i)]
+  \item for each distinct pair $x,y\in V(G_1)$, $B_x\cap B_y=\emptyset$;
+  \item for each $x\in V(G_1)$, $G_2[B_x]$ is connected and
+  \item for each $xy\in E(G_1)$ there exists an edge $vw\in E(G_2)$ with $v\in B_x$ and $w\in B_y$.
+\end{compactenum}
+It follows from definitions that $G_1\preceq G_2$ if and only if there exists a model of $G_1$ in $G_2$.
+
+For each $n\in N$, let $P_n$ denote an $n$-vertex path, and let $S_n$ denote the \defn{$n$-star}; the tree with $n$ leaves, each of which adjacent to the root.  For each $\ell,p\in\N$, let $S_{\ell,p}$ denote the star with $\ell$ leaves whose edges have been subdivided $p-1$ times.  More formally, $V(S_{\ell,p}):=\{v_0\}\cup\{v_{i,j}:(i,j)\in[\ell]\times[p]\}$ and $E(S_{\ell,p}):=\{v_0v_{i,1}:i\in[\ell]\}\cup \{v_{i,j}v_{i,j+1}:(i,j)\in[\ell]\times[p-1]\}$.  We call $S_{\ell,p}$ a \defn{subdivided star}.  Subdivided stars generalize both stars and paths: The $n$-vertex path $P_n$ is isomorphic to $S_{1,n-1}$ and the $n$-leaf star $S_n$ is isomorphic to $S_{n,1}$.
+
+\begin{lem}\label{anything_times_star}
+  For any positive integer $n$ and any $n$-vertex connected graph $G$, $K_{n} \preceq G\boxprod S_n$.
+\end{lem}
+
+\begin{proof}
+  Let $y_0$ denote the root of $S_n$, let $y_1,\ldots,y_n$ denote the leaves of $S_n$.  We will show the existence of a model $\mathcal{M}:=\{B_x:x\in V(K_n)\}$ of $K_n$ in $G\boxprod S_n$.  Let $x_1,\ldots,x_{n}$ denote the vertices of $K_{n}$ and let $v_1,\ldots,v_n$ denote the vertices of $G$.  For each $i\in[n]$, define the branch set
+  \[
+     B_{x_i}:=\{(v,y_i):v\in V(G)\} \cup \{ (v_{i},y_0) \} \enspace .
+  \]
+  We now show that $\mathcal{M}$ is a model of $K_n$ in $G\boxprod S_n$.
+  The induced graph $G[B_{v_i}]$ is connected because $G[\{(v,y_i):v\in V(G)\}]$ is isomorphic to $G$ and $(v_{i},y_0)$ is adjacent to $(v_{i},y_i)$.
+  For any $1\le i< j\le n$, $B_{v_i}$ and $B_{v_j}$ are disjoint because $y_i\neq y_j$ and $v_i\neq v_j$.  Furthermore, the vertex $(v_{i},y_0)\in B_{x_i}$ is adjacent to $(v_i,y_j)\in B_{x_j}$.  Therefore, there is an edge in $G\boxprod S_n$ with one endpoint in $B_{v_i}$ and one endpoint of $B_{v_j}$ for each $1\le i < j\le n$.
+\end{proof}
+
+Note that, for any tree with $T$ with $n$ leaves and at least one non-leaf vertex, $S_n\preceq T$.  In this case, \cref{anything_times_star,minor_product} implies that $K_n\preceq G\boxprod T$.
+
+\section{The Lower Bound}
+
+% Our lower bound, which shows that, for any two $n$-vertex connected graphs $G_1$ and $G_2$, $\gm(G_1\boxprod G_2)\in\Omega(\sqrt{n})$ is obtained as follows:  We first show that each of $G_1$ and $G_2$ contains a `large' subdivided star.  Then we show that the product of any two `large' subdivided stars $S_{\ell_1, p_1}$ and $S_{\ell_2, p_2}$ contains a large grid-minor.  The quotes on `large' here are due to the fact that we measure the size of a subdivided star in a non-standard way, as in the following lemma.
+
+\subsection{Connected Graphs Contain Large Subdivided Stars}
+
+% We begin with a lemma which shows that every connected $n$-vertex graph contains a model of an $\Omega(n/\log n)$-vertex subdivided star.
+
+
+% \textbf{Old Lemma and Proof}
+
+% \begin{lem}\label{subdivided_star_minor}
+% For every tree $T$ with $n\ge 2$ vertices, there exists integers $\ell,p$ with $\ell p\geq \frac{n-1}{2(\log (n-1)+1)^2}$, a subtree $R$ of $T$ and disjoint paths $P_1,\dots,P_\ell$ in $T-V(R)$, such that for each $i\in\{1,\dots,\ell\}$, one endpoint of $P_i$ is adjacent to some vertex in $R$, and $|V(P_i)|=p$.
+% \end{lem}
+
+% \begin{proof}
+%   We make use of the \emph{heavy path decomposition} introduced by \citet{ST83} in the context of data structures.  Consider a tree $T$ rooted at a vertex $x$. For each vertex $v$, say a child $w$ of $v$ is \defn{heavy} if the subtree rooted at $w$ has at least as many vertices as each of the subtrees rooted at the other children of $v$. For each vertex $v_1$ of $T$, say a path $(v_1,\dots,v_k)$ in $T$ is \defn{heavy} if $v_{i+1}$ is a heavy child of $v_i$ for each $i\in\{1,\dots,k-1\}$, and $v_k$ is a leaf.
+
+%   Let $\PP=\{P_1,\dots,P_m\}$ be the set of paths obtained from the following algorithm:
+
+% initialise $i:=0$ and $P_0:=\{x\}$ \\
+% while $V(T)\neq V(P_0\cup\dots\cup P_i)$ do\\
+%  \hspace*{4mm}     increment $i$\\
+% \hspace*{4mm} let $T_{i+1}$ be a component subtree of $T-V(P_1\cup\dots\cup P_i)$\\
+% \hspace*{4mm} let $P_{i+1}$ be a heavy path in $T_{i+1}$ starting at the root of $T_{i+1}$\\
+% end-while
+
+%   Define the \defn{subtree rank} of each $P_i\in\mathcal{P}$ as $\floor{\log_2 |V(T_i)|}$ and define the \defn{length rank} of $P_i$ as  $\floor{\log_2|V(P_i)|}$.  For a path $P_i$, $i\ge 2$, the \defn{parent path} of $P_i$ is the unique path $P_j\in\{P_{1},\ldots,P_{i-1}\}$ that contains the $T$-parent $p$ of the root of $T_i$ (which is the first vertex of $P_i$).  Observe that $p$ has at least two children that root subtrees of size at least $2^r$, where $r$ is the subtree rank of $P_i$. One of these children is the first vertex of $P_i$ and the other is the vertex follows $p$ in $P_j$.  Therefore the subtree rank of $P_j$ is at least $\floor{\log_2 2^{r+1}}=r+1$.  From this, it follows that if two paths in $\PP$ that begin at $x_1,x_2\in V(T)$ have the same subtree rank, then neither  $x_1$ nor $x_2$ is an ancestor of the other.
+
+%   The paths in $\PP$ partition $V(T)\setminus\{x\}$ and each has a subtree rank in the set $\{0,\ldots,\floor{\log_2 (n-1)}\}$.  It follows that, for some $r\in\{0,\ldots,\log_2 (n-1)\}$, the paths in $\PP$ of subtree rank $r$ contain a total of at least $(n-1)/(\floor{\log_2 (n-1)}+1)$ vertices.  By the same reasoning, it follows that for some $s\in\{0,\ldots,\floor{\log_2 (n-1)}\}$, there is a subset $\PP'\subseteq\PP$ that contains a total of at least $(n-1)/(\floor{\log_2 n}+1)^2$ vertices and such that each path in $\PP'$ has subtree rank $r$ and length rank $s$.  Each path in $\PP'$ has length less than $2^{s+1}$, so the number of paths in $\PP'$ is $\ell > (n-1)/2^{s+1}(\floor{\log_2 (n-1)}+1)^2$.  Each path in $\PP'$ has a prefix containing exactly $p:=2^s$ vertices.  Therefore, $p\ell > (n-1)/2(\floor{\log_2 (n-1)}+1)^2$.  Since the paths in $\PP'$ all have the same rank, the component $R$ of $T-\{V(P):P\in\PP'\}$ that contains the root, $x$, of $T$ is adjacent to one endpoint of each path in $\PP'$.
+% \end{proof}
+
+The \defn{length} of a path $v_0,\ldots,v_r$ is the number, $r$, of edges in the path. The \defn{depth} of a node $v$ in a tree $T$ is the length of the path, in $T$, from $v$ to the root of $T$. A path $P$ in a rooted tree $T$ is \defn{vertical} if, for each $i\in\N$, $V(P)$ contains at most one node of depth $i$. The node of minimum-depth in a vertical path is its \defn{upper endpoint} and the node of maximum depth in a vertical path is its \defn{lower endpoint}.  The \defn{height} $h_T(v)$ of a node $v$ in $T$ is the maximum order of a vertical path in $T$ whose upper endpoint is $v$.  For each $i\in\N$, $\mathdefn{H_i(T)}:=\{v\in V(T):h_T(v)=i\}$ and $\mathdefn{n_i(T)}:=|H_i(T)|$.  Two vertices of $T$ are \defn{unrelated} if neither is a $T$-ancestor of the other.  A set $\mathcal{P}:=\{P_1,\ldots,P_r\}$ of paths in $T$ is \defn{unrelated} if, for each distinct $i,j\in\{1,\ldots,r\}$, no vertex in $P_i$ is a $T$-ancestor of a vertex in $P_j$.
+
+Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint of a vertical path of order $i$, we immediately have the following observation:
+
+\begin{obs}\label{same_height_unrelated}
+  For any rooted tree $T$ and any $i\in\N$, $T$ contains an unrelated set of $n_i(T)$ vertical paths, each of order $i$.
+\end{obs}
+
+\begin{lem}\label{newer_subdivided_star_minor}
+  For every tree $T$ with $n \ge 1$ nodes, there exists integers $\ell$,$p$ with $\ell p^2 \in \Omega(n)$ such that $T$ contains an unrelated set $\{P_1,\ldots,P_\ell\}$ of vertical paths, each of order $p$.
+\end{lem}
+
+\begin{proof}
+  We claim that, for some $p\in\N$, $n_p(T)\ge 6n/(\pi p^2)$. Otherwise we obtain the contradiction
+  \[
+    n = \sum_{i=1}^\infty n_i(T) < \sum_{i=1}^\infty \frac{6n}{(\pi i)^2} = \left(\frac{6n}{\pi^2}\right)\sum_{i=1}^\infty 1/i^2 = n \enspace .
+  \]
+  Therefore, by \cref{same_height_unrelated}, $T$ contains an unrelated set of $\ell:= n_p(T)$ vertical paths each of order $p$ and $\ell p^2\ge 6n/\pi^2$, as required.
+%
+%
+%   \pat{TODO: Rewrite in terms of $n_i(T)$...}
+% Consider a sequence of trees $T_0, T_1, ...$, where $T_0:=T$ and, for $i \ge 1$, $T_i$ is the tree obtained from $T_{i-1}$ by removing all nodes of degree at most one. Since any tree with $n \ge 2$ nodes has at least 2 leaves, there exists an index $k \le (n+1)/2$ such that $T_k$ has at least one node and $T_j$ is empty for all $j > k$. For each $i \in \{1,...,k+1\}$, let $k_i$ be the number of nodes in $T_{i-1}$ of degree at most one. We distinguish between two cases:
+%
+% \begin{compactenum}[(1)]
+%     \item $i^2k_i \ge 6n/\pi^2$ for some $i \in \{1,...,k+1\}$. In this case, $T_{i-1}$ is a tree with $k_i$ nodes of degree at most one.  For $k_i\ge 2$, this means that $T_{i-1}$ has $k_i$ leaves.  Each leaf $v$ of $T_{i-1}$ is a node that, in $T$, is the first node on a path $P_v$, of order $i$, to one of $v$'s leaf descendants in $T$.  The set $\{P_v:\text{$v$ is a leaf $T_{i-1}$}\}$ gives a collection of $\ell:=k_i$ paths, each of order $p=i$.
+%
+%     Now, we can take $T'=T_i$. Its then clear that first node of each path is adjacent to a node in $T'$. Finally, note that these paths are also necessarily disjoint as any two paths that meet would result in a cycle, contradicting that $T$ is a tree.
+%
+%     Thus, we have $\ell$ disjoint paths of length $p$, with $\ell p^2 = i^2k_i \ge 6n/\pi^2 \in \Omega(n)$ and a subtree $T'$ of $T$ such that one endpoint of each of the $\ell$ paths is adjacent to a node in $T'$.
+%
+%     \item $i^2k_i < 6n/\pi^2$, for each $i \in \{1,...,k+1\}$.  For each node $v$ of $T$ there is exactly one value of $i\in\{0,\ldots,k\}$ such that $v$ has degree at most one in $T_i$.
+%     Thus, $\sum_{i=1}^{k+1} k_i = n$. Since $i^2k_i < 6n/\pi^2$, we have that  $k_i < 6n/(i\pi)^2$.  Putting these two facts together, we get:
+%    \[
+%     n = \sum_{i=1}^{k+1} k_i < \sum_{i=1}^{k+1} \frac{6n}{(i\pi)^2} = \frac{6n}{\pi^2}\sum_{i=1}^{k+1}1/i^2 \le \frac{6n}{\pi^2}\sum_{i=1}^{\infty}1/i^2 = n \enspace , \]
+%     which is a contradiction, so this case cannot occur.
+% \end{compactenum}
+\end{proof}
+
+\cref{newer_subdivided_star_minor} has the following interpretation in terms of subdivided stars.
+
+\begin{cor}\label{subdivided_star_minor_ii}
+  For any connected graph $G$ with $n\ge 2$ vertices, there exists integers $\ell,p$ with $\ell p^2\in\Omega(n)$ such that $S_{\ell,p}\preceq G$.
+\end{cor}
+
+\begin{proof}
+  Let $T$ be any spanning tree of $G$. Clearly, $T\preceq G$. Apply \cref{newer_subdivided_star_minor}
+  to $T$ to obtain a set $\{P_1,\ldots,P_{\ell}\}$ of vertex-disjoint paths, each of order $p$.  For each $i\in\{1,\ldots,\ell\}$, let $P'_i$ be the path from the root of $T$ to the upper endpoint of $P_i$, minus the upper endpoint of $P_i$.  Let $T':=\bigcup_{i=1}^\ell P_i'$. We now define a model $\mathcal{M}:=\{B_x:x\in V(S_{\ell,p})\}$ of $S_{\ell,p}$ in $T$. Recall $V(S_{\ell,p})=\{v_0\}\cup \{v_{i,j}:(i,j)\in[\ell]\times[p]\}$. In this model $B_{v_0}:=V(T')$ and $B_{v_{i,j}}$ is a singleton set containing the $j$th vertex of $P_i$, where we treat the upper endpoint of $P_i$ as its first vertex. It is straightforward to verify that $\mathcal{M}$ is indeed a model of $S_{\ell,p}$ in $T$, so $S_{\ell,p}\preceq T\preceq G$.
+\end{proof}
+
+
+\begin{lem}
+  Let $T$ be a rooted tree with $n\ge 1$ nodes such that $n_i(T)<6\alpha n/(\pi i)^2$ for each $i\in\{1,\ldots,p-1\}$.  Then there exists $\ell'$ with $p\ell'\in \Omega(n)$ such that $T$ contains a set $P_1,\ldots,P_{\ell'}$ of $\ell'$ pairwise-disjoint vertical paths, each of order $p$
+\end{lem}
+
+\begin{proof}
+  Let $T':=T-(\bigcup_{i=1}^{p-1} H_i(T))$ be the subtree of $T$ induced by nodes of height at least $p$.  Then,
+  \[
+    |T'|\ge |T| - \sum_{i=1}^{p-1} n_i(T)
+    \ge n - \left(\frac{6\alpha n}{\pi^2}\right)\sum_{i=1}^{p-1} 1/i^2
+    \ge  n-\alpha n = (1-\alpha)n \enspace .
+  \]
+  Let $L$ be the set of leaves of $T'$.  Each leaf of $T'$ is the upper endpoint of a vertical path in $T$ of order $p$.  Therefore, if $|L|\ge \alpha n/p$ then we are done, so assume that $|L|<\alpha n/p$.
+
+  Let $S$ be the set of nodes of $T'$ that have two or more children in $T'$.  A standard fact about rooted trees is that the number of leaves in a rooted tree is greater than the number of internal nodes with at least two children.  Therefore, $|S|<|L|\le \alpha n/p$.
+
+  For each $v\in S\cup L$, let $P_v$ be the vertical path of maximum length whose lower endpoint is $v$ and that does not contain any node in $(S\cup L)\setminus \{v\}$.  Then $\mathcal{P}:=\{P_v:v\in S\cup L\}$ is a partition of $V(T')$ into at most $|S|+|L|\le 2\alpha n/p$ parts, each of which induces a vertical path in $T'$.
+
+  Let $\mathcal{P}=\{P_1,\ldots,P_r\}$ and, for each $i\in\{1,\ldots,p\}$, let $P'_i$ be a subpath of $P_i$ of order $\floor{|P_i|/p}$.  Then $\sum_{i=1}^r |P_i'|\ge \sum_{i=1}^r (|P_i|-(p-1)) \ge (1-\alpha) n - (p-1)r\ge (1-3\alpha)n$. For each $i\in\{1,\ldots,r\}$, $P_i'$ can be partitioned in $|P_i'|/p$ vertex-disjoint paths, each of order $p$.  The total number of paths obtained this way is $\ell := (\sum_{i=1}^r |P_i'|/p) \ge (1-3\alpha)n/p$.  Therefore $T$ contains $\ell$ pairwise vertex-disjoint paths, each of order $p$, where $\ell p \ge (1-3\alpha)n$.
+\end{proof}
+
+
+
+
+% \subsection{A Digression}
+%
+% As an aside, the question of how large a subdivided star a connected $n$-vertex graph $G$ must contain may be of independent interest.  Almost the same proof used to show \cref{newer_subdivided_star_minor} can be used to show the following lemma.  The only difference in the proof is that the two cases to consider are $i k_i\ge n/H_n$ for some $i\in\{1,\ldots,k+1\}$ or $i k_i < n/H_n$ for all $i\in\{1,\ldots,k+1\}$.
+%
+% \begin{lem}\label{new_subdivided_star_minor}
+%     For every tree $T$ with $n \ge 1$ vertices, there exists integers $\ell$,$p$ with $\ell p \in \Omega(n/\log n)$, a subtree $T'$ of $T$, and disjoint paths $p_1, p_2, ..., p_\ell$ in $T - V(T')$, such that for each $i \in \{1,...,\ell\}$, one endpoint of $p_i$ is adjacent to some vertex in $T'$ and $|V(p_i)| = p$.
+% \end{lem}
+%
+% \begin{proof}
+% Consider a sequence of trees $T_0, T_1, ...$, where $T_0:=T$ and, for $i \ge 1$, $T_i$ is the tree obtained from $T_{i-1}$ by removing all vertices of degree at most one. Since any tree with $n \ge 2$ nodes has at least 2 leaves, $|V(T_i)|\le n-2i$ for each $i\le n/2$. Therefore $T_{\floor{n/2}}$ has at most one node and $T_{\floor{n/2}+1}$ is empty. Therefore, there is an index $k \le \floor{n/2}$ such that $T_k$ has at least one vertex and $T_j$ is empty for all $j > k$. For each $i \in \{1,...,k+1\}$, let $k_i$ be the number of vertices in $T_{i-1}$ of degree at most one. We distinguish between two cases:
+
+% \begin{compactenum}[(1)]
+%     \item $ik_i \ge n/H_n$ for some $i \in \{1,...,k+1\}$. In this case, $T_{i-1}$ is a tree with $k_i$ vertices of degree at most one.  For $k_i\ge 2$, this means that $T_{i-1}$ has $k_i$ leaves.  Each leaf $v$ of $T_{i-1}$ is a node that, in $T$, is the first node on a path $P_v$, of order $i$, to one of $v$'s leaf descendants in $T$.  The set $\{P_v:\text{$v$ is a leaf $T_{i-1}$}\}$ gives a collection of $\ell:=k_i$ paths, each of order $p=i$.
+
+%     %underline to be replaced by a cref
+%     Now, we can take $T'=T_i$. Its then clear that first vertex of each path is adjacent to a vertex in $T'$. Finally, note that these paths are also necessarily disjoint as any two paths that meet would result in a cycle, contradicting that $T$ is a tree.
+
+%     Thus, we have $\ell$ disjoint paths of length $p$, with $\ell p = ik_i \ge n/H_n \ge \Omega(n/\log n)$ and a subtree $T'$ of $T$ such that one endpoint of each of the $\ell$ paths is adjacent to a vertex in $T'$.
+
+%     \item $ik_i < n/H_n$, for each $i \in \{1,...,k+1\}$.  For each vertex $v$ of $T$ there is exactly one value of $i\in\{0,\ldots,k\}$ such that $v$ has degree at most one in $T_i$.
+%     Thus, $\sum_{i=1}^{k+1} k_i = n$. Since $ik_i < n/H_n$, we have that  $k_i < n/iH_n$.  Putting these two facts together, we get:
+% \[
+%     n = \sum_{i=1}^{k+1} k_i < \sum_{i=1}^{k+1} n/iH_n = n/H_n\sum_{i=1}^{k+1}1/i = n H_{k+1}/H_n \le n H_{\floor{n/2}+1}/H_n \le n \enspace ,
+% \]
+% for any $n\ge 1$.
+% This gives a contradiction, so this case does not occur. \qedhere
+% \end{compactenum}
+% \end{proof}
+
+% We say that a path $P$ in a rooted tree $T$ is \defn{vertical} if it is contained in a single root-to-leaf path in $T$.  Say that a set of paths in $T$ is \defn{unrelated} if the paths are vertex disjoint and no vertex of any path is a $T$-ancestor of a vertex in a different path.    \Cref{new_subdivided_star_minor} shows that any $n$-vertex tree contains an unrelated set of $\ell$ paths, each of size $p$, for some $p\ell \in\Omega(n/\log n)$.  The following lemma shows that this bound is asymptotically tight.\footnote{If $n=h2^{h+1}$, then $2^{h+1}\in \Theta(n/\log n)$.}
+%
+% \begin{lem}\label{pl_upper_bound}
+%     For every integer $h\ge 0$, there exists a rooted tree $T$ with $n:=1+h2^{h+1}$ vertices and such that, if $T$ contains an unrelated set of $\ell$ vertical paths, each of length $p$, then $\ell p\le 2^{h+1}$.
+% \end{lem}
+%
+% \begin{proof}
+%   The tree $T$ has a root vertex $v_0$ and each subtree incident to $v_0$ is a path.  These subtrees are grouped into sets $\mathcal{P}_0,\ldots,\mathcal{P}_h$ where each $\mathcal{P}_i$ contains $2^i$ paths, each having $2^{h-i}$ vertices.  It follows from this definition that the number of vertices in $T$ is $n:=1+\sum_{i=0}^h 2^i\cdot 2^{h-i}=1+ (h+1) 2^{h}$.
+%
+%   Let $\mathcal{P}:= \{P_1,\ldots,P_{\ell}\}$ be an unrelated set of vertical paths in $T$, each having $p$ vertices.
+%   % Without loss of generality we may assume that each path in $P$ contains a leaf of $T$.
+%   Let $k:=h-\lceil \log_2 p\rceil$ and observe that $2^{h-(k+1)} < p$. Therefore, any path in $\mathcal{P}$ that does not contain $v_0$ does not contain any vertex of $\cup \mathcal{P}_j$ for any $j\ge k+1$ since the number of vertices of each path in $\mathcal{P}_j$ is only $2^{h-j}\le 2^{h-(k+1)} < p$.  Since the paths in $\mathcal{P}$ are unrelated, $\mathcal{P}$ contains at most $2^i$ paths in $\mathcal{P}_i$, for each $i\le k$.  Therefore, $\ell=|\mathcal{P}|\le 1+ \sum_{i=0}^{k} 2^i=2^{k+1}=2^{h+1-\lceil\log_2 p\rceil}\le 2^{h+1}/p$.  Therefore, $\ell p \le 2^{h+1}$.
+% \end{proof}
+% % T has n vertices.
+% % n-1 = size of all stars combined (all vertices but root)
+% % = \sum_{i=0}^k (2^i)(n/2^i\logn) + 1 = kn/\log n + k
+% % \implies n-1 = k(1 + n/\log n) \implies k = n-1/(1 + n/log n) which solves to k = (n-1)\log n / (n + \log n).
+%     % Let $n$ be such that $k = (n-1)\log n/(n + \log n)$ is a positive integer and consider a tree $T$ on $n$ vertices rooted at a vertex $r$ such that, for each $i \in \{0, ..., k\}$, $r$ has a child whose subtree is $S^i = S_{2^i, 1 + n/2^i\log n}$. The choice of $k$ guarantees that these stars contain the remaining $n-1$ vertices.
+%
+%     % Now, these stars all have the same number of vertices and thus the same subtree rank, but correspond to different choices for the heavy path length rank. Regardless of our choice of path length rank we can find $2^i$ paths of length $n/2^i\log n$ for a total of $n/\log n$ vertices. The additional vertex in each path of the subdivided star guarantees that no two paths of the same length are an ancestor of another.
+%
+%     % Thus by selecting any of the stars we can satisfy \cref{subdivided_star_minor} with $T'$ consisting of $r$, the root of each star (i.e. every child of $r$), and the paths from the unused stars. The $p_i$'s used are the arms of the selected star $S_{2^i, 1 + n/2^i\log n}$, which all have length $n/2^i\log n$ for a total of $2^in/2^i\log n = n/\log n$ vertices. Finally, its clear that each $p_i$ is adjacent to the root of the selected star, which is in $T'$.
+%
+%     % To see the upper bound on $\ell p $, Consider that if we want all paths of length $n/2^i\log n$, we cannot choose any paths from stars $S^j$ where $j > i$ as the length of the paths in $S^j$ are at most $n/2^j\log n < n/2^i\log n$..
+%     % We can, however, choose all of the paths from any star $S^j$ with $j \le i$. Specifically, we can choose $2^j$ paths from $S^j$ for each $j < i$. This means the total number of vertices among all paths of length $n/2^i\log n$ is
+%     % \[(n/2^i\log n)\sum_{j=0}^i2^j = \frac{n}{2^i\log n}(2^{i+1}-1) < 2n/\log n.\]
+%
+% \subsection{What's Missing}
+%
+% I think we could get an optimal bound if we can prove the following result:
+%
+% \begin{conj}[FALSE]\label{too_bold}
+%     There exists a constant $\alpha > 0$ such that each tree $T$ contains pairwise unrelated paths $P_1,\ldots,P_r$ with $\sum_{i=1}^r |V(P_i)|\ge \alpha |V(T)|$.
+% \end{conj}
+%
+% \begin{proof}[Disproof of \cref{too_bold}]
+%     Let $T_0$ be the $1$-vertex tree.  For $k\ge 1$, $T_k$ is the rooted tree constructed by taking a path $P$ with $2^k$ vertices.  The first vertex of $P$ is the root of $T_k$.  The last vertex of $P$ has two children, each of which is the root of a copy of $T_{k-1}$.  Then $|V(T_k)|=\sum_{j=0}^k 2^j 2^{k-j}=(k+1)2^k$ vertices and has vertex height $h(T_k)=\sum_{j=0}^k 2^{k-j}=2^{k+1}-1$.
+%
+%     Let $P_1,\ldots,P_r$ be a set of pairwise unrelated paths in $T_k$ where $P_1$ is the longest path and has order $2^p\le |P_1|< 2^{p+1}$.  We claim that $\sum_{j=1}^r |V(P_j)|\le 2^{k+1}-1$. Since $h(T_k)=2^{k+1}-1$, $p\le k$.  The number of vertices of $T_k$ with vertex height $2^p$ is exactly $2^{k-p}$ and $P_1$ contains one of these vertices.  Each of the remain paths is contained in one of the $2^{k-p}-1$ copies of $T_{p}$ not intersected by $P_1$.  By the inductive hypothesis, the total size of all paths contained in one copy of $T_p$ is at most $2^{p+1}-1$.  Therefore, the total size of all paths is at most
+%     \begin{align*}
+%         \sum_{j=1}^{r}|P_j|
+%           & \le |P_1| + (2^{k-p}-1)\cdot (2^{p+1}-1) \\
+%           & = |P_1| + 2^{k+1} - 2^{k-p} - 2^{p+1}+ 1 \\
+%           & \le 2^{p+1}-1 + 2^{k+1} - 2^{k-p} - 2^{p+1} + 1 \\
+%           & = 2^{k+1} - 2^{k-p} \le 2^{k+1}-1 \enspace .
+%     \end{align*}
+%     This disproves the conjecture because if we define $n:=|V(T_k)|=(k+1)2^{k}$ then $2^{k+1}-1\in O(n/\log n)$.  \pat{We should use this example to prove \cref{pl_upper_bound} instead of what's there now.}
+% \end{proof}
+%
+%
+% June 15: 16:21:  I now know what to do.  In \cref{star_times_star}, below, we don't need two subdivided stars.  It's sufficient to have a product of the form $T\boxprod S_{\ell,p}$ where $p^2\ell\in\Omega(n)$ and $T$ is a tree that contains $\Omega(n/p^2)$ pairwise-disjoint paths, each of length $p$.
+
+\subsection{The Product of Two Special Trees}
+
+We now complete the second half of our proof, by showing that two large subdivided stars contain a large grid minor.
+
+\begin{lem}\label{star_times_star}
+  Let $p\ge 12$ be a multiple of $4$, let $N$ be a positive multiple of $p$, let $\ell\ge 1$ be integers such that $p^2\ell \ge N$, and let $T$ be a rooted tree that contains $N/p$ pairwise-disjoint vertical paths, each of order $p$.  Then $\gm(T\boxprod S_{\ell,p})\in \Omega(\sqrt{N})$.
+\end{lem}
+
+\begin{proof}
+  Recall that $S_{\ell,p}$ has vertex set $\{v_0\}\cup\{v_{i,j}:(i,j)\in \{1,\ldots,\ell\}\times\{1,\ldots,p\}\}$. For each $i\in\{1,\ldots,\ell\}$ let $A_i=S_{\ell,p}[v_{i,1},\ldots,v_{i,p}]$ denote the $i$th \defn{arm} of $S_{\ell,p}$.  Let $P_1,\ldots,P_{N/p}$ be pairwise vertex-disjoint paths in $T$, each of order $p$.  Let $T_0:=T\boxprod \{v_0\}$, for each $i\in\{1,\ldots,\ell\}$ let $T_i:=T\boxprod A_i$, for each $j\in \{1,\ldots,p\}$, let $T_{i,j}:=T\boxprod \{v_{i,j}\}$, for each $k\in\{1,\ldots,N/p\}$, let $P_{k,i}=P_k\boxprod A_i$ and let $P_{k,i,j}:=P_k\boxprod \{v_{i,j}\}$,
+
+  Consider $T_i$ for some $i\in\{1,\ldots,\ell\}$. For visualization purposes, it is helpful to organize $T_i$ into $p$ rows $T_{i,1},\ldots,T_{i,p}$.  For each $j\in\{1,\ldots,p-1\}$, $T_{i,j}$ and $T_{i,j+1}$ are `adjacent' in the sense that each vertex $(a,v_{i,j})\in V(T_{i,j})$ is adjacent to $(a,v_{i,j+1})\in v(T_{i,j+1})$.  We then organize $T_1,\ldots,T_{\ell}$ into a sequence of blocks. These blocks are independent in the sense that there is no edge betwen $T_{i}$ and $T_j$ for any $i\neq j$.  However, there is a hidden row $T_0$ that is adjacent to the first row $T_{i,1}$ of each block $T_i$. Our model of the grid will be broken up into $p/4\times p/4$ subgrids. The branch sets of each subgrid will include a $p/4\times p/4$ grid within the $p\times p$ grid $P_{k,i}$ (which is contained in the block $T_i$) for some $k$ and $i$.  The hidden row $T_0$ will allows to extend the branch sets of boundary vertices of the $p/4\times p/4$ subgrid into $T_{i'}$ for any $i'$ and from there they can be extended so that they are adjacent to other $p/4\times p/4$ subgrids. 
+
+  \pat{Pat is continuing here....}
+
+
+  Refer to \cref{t1xt2}.
+  Without loss of generality, assume $p_1\ge p_2$, so $p=p_2$.    Let $x_0$ denote the root of $S_{\ell_1,p_1}$ and let $X_1,\ldots,X_{\ell_1}$ denote the components of $S_{\ell_1,p_1}-\{x_0\}$ (each of which is a path of length  $p_1$).  For each $i\in[\ell_1]$, let $x_{i,1},\ldots,x_{i,p_1}$ denote the vertices of the path $X_i$ ordered so that $x_{i,j}$ has distance $j$ from the root of $S_{\ell_1,p_1}$.   Let $y_0$ denote root of $S_{\ell_2,p_2}$ and let $Y_1,\ldots,Y_{\ell_2}$ denote the components of $S_{\ell_2,p_2}-\{y_0\}$.  For each $(i,j)\in [\ell_1]\times [\ell_2]$, the graph $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ contains the subgraph $G_{i,j}:=X_i\boxprod Y_j$ which is isomorphic to the $p_1\times p$ grid. We remark that, for any $(i_1,j_1)\neq(i_2,j_2)$, $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint.
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics{t1xt2}
+    \end{center}
+    \caption{The graph $S_{2,12}\boxprod S_{3,4}$ is made up of $6$ vertex-disjoint $12\times 4$ grids $G_{1,1},\ldots,G_{2,3}$ joined by $2$ (horizontal) paths, each of size $12$ and $3$ (vertical) paths, each of size $4$.  (The vertex $(x_0,y_0)$ is ommitted from this drawing.)}
+    \label{t1xt2}
+  \end{figure}
+
+  Let $p_0$ be a fixed positive integer whose value is discussed below. If $p \le p_0$, then $\ell_2 p_0 \ge \ell_2 p_2 \ge N$, so $\ell_2\ge N/p_0$.  In this case $S_{\ell_2,p_2}$ contains a subgraph isomorphic to $S_{\ceil{N/p_0}}$.  By \cref{anything_times_star}, $K_{\ceil{N/p_0}}\preceq S_{\ell_1,p_1}\boxprod S_{\ceil{N/p_0}} \preceq S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$.  Since $\gm(K_{\ceil{N/p_0}}) = \floor{\sqrt{N/p_0}}$, this implies that $\gm(S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}) \ge \floor{\sqrt{N/p_0}}\ge \floor{\sqrt{pN}/p_0}=\Omega(\sqrt{pN})$.  Therefore, we may assume that $p\ge p_0$.
+
+  TODO: Using the lower bound on $p$, explain how to reduce the values of $\ell_i$ and $p_i$ by constant factors so that
+   \begin{compactenum}
+     \item $p$ is even;
+     \item $p_1 = 3ap$ for some positive integer $a$;
+     \item $\ell_1p_1 = 4N$ and $\ell_2 p=5N$; and
+     \item $N/p$ is a perfect square
+   \end{compactenum}
+   % By reducing $p_1$ by a factor of at most two, we may assume that $p$ divides $p_1$, so $p_1=ap$ for some integer $a\ge 1$.  If $k_2 < a$ then we may discard paths in $\PP_1$ to reduce their number to $k_2$ and shorten each path in $\PP_1$ so that they all have $p_2$ vertices.  This does not change $N$ or $p$.  If $k_2 \ge a$ then we can discard $k_2\bmod a$ paths from $\PP_2$ so that $k_2$ becomes a multiple of $a$.  This reduces $k_2$ by a factor of at most two.  Finally, we can remove paths from $\PP_1$ so that $p_1k_1 = apk_1 = pk_2$.  This does not decrease $p$ or $N$.  Therefore, we may assume that $\PP_1:=\{P_{1,1},\ldots,P_{1,k}\}$ contains $k$ paths, each of having $ap$ vertices and $\PP_2:=\{P_{2,1},\ldots,P_{2,ak}\}$ contains $ak$ paths, each having $p$ vertices.  In this way, $N=apk$.
+
+
+  Our plan is to piece together $N/p$ disjoint models of $\boxplus_{p/2}$ in order to obtain a model of a grid with side length $\tfrac{p}{2}\sqrt{N/p}=\tfrac{1}{2}\sqrt{pN}$.  Refer to \cref{subgrid}.  Observe that, within $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$, each vertex in the first row of $G_{i,j}$ is adjacent to a distinct vertex in $X_i\times\{y_0\}$. It is helpful to think of $X_i\times\{y_0\}$ as a hidden zeroth row of $G_{i,j}$ and note that this row is shared among $G_{i,j'}$ for all $j\in[\ell_2]$.  We use the notation $G_{i,j}^+$ to denote the subgraph of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ induced by $V(G_{i,j})\cup (X_i\times\{y_0\})$
+
+  As illustrated in \cref{subgrid}, $G_{i,j}^+$ contains a model of $\boxplus_{p/2}$ in which each of the four degree-$2$ vertices of $\boxplus_{p/2}$ has a branch set that contains two distinct vertex of $X_i\times\{y_0\}$ and each of the $2p-4$ degree-$3$ vertices of $\boxplus_{p/2}$ has a branch set that contains one distinct vertex in $X_i\times\{y_0\}$.  In all, these branch sets contain exactly $2p$ vertices, $\{x_{i,s},x_{i,s+1},\ldots,x_{i,s+2p-1}\}\times\{y_0\}$, of the path $X_i\boxprod\{y_0\}$. We call this model is the \defn{canonical model} of $\boxplus_{p/2}$ in $G_{i,j}^+$ that \defn{starts} at $x_{i,s}$.
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics{subgrid}
+    \end{center}
+    \caption{One of the $\tfrac p2\times \tfrac p2$ subgrids used in the proof of Lemma~\ref{star_times_star}, which is contained in one of the $2ap\times p$ grids contained in $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$.}
+    \label{subgrid}
+  \end{figure}
+
+  For each $k\in[N/p]$ we let $\mathcal{M}_k$ be the canonical model of $\boxplus_{p/2}$ in $G_{\ceil{k/a},5k}^+$ and that starts at $x_{\ceil{k/3p},1+3p(k\bmod a)}$.  Before continuing, it is worth discussing the choices of parameters that define $\mathcal{M}_k$.  Let $i:=\ceil{k/a}$, let $j:=5k$, and let $s:=1+3p(k\bmod a)$.  We can think of $G_{1,1},\ldots,G_{\ell_1,\ell_2}$ as being organized into an $\ell_1\times \ell_2$ matrix with $\ell_1$ columnns and $\ell_2$ rows, as in \cref{t1xt2}.  In this matrix, rows $j,\ldots,j+4$ are devoted entirely to $\mathcal{M}_{k}$.  On the other hand, each column $i$ of this matrix will contain $a$ models of $\boxplus_{p/2}$.  Each of these models will use some of the $3ap$ vertices in $X_i\boxprod\{y_0\}$.  The choice of starting point $s$ ensures that $3p$ of the vertices in $X_i\boxprod\{y_0\}$ can be used by $\mathcal{M}_k$.
+
+  % We claim that, for any $1\le k_1 < k_2\le N/p$, $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are vertex disjoint, that is $\cup\mathcal{M}_{k_1}\cap\cup\mathcal{M}_{k_2}=\emptyset$. Let $i_b:=\ceil{k_b/a}$ and $j_b:=5k_b$ for each $b\in\{1,2\}$.  Then $\cup\mathcal{M}_{k_b}\subseteq V(G^+{i_b,j_b})$ for each $b\in\{1,2\}$. The subgraphs $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint, except when $i:=i_1=i_2$, in which case these two graphs both contain all the vertices in $X_i\times\{y_0\}$.
+  % However, $\mathcal{M}_{k_1}$ starts at $(x_{i,1+3p(k_1\bmod a)},y_0)$ while $\mathcal{M}_{k_2}$ starts at $(x_{i,1+3p(k_2\bmod a)},y_0)$.  Since $\ceil{k_1/a}=i_1=i_2\ceil{k_2/a}$ and $k_1\neq k_2$, $1 \le |k_1-k_2| < ap$, so $k_1\bmod a\neq k_2\bmod a$.  Therefore $(x_{i,1+3p(k_1\bmod a)},y_0)$ and $(x_{i,1+3p(k_2\bmod a)},y_0)$ are separated by at least $3p$ vertices $X_i\boxprod\{y_0\}$.  Since each of these models uses only $2p$ consecutive vertices of $X_i\boxprod\{y_0\}$, there is no vertex of $X_i\boxprod\{y_0\}$ used in both models.
+
+  In order to merge these $N/p$ vertex disjoint models of $\boxplus_{p/2}$ into a single model of $\boxplus_{\tfrac 12\sqrt{pN}}$, some of the branch sets of each model $\mathcal{M}_k$ will be extended so that they become adjacent the appropriate branch sets in some other models.  In particular, if $\mathcal{M}_k$ has a $\boxplus_{p/2}$ model $\mathcal{M}_{k'}$ to its left, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the left boundary of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k'}$ corresponding to the right boundary of $\boxplus_{p/2}$.  Similarly, if some $\boxplus_{p/2}$ model $\mathcal{M}_{k''}$ is directly above $\mathcal{M}_k$, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the top of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k''}$ corresponding to the bottom boundary of $\boxplus_{p/2}$.  We now explain how to do this.
+
+  Let $i:=\ceil{k/a}$, $j:=5k$, and $s:=1+3p(k\bmod a)$. Define $i'$, $j'$, and $s'$ similarly, using $k'$ in place of $k$.  To extend the branch sets from $\mathcal{M}_k$ to $\mathcal{M}_{k'}$ we will make use of vertices in $G_{i,j+1}$, $G_{i,j+2}$ and $G_{i',j+2}$, none of which contains vertices used by $\mathcal{M}_t$ for any $t\in[N/p]$.  It will also make use of an additional $p/2$ vertices of $X_i\boxprod\{y_0\}$.\footnote{The additional vertices of  $X_i\boxprod\{y_0\}$ that are used when extending $\mathcal{M}_k$ is the reason we have chosen $p_1=3ap$ rather than $p_1=2ap$.  We are reserving $3p$ consecutive vertices of $X_{i}\boxprod\{y_0\}$ for $\mathcal{M}_k$.}  There are two cases to consider:
+  \begin{compactenum}
+    \item $i = i'$.  See Figure~\ref{modeller_i}. In this case, we extend the $p/2$ branch sets corresponding to the left side of $B_k$ through $G_{i,j+1}$ through $G_{i,j+1}$ to the vertices of $X_i\times\{y_0\}$ contained in the $p/2$ branch sets of $B_{k'}$ corresponding to the right side of $B_{k'}$.
+  \begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[page=2]{modeller}
+    \end{center}
+    \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 1.}
+    \label{modeller_i}
+  \end{figure}
+
+    \item $i\neq i'$.  See Figure~\ref{modeller_ii}.  In this case, we extend the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the leftmost column of $\boxplus_{p/2}$ through $G_{i,j+1}$ into $(x_{i,s+2p},y_0),\ldots,(x_{i,s+5p/2},y_0)$.  Next we continue to extend these branch sets through $G_{i,j+2}$ to any $p/2$ vertices in $\{x_0\}\times Y_j$. From there, we extend branch sets through $G_{i',j+2}$ to the vertices of $X_{i'}\times\{y_0\}$ contained in the $p/2$ branch sets of corresponding to the right side of $\boxplus_{p/2}$.
+
+    We note that the (superfluous looking) routing through $G_{i,j+1}$ is actually necessary, otherwise the branch set for the top left vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_k$ will only become adjacent to the bottom right vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_{k'}$.  Indeed, without this step, the adjacencies between the left column of $M_{k}$ and right column of $M_{k'}$ will be completely reversed.
+  \begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[page=3]{modeller}
+    \end{center}
+    \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 2.}
+    \label{modeller_ii}
+  \end{figure}
+  \end{compactenum}
+  The extension of the branch sets of $\mathcal{M}_{k}$ to those of $\mathcal{M}_{k''}$ is done the same way, but the routing is done through $G_{i,j+3}$, $G_{i,j+4}$, $G_{i',j+4}$ and the remaining $p/2$ vertices of $X_i\boxprod\{y_0\}$ that are reserved for $\mathcal{M}_k$.
+
+  All that remains is to verify that $\mathcal{M}:=\bigcup_{k=1}^{N/p}\mathcal{M}_k$ is indeed a model of $\boxplus_{\tfrac 12\sqrt{pN}}$.  That each branch set of $\mathcal{M}$ induces a connected subgraph of $S_{\ell_1,p_2}\boxprod S_{\ell_2,p_2}$ is clear from construction.
+
+  Next we verify that, that the branch sets in $\mathcal{M}_{k_1}$ are vertex-disjoint from those in $\mathcal{M}_{k_2}$, for any $k_1\neq k_2$. For each $b\in\{1,2\}$, if $\mathcal{M}_{k_b}$ was originally contained in $G^+_{i_b,j_b}$ then, after extending it, all but at most $3p$ of the vertices used in $\mathcal{M}_{k_b}$ are contained in $Z_{b}:=\bigcup_{i\in[\ell_1]}\bigcup_{c=0}^4 G_{i,j_b+c}$. The remaining (at most $3p$) vertices in $\mathcal{M}_{k_b}$ are taken from $3p$ consecutive vertices of $X_{i_b}\boxprod\{y_0\}$.  The definition of $j_b$ ensures that $|j_1-j_2|\ge 5$, so $Z_{1}\cap Z_2=\emptyset$.  The choice of start vertex $x_{i_b,s_b}$ in $X_{i_b}$ for the canonical model $\mathcal{M}_{k_b}$ ensures that $i_1\neq i_2$ or $|s_1-s_2|\ge 3p$.  In the former case we are done.  In the latter case, $(\cup M_{k_b})\cap (V(X_{k_b})\times\{y_0\})=(x_{i,s_b},y_0),\ldots,(x_{i,s_b+3p-1},y_0)$ so the condition $|s_1-s_2|\ge 3p$ ensures that $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are disjoint.
+
+  Finally, we check that, if $xy\in E(\boxplus_{\tfrac 12\sqrt{pN}})$ then some there is some edge $vw$ of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ with $v$ in the branch set $B_x$ of $x$ and $w$ in the branch set $B_y$ of $y$.  If the edge $xy$ has both endpoints in a single $p/2\times p/2$ subgrid, then this is easily verified by the construction of the model $\mathcal{M}_k$ of that subgrid (\cref{subgrid}).  If $v$ and $w$ belong to different subgrids $X$ and $X'$ then, without loss of generality, $X$ is below $X'$ or $X$ is to the right of $X'$.  In this case, the model $\mathcal{M}_{k}$ of $X$ was extended so that the branch sets of the vertices in its top row (respectively, left column) become adjacent to the appropriate branch sets of the model $\mathcal{M}_{k'}$ of $X'$.
+\end{proof}
+
+This establishes our lower bound on the largest grid minor contained in a graph product:
+
+\begin{thm}\label{lower_bound}
+  If $G_1$ and $G_2$ are connected graphs with $n_1$ and $n_2$ vertices, respectively, and $n:=\min\{n_1,n_2\}$, then $\gm(G_1\boxprod G_1)\in\Omega(\sqrt{n})$
+\end{thm}
+
+\begin{proof}
+  For each $b\in\{1,2\}$, let $T_b$ be a tree contained in $G_b$ with exactly $n$ vertices.  By Corollary~\ref{subdivided_star_minor_ii}, there exists $\ell_b,p_b$ with $\ell_b p_b^2\in\Omega(n)$ such that $S_{\ell_b,p_b}\preceq T_b$. \pat{We don't immediately get our result from \cref{star_times_star} because $p=\min\{p_1,p_2\}$.  To see this, consider the case where $p_1=1$, $\ell_1=n$, $p_2=\log n$ and $\ell_2=n/\log^2 n$.  Then $p=1$ and $N=p_2\ell_2=n/\log n$ so \cref{star_times_star} only guarantees that $\gm(G_1\boxprod G_2)=\Omega(\sqrt{p N})=\Omega(\sqrt{n/\log n})$.  Of course, \cref{anything_times_star} handles this, but....}
+
+  Right now, the best argument I can think of is to branch on the value of $p$.  Apply \cref{newer_subdivided_star_minor} to each of $G_1$ and $G_2$ and suppose that $p_1< p_2$.  If $p:=p_1 < \sqrt{\log n}$ then use \cref{anything_times_star} to deduce that $G_1\boxprod G_2\succeq K_{n/p}\succeq K_{n/\sqrt{\log n}}\succeq \boxplus_{\sqrt{n}/\log^{1/4} n}$, so $\gm(G_1\boxprod G_2)=\Omega(\sqrt{n}/\log^{1/4} n)$.  Otherwise, apply \cref{new_subdivided_star_minor} to $G_2$ to deduce that $G_2\succeq S_{\ell_2,p_2}$ with $\ell_2p_2 \ge n/\log n$ (and $p_2\ge \log^{1/4} n$?).  Then apply \cref{star_times_star} to deduce that $\gm(G_1\boxprod G_2)=\Omega(\sqrt{p\ell_2p_2}) \ge \sqrt{n/\sqrt{\log n}}=\Omega(n/\log^{1/4} n)$.
+
+  % Let $\ell = \min\{\ell_1, \ell_2\}$ and $p = \min\{p_1, p_2\}$. Then, by Lemma~\ref{star_times_star}, $\gm(S_{\ell_1,p_1}\boxtimes S_{\ell_2,p_2})\in\Omega(\sqrt{pN}) = \Omega(\sqrt{\ell p^2}) = \Omega(\sqrt{n})$. Since $S_{\ell_b,p_b}\preceq T_b\preceq G_b$ for each $b\in\{1,2\}$, the result follows from two applications of Observation~\ref{minor_product}.
+\end{proof}
+
+\section{The Upper Bound}
+
+The following construction shows that the lower bound in Theorem~\ref{lower_bound} is optimal.
+
+\begin{lem}\label{upper_bound}
+  $\gm(S_n\boxtimes P_n)\le \sqrt{5n}$
+\end{lem}
+
+\begin{proof}
+  Suppose that $S_n\boxtimes P_n$ contains a $\boxplus_k$ grid minor.  We will prove that $k\le\sqrt{5n}$.  Let $\mathcal{M}:=(B_x:x\in V(\boxplus_k))$ be a model of $\boxplus_k$ in $G$.  We say that a piece $B_x$ of $\mathcal{M}$ is \defn{rooty} if $(x_0,y)\in V(B_x)$ for some $y\in V(P)$ and $B_x$ is \emph{rootless} otherwise.  Clearly, the number of rooty parts in $\mathcal{M}$ is at most $n$.
+
+  Observe that each rootless part $B_x$ of $\mathcal{M}$ is a single path $(x_i,y_j),\ldots,(x_i,y_{j+\ell})$.  There are at most two other rootless parts [one containing $(x_i,y_{j-1})$ and one containing $(x_i,y_{j+\ell+1})$] adjacent to $B_x$.  However, the vertex $x$ has degree at least $3$ in $\boxplus_k$, so $B_x$ must be adjacent to at least one rooty part $B_y$ such that $xy$ is an edge of $\boxplus_k$; we call this a \emph{rooty-rootless adjacency}. The model $\mathcal{M}$ has $k^2$ parts and at most $n$ of these are rooty, so there are at least $k^2-n$ rootless parts.  Therefore, there are at least $k^2-n$ rooty-rootless adjacencies.  Each rooty part of $\mathcal{M}$ can account for at most $4$ of these adjacencies, so $k^2-n \le 4n$, proving the result.\footnote{We could actually prove a bound of $\approx\sqrt{2n}$ by using the fact that most rootless parts need to be adjacent to $2$ rooty parts.}
+\end{proof}
+
+\section{Discussion}
+
+% The treewidth of graph products is well understood. For any two connected graphs $G_1$ and $G_2$, $\tw(G_1\boxprod G_2)\in\Theta(n)$.  Therefore, Theorems~\ref{lower_bound} and \ref{upper_bound} give a nearly tight relationship between the largest grid minor and the treewidth of a product:
+%
+% \begin{cor}\label{treewidth_vs_gm}
+%   Let $G_1$ and $G_2$ be any two connected graphs and let $G:=G_1\boxprod G_2$. Then $\gm(G)=\Omega(\sqrt{\tw(G)}/\log \tw(G))$.  Furthermore, there exists two graphs $G_1$ and $G_2$ for which $\gm(G)=O(\sqrt{\tw(G)})$.
+% \end{cor}
+%
+% Corollary~\ref{treewidth_vs_gm} is somewhat unfortunate, for the following reason:  It is know that, for every planar graph $G$, $\gm(G)\in\Theta(\tw(G))$. A weaker version property, the so-called \defn{subquadratic grid minor (SQGM) property} has been used crucially to obtain very efficient approximation algorithms for NP-hard problems on planar graphs and a number of related graph classes.
+%
+% The product structure theorem for planar graphs has been used to successfully tackle a number of combinatorial problems on planar graphs by using the fact that every planar graph is isomorphic to a subgraph of the strong product of a small treewidth graph $H$ and a path $P$. Indeed, the proofs of these results ignore the original planar graph and are proven directly on the product $H\boxtimes P$.  (The second half of) Corollary~\ref{treewidth_vs_gm} shows that graph products do not necessarily have the SQGM property, so this step loses a property of planar graphs that seems critical in the approximation frameworks mentioned in the preceding paragraph.
+
+Here are some problems I haven't given much thought to.
+
+\begin{compactitem}
+  \item Can the techniques in the SQGM approximation framework be adapted to give efficient approximation algorithms for problems on subgraphs of $H\boxtimes P$ where the treewidth $H$ is bounded and $P$ is a path?  These techniques are not immediately applicable to such problems, due to \cref{upper_bound}.
+
+  \item Is it true that for every $n$-vertex planar graph $G$, there exists a bounded treewidth graph $H$ and a path $P$ such that $G$ is isomorphic to a subgraph of $H\boxtimes P$ and, for every $n$-vertex subgraph $G'$ of $H\boxtimes P$, $\tw(G')\in O(\tw(G))$?
+\end{compactitem}
+
+{\fontsize{10pt}{11pt}\selectfont
+\bibliographystyle{DavidNatbibStyle}
+\bibliography{DavidBibliography}}
+
+
+\appendix
+
+\section{Homely Decompositions and Other Stuff}
 
 Let $S_k:= K_{1,k}$ be the $k$-leaf star.
 Let $P_n$ be the $n$-vertex path.
@@ -444,347 +837,6 @@ My first guess is to have $T_1=T_2=$ the complete binary tree of height $k$ with
 \david{By my question, I meant: does there exist $c_1,c_2>0$ and families of trees $T_1$ and $T_2$ such that
 $$\tw(T_1\boxtimes T_2) \geq  c_1 \gm(T_1\square T_2)^2 \log(\gm(T_1\square T_2))^{c_2}?$$
 }
-
-\section{Introduction}
-
-The current research is motivated by two recent developments. The first is the use of graph product structure theory to resolve a number of longstanding open problems on planar graphs and their relatives.  The second is the role of strong excluded grid minor theorems in approximation algorithms for NP-hard problems on planar and related graph classes.  We now elaborate on both these topics.
-
-TODO: Define graph products $\boxprod$ and $\boxtimes$ and explain the planar product structure theorem.
-
-TODO: Define the subquadratic grid minor property and the state-of-the art in excluded grid minors.
-For every positive integer $k$, let $\boxplus_k$ denote the $k\times k$ \defn{grid graph}, with vertex set $V(\boxplus_k):=[k]\times[k]$ and that contains an edge with endpoints $(x_1,y_1)$ and $(x_2,y_2)$ if and only $|x_1-x_2| + |y_1-y_2|=1$.\footnote{For every positive integer $k$, $[k]:=\{1,\ldots,k\}$.}  For a graph $G$, let $\tw(G)$ denote the treewidth\footnote{TODO: definition of treewidth} of $G$ and let $\gm(G)$ denote the largest integer $k$ such that $G$ contains a $\boxplus_k$ minor.\footnote{A graph $G_1$ is a \defn{minor} of a graph $G_2$ if a graph isomorphic to $G_1$ can be obtained from a subgraph of $G_2$ through a sequence of edge contractions.}
-
-In this paper, we prove the following results:
-
-\begin{enumerate}
-   \item  For any two $n$-vertex connected graphs $G_1$ and $G_2$, $\gm(G_1\boxprod G_2) \in \Omega(\sqrt{n})$.
-   \item There exists two $n$-vertex connected graphs $G_1$ and $G_2$ (a star and a path) such that $\gm(G_1\boxprod G_2) \in O(\sqrt{n})$.
-\end{enumerate}
-
-It is known that $\tw(G_1\boxprod G_2)\in\Theta(n)$ when $G_1$ and $G_2$ are $n$-vertex connected graphs.  Thus, the first result above gives an excluded grid theorem for graph products that is much stronger than the current best bound for general graphs. Indeed, the result of \cite{CT19} only implies that $\gm(G_1\boxprod G_2) \ge n^{1/9}/\log^{O(1)} n$.  Unfortunately, our results falls just short of being strong enough to allow the SQGM framework to be directly applied to graph products and the upper bound in the second result shows that this is by necessity.  TODO: Point to future work.
-
-\section{Preliminaries}
-
-In this paper, every graph $G$ is undirected and simple with vertex set $V(G)$ and edge set $E(G)$. See \citep{D10} for graph-theoretic definitions not given here. 
-
-
-
-% For any set $S$, the \defn{induced subgraph} $G[S]$ has $V(G[S]):=S\cap V(G)$ and $E(G[S]):=\{vw\in E(G):v,w\in S\}$. For any set $S$, $G-S = G[V(G)\setminus S]$.  
-
-For two graphs $G_1$ and $G_2$ we use the notation $G_1\preceq G_2$ to indicate that $G_1$ is a minor of $G_2$.  We make use of the fact that the $\preceq$ relation is transitive. The following observation follows immediately from definitions.
-
-\begin{obs}\label{minor_product}
-  Let $G_1$, $G_2$, and $H$ be graphs.  If $G_1\preceq G_2$, then $G_1\boxprod H\preceq G_2\boxprod H$.
-\end{obs}
-
-A \defn{model} of a graph $G_1$ in another graph $G_2$ is a set $\mathcal{M}:=\{B_x\subseteq V(G_2): x\in V(G_1)\}$ of subsets of $V(G_2)$, called \defn{branch sets}, indexed by the vertices of $G_1$ and such that
-\begin{compactenum}[(i)]
-  \item for each distinct pair $x,y\in V(G_1)$, $B_x\cap B_y=\emptyset$;
-  \item for each $x\in V(G_1)$, $G_2[B_x]$ is connected and
-  \item for each $xy\in E(G_1)$ there exists an edge $vw\in E(G_2)$ with $v\in B_x$ and $w\in B_y$.
-\end{compactenum}
-It follows from definitions that $G_1\preceq G_2$ if and only if there exists a model of $G_1$ in $G_2$.
-
-For each $n\in N$, let $P_n$ denote an $n$-vertex path, and let $S_n$ denote the \defn{$n$-star}; the tree with $n$ leaves, each of which adjacent to the root.  For each $\ell,p\in\N$, let $S_{\ell,p}$ denote the star with $\ell$ leaves whose edges have been subdivided $p-1$ times.  More formally, $V(S_{\ell,p}):=\{v_0\}\cup\{v_{i,j}:(i,j)\in[\ell]\times[p]\}$ and $E(S_{\ell,p}):=\{v_0v_{i,1}:i\in[\ell]\}\cup \{v_{i,j}v_{i,j+1}:(i,j)\in[\ell]\times[p-1]\}$.  We call $S_{\ell,p}$ a \defn{subdivided star}.  Subdivided stars generalize both stars and paths: The $n$-vertex path $P_n$ is isomorphic to $S_{1,n-1}$ and the $n$-leaf star $S_n$ is isomorphic to $S_{n,1}$.
-
-\begin{lem}\label{anything_times_star}
-  For any positive integer $n$ and any $n$-vertex connected graph $G$, $K_{n} \preceq G\boxprod S_n$.
-\end{lem}
-
-\begin{proof}
-  Let $y_0$ denote the root of $S_n$, let $y_1,\ldots,y_n$ denote the leaves of $S_n$.  We will show the existence of a model $\mathcal{M}:=\{B_x:x\in V(K_n)\}$ of $K_n$ in $G\boxprod S_n$.  Let $x_1,\ldots,x_{n}$ denote the vertices of $K_{n}$ and let $v_1,\ldots,v_n$ denote the vertices of $G$.  For each $i\in[n]$, define the branch set
-  \[
-     B_{x_i}:=\{(v,y_i):v\in V(G)\} \cup \{ (v_{i},y_0) \} \enspace .
-  \]
-  We now show that $\mathcal{M}$ is a model of $K_n$ in $G\boxprod S_n$.
-  The induced graph $G[B_{v_i}]$ is connected because $G[\{(v,y_i):v\in V(G)\}]$ is isomorphic to $G$ and $(v_{i},y_0)$ is adjacent to $(v_{i},y_i)$.
-  For any $1\le i< j\le n$, $B_{v_i}$ and $B_{v_j}$ are disjoint because $y_i\neq y_j$ and $v_i\neq v_j$.  Furthermore, the vertex $(v_{i},y_0)\in B_{x_i}$ is adjacent to $(v_i,y_j)\in B_{x_j}$.  Therefore, there is an edge in $G\boxprod S_n$ with one endpoint in $B_{v_i}$ and one endpoint of $B_{v_j}$ for each $1\le i < j\le n$.
-\end{proof}
-
-Note that, for any tree with $T$ with $n$ leaves and at least one non-leaf vertex, $S_n\preceq T$.  In this case, \cref{anything_times_star,minor_product} implies that $K_n\preceq G\boxprod T$.
-
-\section{The Lower Bound}
-
-Our lower bound, which shows that, for any two $n$-vertex connected graphs $G_1$ and $G_2$, $\gm(G_1\boxprod G_2)\in\Omega(\sqrt{n})$ is obtained as follows:  We first show that each of $G_1$ and $G_2$ contains a `large' subdivided star.  Then we show that the product of any two `large' subdivided stars $S_{\ell_1, p_1}$ and $S_{\ell_2, p_2}$ contains a large grid-minor.  The quotes on `large' here are due to the fact that we measure the size of a subdivided star in a non-standard way, as in the following lemma. 
-
-\subsection{Connected Graphs Contain Large Subdivided Stars}
-
-% We begin with a lemma which shows that every connected $n$-vertex graph contains a model of an $\Omega(n/\log n)$-vertex subdivided star.
-
-
-% \textbf{Old Lemma and Proof}
-
-% \begin{lem}\label{subdivided_star_minor}
-% For every tree $T$ with $n\ge 2$ vertices, there exists integers $\ell,p$ with $\ell p\geq \frac{n-1}{2(\log (n-1)+1)^2}$, a subtree $R$ of $T$ and disjoint paths $P_1,\dots,P_\ell$ in $T-V(R)$, such that for each $i\in\{1,\dots,\ell\}$, one endpoint of $P_i$ is adjacent to some vertex in $R$, and $|V(P_i)|=p$.
-% \end{lem}
-
-% \begin{proof}
-%   We make use of the \emph{heavy path decomposition} introduced by \citet{ST83} in the context of data structures.  Consider a tree $T$ rooted at a vertex $x$. For each vertex $v$, say a child $w$ of $v$ is \defn{heavy} if the subtree rooted at $w$ has at least as many vertices as each of the subtrees rooted at the other children of $v$. For each vertex $v_1$ of $T$, say a path $(v_1,\dots,v_k)$ in $T$ is \defn{heavy} if $v_{i+1}$ is a heavy child of $v_i$ for each $i\in\{1,\dots,k-1\}$, and $v_k$ is a leaf.
-
-%   Let $\PP=\{P_1,\dots,P_m\}$ be the set of paths obtained from the following algorithm:
-
-% initialise $i:=0$ and $P_0:=\{x\}$ \\
-% while $V(T)\neq V(P_0\cup\dots\cup P_i)$ do\\
-%  \hspace*{4mm}     increment $i$\\
-% \hspace*{4mm} let $T_{i+1}$ be a component subtree of $T-V(P_1\cup\dots\cup P_i)$\\
-% \hspace*{4mm} let $P_{i+1}$ be a heavy path in $T_{i+1}$ starting at the root of $T_{i+1}$\\
-% end-while
-
-%   Define the \defn{subtree rank} of each $P_i\in\mathcal{P}$ as $\floor{\log_2 |V(T_i)|}$ and define the \defn{length rank} of $P_i$ as  $\floor{\log_2|V(P_i)|}$.  For a path $P_i$, $i\ge 2$, the \defn{parent path} of $P_i$ is the unique path $P_j\in\{P_{1},\ldots,P_{i-1}\}$ that contains the $T$-parent $p$ of the root of $T_i$ (which is the first vertex of $P_i$).  Observe that $p$ has at least two children that root subtrees of size at least $2^r$, where $r$ is the subtree rank of $P_i$. One of these children is the first vertex of $P_i$ and the other is the vertex follows $p$ in $P_j$.  Therefore the subtree rank of $P_j$ is at least $\floor{\log_2 2^{r+1}}=r+1$.  From this, it follows that if two paths in $\PP$ that begin at $x_1,x_2\in V(T)$ have the same subtree rank, then neither  $x_1$ nor $x_2$ is an ancestor of the other.
-
-%   The paths in $\PP$ partition $V(T)\setminus\{x\}$ and each has a subtree rank in the set $\{0,\ldots,\floor{\log_2 (n-1)}\}$.  It follows that, for some $r\in\{0,\ldots,\log_2 (n-1)\}$, the paths in $\PP$ of subtree rank $r$ contain a total of at least $(n-1)/(\floor{\log_2 (n-1)}+1)$ vertices.  By the same reasoning, it follows that for some $s\in\{0,\ldots,\floor{\log_2 (n-1)}\}$, there is a subset $\PP'\subseteq\PP$ that contains a total of at least $(n-1)/(\floor{\log_2 n}+1)^2$ vertices and such that each path in $\PP'$ has subtree rank $r$ and length rank $s$.  Each path in $\PP'$ has length less than $2^{s+1}$, so the number of paths in $\PP'$ is $\ell > (n-1)/2^{s+1}(\floor{\log_2 (n-1)}+1)^2$.  Each path in $\PP'$ has a prefix containing exactly $p:=2^s$ vertices.  Therefore, $p\ell > (n-1)/2(\floor{\log_2 (n-1)}+1)^2$.  Since the paths in $\PP'$ all have the same rank, the component $R$ of $T-\{V(P):P\in\PP'\}$ that contains the root, $x$, of $T$ is adjacent to one endpoint of each path in $\PP'$.
-% \end{proof}
-
-
-
-\begin{lem}\label{newer_subdivided_star_minor}
-    For every tree $T$ with $n \ge 1$ nodes, there exists integers $\ell$,$p$ with $\ell p^2 \in \Omega(n)$, a subtree $T'$ of $T$, and disjoint paths $p_1, p_2, ..., p_\ell$ in $T - V(T')$, such that for each $i \in \{1,...,\ell\}$, one endpoint of $p_i$ is adjacent to some node in $T'$ and $|V(p_i)| = p$.
-\end{lem} 
-
-\begin{proof}
-Consider a sequence of trees $T_0, T_1, ...$, where $T_0:=T$ and, for $i \ge 1$, $T_i$ is the tree obtained from $T_{i-1}$ by removing all nodes of degree at most one. Since any tree with $n \ge 2$ nodes has at least 2 leaves, there exists an index $k \le (n+1)/2$ such that $T_k$ has at least one node and $T_j$ is empty for all $j > k$. For each $i \in \{1,...,k+1\}$, let $k_i$ be the number of nodes in $T_{i-1}$ of degree at most one. We distinguish between two cases:
-
-\begin{compactenum}[(1)]
-    \item $i^2k_i \ge 6n/\pi^2$ for some $i \in \{1,...,k+1\}$. In this case, $T_{i-1}$ is a tree with $k_i$ nodes of degree at most one.  For $k_i\ge 2$, this means that $T_{i-1}$ has $k_i$ leaves.  Each leaf $v$ of $T_{i-1}$ is a node that, in $T$, is the first node on a path $P_v$, of order $i$, to one of $v$'s leaf descendants in $T$.  The set $\{P_v:\text{$v$ is a leaf $T_{i-1}$}\}$ gives a collection of $\ell:=k_i$ paths, each of order $p=i$. 
-
-    Now, we can take $T'=T_i$. Its then clear that first node of each path is adjacent to a node in $T'$. Finally, note that these paths are also necessarily disjoint as any two paths that meet would result in a cycle, contradicting that $T$ is a tree.
-
-    Thus, we have $\ell$ disjoint paths of length $p$, with $\ell p^2 = i^2k_i \ge 6n/\pi^2 \in \Omega(n)$ and a subtree $T'$ of $T$ such that one endpoint of each of the $\ell$ paths is adjacent to a node in $T'$. 
-
-    \item $i^2k_i < 6n/\pi^2$, for each $i \in \{1,...,k+1\}$.  For each node $v$ of $T$ there is exactly one value of $i\in\{0,\ldots,k\}$ such that $v$ has degree at most one in $T_i$.
-    Thus, $\sum_{i=1}^{k+1} k_i = n$. Since $i^2k_i < 6n/\pi^2$, we have that  $k_i < 6n/(i\pi)^2$.  Putting these two facts together, we get:
-   \[
-    n = \sum_{i=1}^{k+1} k_i < \sum_{i=1}^{k+1} \frac{6n}{(i\pi)^2} = \frac{6n}{\pi^2}\sum_{i=1}^{k+1}1/i^2 \le \frac{6n}{\pi^2}\sum_{i=1}^{\infty}1/i^2 = n \enspace , \]
-    which is a contradiction, so this case cannot occur.
-\end{compactenum} 
-\end{proof}
-
-\cref{newer_subdivided_star_minor} has the following interpretation in terms of subdivided stars.
-
-\begin{cor}\label{subdivided_star_minor_ii}
-  For any connected graph $G$ with $n\ge 2$ vertices, there exists integers $\ell,p$ with $\ell p^2\in\Omega(n)$ such that $S_{\ell,p}\preceq G$.
-\end{cor}
-
-\begin{proof}
-  Let $T$ be any spanning tree of $G$. Clearly, $T\preceq G$. Apply \cref{newer_subdivided_star_minor}
-  % \cref{subdivided_star_minor}  why is \cref misbehaving?
-  to $T$ to obtain a set $\{P_1,\ldots,P_{\ell}\}$ of vertex-disjoint paths, each of order $p$ and a subtree $T'$ of $T$ adjacent to exactly one end-vertex of each path in $\mathcal{P}$ and such that $\ell p^2 =\Omega(n)$. We now define a model $\mathcal{M}:=\{B_x:x\in V(S_{\ell,p})\}$ of $S_{\ell,p}$ in $T$. Recall $V(S_{\ell,p})=\{v_0\}\cup \{v_{i,j}:(i,j)\in[\ell]\times[p]\}$. In this model $B_{v_0}:=V(T')$ and $B_{v_{i,j}}$ is a singleton set containing the $j$th vertex of $P_i$, where we treat the first vertex of $P_i$ as the vertex of $P_i$ adjacent to $T'$.  It is straightforward to verify that $\mathcal{M}$ is indeed a model of $S_{\ell,p}$ in $T$, so $S_{\ell,p}\preceq T\preceq G$.
-\end{proof}
-
-\subsection{A Digression}
-
-As an aside, the question of how large a subdivided star a connected $n$-vertex graph $G$ must contain may be of independent interest.  Almost the same proof used to show \cref{newer_subdivided_star_minor} can be used to show the following lemma.  The only difference in the proof is that the two cases to consider are $i k_i\ge n/H_n$ for some $i\in\{1,\ldots,k+1\}$ or $i k_i < n/H_n$ for all $i\in\{1,\ldots,k+1\}$.
-
-\begin{lem}\label{new_subdivided_star_minor}
-    For every tree $T$ with $n \ge 1$ vertices, there exists integers $\ell$,$p$ with $\ell p \in \Omega(n/\log n)$, a subtree $T'$ of $T$, and disjoint paths $p_1, p_2, ..., p_\ell$ in $T - V(T')$, such that for each $i \in \{1,...,\ell\}$, one endpoint of $p_i$ is adjacent to some vertex in $T'$ and $|V(p_i)| = p$.
-\end{lem} 
-
-% \begin{proof}
-% Consider a sequence of trees $T_0, T_1, ...$, where $T_0:=T$ and, for $i \ge 1$, $T_i$ is the tree obtained from $T_{i-1}$ by removing all vertices of degree at most one. Since any tree with $n \ge 2$ nodes has at least 2 leaves, $|V(T_i)|\le n-2i$ for each $i\le n/2$. Therefore $T_{\floor{n/2}}$ has at most one node and $T_{\floor{n/2}+1}$ is empty. Therefore, there is an index $k \le \floor{n/2}$ such that $T_k$ has at least one vertex and $T_j$ is empty for all $j > k$. For each $i \in \{1,...,k+1\}$, let $k_i$ be the number of vertices in $T_{i-1}$ of degree at most one. We distinguish between two cases:
-
-% \begin{compactenum}[(1)]
-%     \item $ik_i \ge n/H_n$ for some $i \in \{1,...,k+1\}$. In this case, $T_{i-1}$ is a tree with $k_i$ vertices of degree at most one.  For $k_i\ge 2$, this means that $T_{i-1}$ has $k_i$ leaves.  Each leaf $v$ of $T_{i-1}$ is a node that, in $T$, is the first node on a path $P_v$, of order $i$, to one of $v$'s leaf descendants in $T$.  The set $\{P_v:\text{$v$ is a leaf $T_{i-1}$}\}$ gives a collection of $\ell:=k_i$ paths, each of order $p=i$. 
-
-%     %underline to be replaced by a cref
-%     Now, we can take $T'=T_i$. Its then clear that first vertex of each path is adjacent to a vertex in $T'$. Finally, note that these paths are also necessarily disjoint as any two paths that meet would result in a cycle, contradicting that $T$ is a tree.
-
-%     Thus, we have $\ell$ disjoint paths of length $p$, with $\ell p = ik_i \ge n/H_n \ge \Omega(n/\log n)$ and a subtree $T'$ of $T$ such that one endpoint of each of the $\ell$ paths is adjacent to a vertex in $T'$. 
-
-%     \item $ik_i < n/H_n$, for each $i \in \{1,...,k+1\}$.  For each vertex $v$ of $T$ there is exactly one value of $i\in\{0,\ldots,k\}$ such that $v$ has degree at most one in $T_i$.
-%     Thus, $\sum_{i=1}^{k+1} k_i = n$. Since $ik_i < n/H_n$, we have that  $k_i < n/iH_n$.  Putting these two facts together, we get:
-% \[
-%     n = \sum_{i=1}^{k+1} k_i < \sum_{i=1}^{k+1} n/iH_n = n/H_n\sum_{i=1}^{k+1}1/i = n H_{k+1}/H_n \le n H_{\floor{n/2}+1}/H_n \le n \enspace ,
-% \]
-% for any $n\ge 1$.
-% This gives a contradiction, so this case does not occur. \qedhere 
-% \end{compactenum} 
-% \end{proof}
-
-We say that a path $P$ in a rooted tree $T$ is \defn{vertical} if it is contained in a single root-to-leaf path in $T$.  Say that a set of paths in $T$ is \defn{unrelated} if the paths are vertex disjoint and no vertex of any path is a $T$-ancestor of a vertex in a different path.    \Cref{new_subdivided_star_minor} shows that any $n$-vertex tree contains an unrelated set of $\ell$ paths, each of size $p$, for some $p\ell \in\Omega(n/\log n)$.  The following lemma shows that this bound is asymptotically tight.\footnote{If $n=h2^{h+1}$, then $2^{h+1}\in \Theta(n/\log n)$.}  
-
-\begin{lem}\label{pl_upper_bound}
-    For every integer $h\ge 0$, there exists a rooted tree $T$ with $n:=1+h2^{h+1}$ vertices and such that, if $T$ contains an unrelated set of $\ell$ vertical paths, each of length $p$, then $\ell p\le 2^{h+1}$. 
-\end{lem}
-
-\begin{proof}
-  The tree $T$ has a root vertex $v_0$ and each subtree incident to $v_0$ is a path.  These subtrees are grouped into sets $\mathcal{P}_0,\ldots,\mathcal{P}_h$ where each $\mathcal{P}_i$ contains $2^i$ paths, each having $2^{h-i}$ vertices.  It follows from this definition that the number of vertices in $T$ is $n:=1+\sum_{i=0}^h 2^i\cdot 2^{h-i}=1+ (h+1) 2^{h}$.
-
-  Let $\mathcal{P}:= \{P_1,\ldots,P_{\ell}\}$ be an unrelated set of vertical paths in $T$, each having $p$ vertices.  
-  % Without loss of generality we may assume that each path in $P$ contains a leaf of $T$.
-  Let $k:=h-\lceil \log_2 p\rceil$ and observe that $2^{h-(k+1)} < p$. Therefore, any path in $\mathcal{P}$ that does not contain $v_0$ does not contain any vertex of $\cup \mathcal{P}_j$ for any $j\ge k+1$ since the number of vertices of each path in $\mathcal{P}_j$ is only $2^{h-j}\le 2^{h-(k+1)} < p$.  Since the paths in $\mathcal{P}$ are unrelated, $\mathcal{P}$ contains at most $2^i$ paths in $\mathcal{P}_i$, for each $i\le k$.  Therefore, $\ell=|\mathcal{P}|\le 1+ \sum_{i=0}^{k} 2^i=2^{k+1}=2^{h+1-\lceil\log_2 p\rceil}\le 2^{h+1}/p$.  Therefore, $\ell p \le 2^{h+1}$.
-\end{proof}
-% T has n vertices.
-% n-1 = size of all stars combined (all vertices but root)
-% = \sum_{i=0}^k (2^i)(n/2^i\logn) + 1 = kn/\log n + k
-% \implies n-1 = k(1 + n/\log n) \implies k = n-1/(1 + n/log n) which solves to k = (n-1)\log n / (n + \log n).  
-    % Let $n$ be such that $k = (n-1)\log n/(n + \log n)$ is a positive integer and consider a tree $T$ on $n$ vertices rooted at a vertex $r$ such that, for each $i \in \{0, ..., k\}$, $r$ has a child whose subtree is $S^i = S_{2^i, 1 + n/2^i\log n}$. The choice of $k$ guarantees that these stars contain the remaining $n-1$ vertices. 
-    
-    % Now, these stars all have the same number of vertices and thus the same subtree rank, but correspond to different choices for the heavy path length rank. Regardless of our choice of path length rank we can find $2^i$ paths of length $n/2^i\log n$ for a total of $n/\log n$ vertices. The additional vertex in each path of the subdivided star guarantees that no two paths of the same length are an ancestor of another.
-    
-    % Thus by selecting any of the stars we can satisfy \cref{subdivided_star_minor} with $T'$ consisting of $r$, the root of each star (i.e. every child of $r$), and the paths from the unused stars. The $p_i$'s used are the arms of the selected star $S_{2^i, 1 + n/2^i\log n}$, which all have length $n/2^i\log n$ for a total of $2^in/2^i\log n = n/\log n$ vertices. Finally, its clear that each $p_i$ is adjacent to the root of the selected star, which is in $T'$. 
-
-    % To see the upper bound on $\ell p $, Consider that if we want all paths of length $n/2^i\log n$, we cannot choose any paths from stars $S^j$ where $j > i$ as the length of the paths in $S^j$ are at most $n/2^j\log n < n/2^i\log n$.. 
-    % We can, however, choose all of the paths from any star $S^j$ with $j \le i$. Specifically, we can choose $2^j$ paths from $S^j$ for each $j < i$. This means the total number of vertices among all paths of length $n/2^i\log n$ is 
-    % \[(n/2^i\log n)\sum_{j=0}^i2^j = \frac{n}{2^i\log n}(2^{i+1}-1) < 2n/\log n.\]
-
-\subsection{What's Missing}
-
-I think we could get an optimal bound if we can prove the following result:
-
-\begin{conj}[FALSE]\label{too_bold}
-    There exists a constant $\alpha > 0$ such that each tree $T$ contains pairwise unrelated paths $P_1,\ldots,P_r$ with $\sum_{i=1}^r |V(P_i)|\ge \alpha |V(T)|$. 
-\end{conj}
-
-\begin{proof}[Disproof of \cref{too_bold}]
-    Let $T_0$ be the $1$-vertex tree.  For $k\ge 1$, $T_k$ is the rooted tree constructed by taking a path $P$ with $2^k$ vertices.  The first vertex of $P$ is the root of $T_k$.  The last vertex of $P$ has two children, each of which is the root of a copy of $T_{k-1}$.  Then $|V(T_k)|=\sum_{j=0}^k 2^j 2^{k-j}=(k+1)2^k$ vertices and has vertex height $h(T_k)=\sum_{j=0}^k 2^{k-j}=2^{k+1}-1$.  
-    
-    Let $P_1,\ldots,P_r$ be a set of pairwise unrelated paths in $T_k$ where $P_1$ is the longest path and has order $2^p\le |P_1|< 2^{p+1}$.  We claim that $\sum_{j=1}^r |V(P_j)|\le 2^{k+1}-1$. Since $h(T_k)=2^{k+1}-1$, $p\le k$.  The number of vertices of $T_k$ with vertex height $2^p$ is exactly $2^{k-p}$ and $P_1$ contains one of these vertices.  Each of the remain paths is contained in one of the $2^{k-p}-1$ copies of $T_{p}$ not intersected by $P_1$.  By the inductive hypothesis, the total size of all paths contained in one copy of $T_p$ is at most $2^{p+1}-1$.  Therefore, the total size of all paths is at most
-    \begin{align*}
-        \sum_{j=1}^{r}|P_j| 
-          & \le |P_1| + (2^{k-p}-1)\cdot (2^{p+1}-1) \\
-          & = |P_1| + 2^{k+1} - 2^{k-p} - 2^{p+1}+ 1 \\
-          & \le 2^{p+1}-1 + 2^{k+1} - 2^{k-p} - 2^{p+1} + 1 \\
-          & = 2^{k+1} - 2^{k-p} \le 2^{k+1}-1 \enspace .
-    \end{align*}
-    This disproves the conjecture because if we define $n:=|V(T_k)|=(k+1)2^{k}$ then $2^{k+1}-1\in O(n/\log n)$.  \pat{We should use this example to prove \cref{pl_upper_bound} instead of what's there now.}
-\end{proof}
-
-
-June 15: 16:21:  I now know what to do.  In \cref{star_times_star}, below, we don't need two subdivided stars.  It's sufficient to have a product of the form $T\boxprod S_{\ell,p}$ where $p^2\ell\in\Omega(n)$ and $T$ is a tree that contains $\Omega(n/p^2)$ pairwise-disjoint paths, each of length $p$.  
-
-\subsection{The Product of Two Subdivided Stars}
-
-We now complete the second half of our proof, by showing that two large subdivided stars contain a large grid minor.
-
-\begin{lem}\label{star_times_star}
-  Let $p_1,\ell_1,p_2,\ell_2$ be positive integers, let $p:=\min\{p_1,p_2\}$, and let $N:=\min\{p_1\ell_1,p_2\ell_2\}$.  Then $\gm(S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2})\in \Omega(\sqrt{pN})$. 
-\end{lem}
-
-\begin{proof}
-  Refer to \cref{t1xt2}.
-  Without loss of generality, assume $p_1\ge p_2$, so $p=p_2$.    Let $x_0$ denote the root of $S_{\ell_1,p_1}$ and let $X_1,\ldots,X_{\ell_1}$ denote the components of $S_{\ell_1,p_1}-\{x_0\}$ (each of which is a path of length  $p_1$).  For each $i\in[\ell_1]$, let $x_{i,1},\ldots,x_{i,p_1}$ denote the vertices of the path $X_i$ ordered so that $x_{i,j}$ has distance $j$ from the root of $S_{\ell_1,p_1}$.   Let $y_0$ denote root of $S_{\ell_2,p_2}$ and let $Y_1,\ldots,Y_{\ell_2}$ denote the components of $S_{\ell_2,p_2}-\{y_0\}$.  For each $(i,j)\in [\ell_1]\times [\ell_2]$, the graph $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ contains the subgraph $G_{i,j}:=X_i\boxprod Y_j$ which is isomorphic to the $p_1\times p$ grid. We remark that, for any $(i_1,j_1)\neq(i_2,j_2)$, $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint.
-
-  \begin{figure}
-    \begin{center}
-      \includegraphics{t1xt2}
-    \end{center}
-    \caption{The graph $S_{2,12}\boxprod S_{3,4}$ is made up of $6$ vertex-disjoint $12\times 4$ grids $G_{1,1},\ldots,G_{2,3}$ joined by $2$ (horizontal) paths, each of size $12$ and $3$ (vertical) paths, each of size $4$.  (The vertex $(x_0,y_0)$ is ommitted from this drawing.)}
-    \label{t1xt2}
-  \end{figure}
-
-  Let $p_0$ be a fixed positive integer whose value is discussed below. If $p \le p_0$, then $\ell_2 p_0 \ge \ell_2 p_2 \ge N$, so $\ell_2\ge N/p_0$.  In this case $S_{\ell_2,p_2}$ contains a subgraph isomorphic to $S_{\ceil{N/p_0}}$.  By \cref{anything_times_star}, $K_{\ceil{N/p_0}}\preceq S_{\ell_1,p_1}\boxprod S_{\ceil{N/p_0}} \preceq S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$.  Since $\gm(K_{\ceil{N/p_0}}) = \floor{\sqrt{N/p_0}}$, this implies that $\gm(S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}) \ge \floor{\sqrt{N/p_0}}\ge \floor{\sqrt{pN}/p_0}=\Omega(\sqrt{pN})$.  Therefore, we may assume that $p\ge p_0$.
-
-  TODO: Using the lower bound on $p$, explain how to reduce the values of $\ell_i$ and $p_i$ by constant factors so that
-   \begin{compactenum}
-     \item $p$ is even;
-     \item $p_1 = 3ap$ for some positive integer $a$;
-     \item $\ell_1p_1 = 4N$ and $\ell_2 p=5N$; and
-     \item $N/p$ is a perfect square
-   \end{compactenum}
-   % By reducing $p_1$ by a factor of at most two, we may assume that $p$ divides $p_1$, so $p_1=ap$ for some integer $a\ge 1$.  If $k_2 < a$ then we may discard paths in $\PP_1$ to reduce their number to $k_2$ and shorten each path in $\PP_1$ so that they all have $p_2$ vertices.  This does not change $N$ or $p$.  If $k_2 \ge a$ then we can discard $k_2\bmod a$ paths from $\PP_2$ so that $k_2$ becomes a multiple of $a$.  This reduces $k_2$ by a factor of at most two.  Finally, we can remove paths from $\PP_1$ so that $p_1k_1 = apk_1 = pk_2$.  This does not decrease $p$ or $N$.  Therefore, we may assume that $\PP_1:=\{P_{1,1},\ldots,P_{1,k}\}$ contains $k$ paths, each of having $ap$ vertices and $\PP_2:=\{P_{2,1},\ldots,P_{2,ak}\}$ contains $ak$ paths, each having $p$ vertices.  In this way, $N=apk$.
-
-
-  Our plan is to piece together $N/p$ disjoint models of $\boxplus_{p/2}$ in order to obtain a model of a grid with side length $\tfrac{p}{2}\sqrt{N/p}=\tfrac{1}{2}\sqrt{pN}$.  Refer to \cref{subgrid}.  Observe that, within $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$, each vertex in the first row of $G_{i,j}$ is adjacent to a distinct vertex in $X_i\times\{y_0\}$. It is helpful to think of $X_i\times\{y_0\}$ as a hidden zeroth row of $G_{i,j}$ and note that this row is shared among $G_{i,j'}$ for all $j\in[\ell_2]$.  We use the notation $G_{i,j}^+$ to denote the subgraph of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ induced by $V(G_{i,j})\cup (X_i\times\{y_0\})$
-
-  As illustrated in \cref{subgrid}, $G_{i,j}^+$ contains a model of $\boxplus_{p/2}$ in which each of the four degree-$2$ vertices of $\boxplus_{p/2}$ has a branch set that contains two distinct vertex of $X_i\times\{y_0\}$ and each of the $2p-4$ degree-$3$ vertices of $\boxplus_{p/2}$ has a branch set that contains one distinct vertex in $X_i\times\{y_0\}$.  In all, these branch sets contain exactly $2p$ vertices, $\{x_{i,s},x_{i,s+1},\ldots,x_{i,s+2p-1}\}\times\{y_0\}$, of the path $X_i\boxprod\{y_0\}$. We call this model is the \defn{canonical model} of $\boxplus_{p/2}$ in $G_{i,j}^+$ that \defn{starts} at $x_{i,s}$.
-
-  \begin{figure}
-    \begin{center}
-      \includegraphics{subgrid}
-    \end{center}
-    \caption{One of the $\tfrac p2\times \tfrac p2$ subgrids used in the proof of Lemma~\ref{star_times_star}, which is contained in one of the $2ap\times p$ grids contained in $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$.}
-    \label{subgrid}
-  \end{figure}
-
-  For each $k\in[N/p]$ we let $\mathcal{M}_k$ be the canonical model of $\boxplus_{p/2}$ in $G_{\ceil{k/a},5k}^+$ and that starts at $x_{\ceil{k/3p},1+3p(k\bmod a)}$.  Before continuing, it is worth discussing the choices of parameters that define $\mathcal{M}_k$.  Let $i:=\ceil{k/a}$, let $j:=5k$, and let $s:=1+3p(k\bmod a)$.  We can think of $G_{1,1},\ldots,G_{\ell_1,\ell_2}$ as being organized into an $\ell_1\times \ell_2$ matrix with $\ell_1$ columnns and $\ell_2$ rows, as in \cref{t1xt2}.  In this matrix, rows $j,\ldots,j+4$ are devoted entirely to $\mathcal{M}_{k}$.  On the other hand, each column $i$ of this matrix will contain $a$ models of $\boxplus_{p/2}$.  Each of these models will use some of the $3ap$ vertices in $X_i\boxprod\{y_0\}$.  The choice of starting point $s$ ensures that $3p$ of the vertices in $X_i\boxprod\{y_0\}$ can be used by $\mathcal{M}_k$.
-
-  % We claim that, for any $1\le k_1 < k_2\le N/p$, $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are vertex disjoint, that is $\cup\mathcal{M}_{k_1}\cap\cup\mathcal{M}_{k_2}=\emptyset$. Let $i_b:=\ceil{k_b/a}$ and $j_b:=5k_b$ for each $b\in\{1,2\}$.  Then $\cup\mathcal{M}_{k_b}\subseteq V(G^+{i_b,j_b})$ for each $b\in\{1,2\}$. The subgraphs $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint, except when $i:=i_1=i_2$, in which case these two graphs both contain all the vertices in $X_i\times\{y_0\}$.
-  % However, $\mathcal{M}_{k_1}$ starts at $(x_{i,1+3p(k_1\bmod a)},y_0)$ while $\mathcal{M}_{k_2}$ starts at $(x_{i,1+3p(k_2\bmod a)},y_0)$.  Since $\ceil{k_1/a}=i_1=i_2\ceil{k_2/a}$ and $k_1\neq k_2$, $1 \le |k_1-k_2| < ap$, so $k_1\bmod a\neq k_2\bmod a$.  Therefore $(x_{i,1+3p(k_1\bmod a)},y_0)$ and $(x_{i,1+3p(k_2\bmod a)},y_0)$ are separated by at least $3p$ vertices $X_i\boxprod\{y_0\}$.  Since each of these models uses only $2p$ consecutive vertices of $X_i\boxprod\{y_0\}$, there is no vertex of $X_i\boxprod\{y_0\}$ used in both models.
-
-  In order to merge these $N/p$ vertex disjoint models of $\boxplus_{p/2}$ into a single model of $\boxplus_{\tfrac 12\sqrt{pN}}$, some of the branch sets of each model $\mathcal{M}_k$ will be extended so that they become adjacent the appropriate branch sets in some other models.  In particular, if $\mathcal{M}_k$ has a $\boxplus_{p/2}$ model $\mathcal{M}_{k'}$ to its left, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the left boundary of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k'}$ corresponding to the right boundary of $\boxplus_{p/2}$.  Similarly, if some $\boxplus_{p/2}$ model $\mathcal{M}_{k''}$ is directly above $\mathcal{M}_k$, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the top of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k''}$ corresponding to the bottom boundary of $\boxplus_{p/2}$.  We now explain how to do this.
-
-  Let $i:=\ceil{k/a}$, $j:=5k$, and $s:=1+3p(k\bmod a)$. Define $i'$, $j'$, and $s'$ similarly, using $k'$ in place of $k$.  To extend the branch sets from $\mathcal{M}_k$ to $\mathcal{M}_{k'}$ we will make use of vertices in $G_{i,j+1}$, $G_{i,j+2}$ and $G_{i',j+2}$, none of which contains vertices used by $\mathcal{M}_t$ for any $t\in[N/p]$.  It will also make use of an additional $p/2$ vertices of $X_i\boxprod\{y_0\}$.\footnote{The additional vertices of  $X_i\boxprod\{y_0\}$ that are used when extending $\mathcal{M}_k$ is the reason we have chosen $p_1=3ap$ rather than $p_1=2ap$.  We are reserving $3p$ consecutive vertices of $X_{i}\boxprod\{y_0\}$ for $\mathcal{M}_k$.}  There are two cases to consider:
-  \begin{compactenum}
-    \item $i = i'$.  See Figure~\ref{modeller_i}. In this case, we extend the $p/2$ branch sets corresponding to the left side of $B_k$ through $G_{i,j+1}$ through $G_{i,j+1}$ to the vertices of $X_i\times\{y_0\}$ contained in the $p/2$ branch sets of $B_{k'}$ corresponding to the right side of $B_{k'}$.
-  \begin{figure}[htbp]
-    \begin{center}
-        \includegraphics[page=2]{modeller}
-    \end{center}
-    \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 1.}
-    \label{modeller_i}
-  \end{figure}
-
-    \item $i\neq i'$.  See Figure~\ref{modeller_ii}.  In this case, we extend the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the leftmost column of $\boxplus_{p/2}$ through $G_{i,j+1}$ into $(x_{i,s+2p},y_0),\ldots,(x_{i,s+5p/2},y_0)$.  Next we continue to extend these branch sets through $G_{i,j+2}$ to any $p/2$ vertices in $\{x_0\}\times Y_j$. From there, we extend branch sets through $G_{i',j+2}$ to the vertices of $X_{i'}\times\{y_0\}$ contained in the $p/2$ branch sets of corresponding to the right side of $\boxplus_{p/2}$.
-
-    We note that the (superfluous looking) routing through $G_{i,j+1}$ is actually necessary, otherwise the branch set for the top left vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_k$ will only become adjacent to the bottom right vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_{k'}$.  Indeed, without this step, the adjacencies between the left column of $M_{k}$ and right column of $M_{k'}$ will be completely reversed.
-  \begin{figure}[htbp]
-    \begin{center}
-        \includegraphics[page=3]{modeller}
-    \end{center}
-    \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 2.}
-    \label{modeller_ii}
-  \end{figure}
-  \end{compactenum}
-  The extension of the branch sets of $\mathcal{M}_{k}$ to those of $\mathcal{M}_{k''}$ is done the same way, but the routing is done through $G_{i,j+3}$, $G_{i,j+4}$, $G_{i',j+4}$ and the remaining $p/2$ vertices of $X_i\boxprod\{y_0\}$ that are reserved for $\mathcal{M}_k$.
-
-  All that remains is to verify that $\mathcal{M}:=\bigcup_{k=1}^{N/p}\mathcal{M}_k$ is indeed a model of $\boxplus_{\tfrac 12\sqrt{pN}}$.  That each branch set of $\mathcal{M}$ induces a connected subgraph of $S_{\ell_1,p_2}\boxprod S_{\ell_2,p_2}$ is clear from construction.
-
-  Next we verify that, that the branch sets in $\mathcal{M}_{k_1}$ are vertex-disjoint from those in $\mathcal{M}_{k_2}$, for any $k_1\neq k_2$. For each $b\in\{1,2\}$, if $\mathcal{M}_{k_b}$ was originally contained in $G^+_{i_b,j_b}$ then, after extending it, all but at most $3p$ of the vertices used in $\mathcal{M}_{k_b}$ are contained in $Z_{b}:=\bigcup_{i\in[\ell_1]}\bigcup_{c=0}^4 G_{i,j_b+c}$. The remaining (at most $3p$) vertices in $\mathcal{M}_{k_b}$ are taken from $3p$ consecutive vertices of $X_{i_b}\boxprod\{y_0\}$.  The definition of $j_b$ ensures that $|j_1-j_2|\ge 5$, so $Z_{1}\cap Z_2=\emptyset$.  The choice of start vertex $x_{i_b,s_b}$ in $X_{i_b}$ for the canonical model $\mathcal{M}_{k_b}$ ensures that $i_1\neq i_2$ or $|s_1-s_2|\ge 3p$.  In the former case we are done.  In the latter case, $(\cup M_{k_b})\cap (V(X_{k_b})\times\{y_0\})=(x_{i,s_b},y_0),\ldots,(x_{i,s_b+3p-1},y_0)$ so the condition $|s_1-s_2|\ge 3p$ ensures that $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are disjoint.
-
-  Finally, we check that, if $xy\in E(\boxplus_{\tfrac 12\sqrt{pN}})$ then some there is some edge $vw$ of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ with $v$ in the branch set $B_x$ of $x$ and $w$ in the branch set $B_y$ of $y$.  If the edge $xy$ has both endpoints in a single $p/2\times p/2$ subgrid, then this is easily verified by the construction of the model $\mathcal{M}_k$ of that subgrid (\cref{subgrid}).  If $v$ and $w$ belong to different subgrids $X$ and $X'$ then, without loss of generality, $X$ is below $X'$ or $X$ is to the right of $X'$.  In this case, the model $\mathcal{M}_{k}$ of $X$ was extended so that the branch sets of the vertices in its top row (respectively, left column) become adjacent to the appropriate branch sets of the model $\mathcal{M}_{k'}$ of $X'$.
-\end{proof}
-
-This establishes our lower bound on the largest grid minor contained in a graph product:
-
-\begin{thm}\label{lower_bound}
-  If $G_1$ and $G_2$ are connected graphs with $n_1$ and $n_2$ vertices, respectively, and $n:=\min\{n_1,n_2\}$, then $\gm(G_1\boxprod G_1)\in\Omega(\sqrt{n})$
-\end{thm}
-
-\begin{proof}
-  For each $b\in\{1,2\}$, let $T_b$ be a tree contained in $G_b$ with exactly $n$ vertices.  By Corollary~\ref{subdivided_star_minor_ii}, there exists $\ell_b,p_b$ with $\ell_b p_b^2\in\Omega(n)$ such that $S_{\ell_b,p_b}\preceq T_b$. \pat{We don't immediately get our result from \cref{star_times_star} because $p=\min\{p_1,p_2\}$.  To see this, consider the case where $p_1=1$, $\ell_1=n$, $p_2=\log n$ and $\ell_2=n/\log^2 n$.  Then $p=1$ and $N=p_2\ell_2=n/\log n$ so \cref{star_times_star} only guarantees that $\gm(G_1\boxprod G_2)=\Omega(\sqrt{p N})=\Omega(\sqrt{n/\log n})$.  Of course, \cref{anything_times_star} handles this, but....}
-
-  Right now, the best argument I can think of is to branch on the value of $p$.  Apply \cref{newer_subdivided_star_minor} to each of $G_1$ and $G_2$ and suppose that $p_1< p_2$.  If $p:=p_1 < \sqrt{\log n}$ then use \cref{anything_times_star} to deduce that $G_1\boxprod G_2\succeq K_{n/p}\succeq K_{n/\sqrt{\log n}}\succeq \boxplus_{\sqrt{n}/\log^{1/4} n}$, so $\gm(G_1\boxprod G_2)=\Omega(\sqrt{n}/\log^{1/4} n)$.  Otherwise, apply \cref{new_subdivided_star_minor} to $G_2$ to deduce that $G_2\succeq S_{\ell_2,p_2}$ with $\ell_2p_2 \ge n/\log n$ (and $p_2\ge \log^{1/4} n$?).  Then apply \cref{star_times_star} to deduce that $\gm(G_1\boxprod G_2)=\Omega(\sqrt{p\ell_2p_2}) \ge \sqrt{n/\sqrt{\log n}}=\Omega(n/\log^{1/4} n)$.
-  
-  % Let $\ell = \min\{\ell_1, \ell_2\}$ and $p = \min\{p_1, p_2\}$. Then, by Lemma~\ref{star_times_star}, $\gm(S_{\ell_1,p_1}\boxtimes S_{\ell_2,p_2})\in\Omega(\sqrt{pN}) = \Omega(\sqrt{\ell p^2}) = \Omega(\sqrt{n})$. Since $S_{\ell_b,p_b}\preceq T_b\preceq G_b$ for each $b\in\{1,2\}$, the result follows from two applications of Observation~\ref{minor_product}.
-\end{proof}
-
-\section{The Upper Bound}
-
-The following construction shows that the lower bound in Theorem~\ref{lower_bound} is optimal.
-
-\begin{lem}\label{upper_bound}
-  $\gm(S_n\boxtimes P_n)\le \sqrt{5n}$
-\end{lem}
-
-\begin{proof}
-  Suppose that $S_n\boxtimes P_n$ contains a $\boxplus_k$ grid minor.  We will prove that $k\le\sqrt{5n}$.  Let $\mathcal{M}:=(B_x:x\in V(\boxplus_k))$ be a model of $\boxplus_k$ in $G$.  We say that a piece $B_x$ of $\mathcal{M}$ is \defn{rooty} if $(x_0,y)\in V(B_x)$ for some $y\in V(P)$ and $B_x$ is \emph{rootless} otherwise.  Clearly, the number of rooty parts in $\mathcal{M}$ is at most $n$.
-
-  Observe that each rootless part $B_x$ of $\mathcal{M}$ is a single path $(x_i,y_j),\ldots,(x_i,y_{j+\ell})$.  There are at most two other rootless parts [one containing $(x_i,y_{j-1})$ and one containing $(x_i,y_{j+\ell+1})$] adjacent to $B_x$.  However, the vertex $x$ has degree at least $3$ in $\boxplus_k$, so $B_x$ must be adjacent to at least one rooty part $B_y$ such that $xy$ is an edge of $\boxplus_k$; we call this a \emph{rooty-rootless adjacency}. The model $\mathcal{M}$ has $k^2$ parts and at most $n$ of these are rooty, so there are at least $k^2-n$ rootless parts.  Therefore, there are at least $k^2-n$ rooty-rootless adjacencies.  Each rooty part of $\mathcal{M}$ can account for at most $4$ of these adjacencies, so $k^2-n \le 4n$, proving the result.\footnote{We could actually prove a bound of $\approx\sqrt{2n}$ by using the fact that most rootless parts need to be adjacent to $2$ rooty parts.}
-\end{proof}
-
-\section{Discussion}
-
-% The treewidth of graph products is well understood. For any two connected graphs $G_1$ and $G_2$, $\tw(G_1\boxprod G_2)\in\Theta(n)$.  Therefore, Theorems~\ref{lower_bound} and \ref{upper_bound} give a nearly tight relationship between the largest grid minor and the treewidth of a product:
-%
-% \begin{cor}\label{treewidth_vs_gm}
-%   Let $G_1$ and $G_2$ be any two connected graphs and let $G:=G_1\boxprod G_2$. Then $\gm(G)=\Omega(\sqrt{\tw(G)}/\log \tw(G))$.  Furthermore, there exists two graphs $G_1$ and $G_2$ for which $\gm(G)=O(\sqrt{\tw(G)})$.
-% \end{cor}
-%
-% Corollary~\ref{treewidth_vs_gm} is somewhat unfortunate, for the following reason:  It is know that, for every planar graph $G$, $\gm(G)\in\Theta(\tw(G))$. A weaker version property, the so-called \defn{subquadratic grid minor (SQGM) property} has been used crucially to obtain very efficient approximation algorithms for NP-hard problems on planar graphs and a number of related graph classes.
-%
-% The product structure theorem for planar graphs has been used to successfully tackle a number of combinatorial problems on planar graphs by using the fact that every planar graph is isomorphic to a subgraph of the strong product of a small treewidth graph $H$ and a path $P$. Indeed, the proofs of these results ignore the original planar graph and are proven directly on the product $H\boxtimes P$.  (The second half of) Corollary~\ref{treewidth_vs_gm} shows that graph products do not necessarily have the SQGM property, so this step loses a property of planar graphs that seems critical in the approximation frameworks mentioned in the preceding paragraph.
-
-Here are some problems I haven't given much thought to.
-
-\begin{compactitem}
-  \item Can the techniques in the SQGM approximation framework be adapted to give efficient approximation algorithms for problems on subgraphs of $H\boxtimes P$ where the treewidth $H$ is bounded and $P$ is a path?  These techniques are not immediately applicable to such problems, due to \cref{upper_bound}.
-
-  \item Is it true that for every $n$-vertex planar graph $G$, there exists a bounded treewidth graph $H$ and a path $P$ such that $G$ is isomorphic to a subgraph of $H\boxtimes P$ and, for every $n$-vertex subgraph $G'$ of $H\boxtimes P$, $\tw(G')\in O(\tw(G))$?
-\end{compactitem}
-
-{\fontsize{10pt}{11pt}\selectfont
-\bibliographystyle{DavidNatbibStyle}
-\bibliography{DavidBibliography}}
 
 
 
