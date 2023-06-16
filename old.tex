@@ -1,0 +1,472 @@
+\begin{lem}
+Fix $k,d\in\mathbb{N}$. 
+
+ $\frac{\alpha-1}{\alpha-2}  3 \alpha   d \geq \alpha $
+ 
+ $\frac{\alpha-1}{\alpha-2}  3 \alpha   d\geq 3 \alpha  $
+ 
+ $3 \alpha   d\geq 3$ 
+
+$1- 2 \frac{1}{\alpha-2}   \leq (\frac{1}{\alpha-2} 3 \alpha   -\frac{1}{\alpha-2} 3 \alpha  )d$ 
+
+\david{This lemma is how I work out all the magic numbers in the above. \cref{ImprovedTreeProductSqrt} follows with $\frac{\alpha-1}{\alpha-2}  3 \alpha   =9+6\sqrt{2}$ and $\frac{1}{\alpha-2} 3 \alpha   =3+3\sqrt{2}$ and $\alpha =2+\sqrt{2}$ and $3 \alpha  =3 \alpha  =6+3\sqrt{2}$ and $\frac{\alpha-1}{\alpha-2} =1+\frac{1}{\sqrt{2}}$ and $ \frac{\alpha}{\alpha-2} =1+\sqrt{2}$ and $\frac{1}{\alpha-2}=\frac{1}{\sqrt{2}}$ and $2 \frac{1}{\alpha-2} =\sqrt{2}$. 
+\cref{ImprovedTreeProduct} follows with $\frac{\alpha-1}{\alpha-2}  3 \alpha   =18$ and $\frac{1}{\alpha-2} 3 \alpha   =6$ and $\alpha =4$ and $3 \alpha  =3 \alpha  =12$ and $\frac{\alpha-1}{\alpha-2} =\frac32 $ and $ \frac{\alpha}{\alpha-2} =2$ and $\frac{1}{\alpha-2}=\frac12$ and $2 \frac{1}{\alpha-2} =1$. Let's keep this generic version for now in case we need to re-work the numbers. }
+
+Let $G$ be a graph with $\tw(G)\leq k-1$ and $\Delta(G)\leq d$.
+Then $G$ has a tree-partition $(B_x:x\in V(T))$ of width at most $\frac{\alpha-1}{\alpha-2}  3 \alpha   kd$ such that $\Delta(T)\leq \frac{1}{\alpha-2} 3 \alpha    d$. 
+Moreover, for any set $S\subseteq V(G)$ with $\alpha  k\leq|S| \leq 3 \alpha   kd$, there exists a tree-partition $(B_x:x\in V(T))$ of $G$ with width at most $\frac{\alpha-1}{\alpha-2}  3 \alpha    kd$, such that $\Delta(T)\leq \frac{1}{\alpha-2} 3 \alpha   d$ and there exists $z\in V(T)$ such that:
+\begin{itemize}
+    \item $S\subseteq B_z$, 
+    \item $|B_z|\leq \frac{\alpha-1}{\alpha-2} |S|- \frac{\alpha}{\alpha-2} k$,
+    \item $\deg_T(z)\leq ( \frac{1}{\alpha-2} |S| - 2 \frac{1}{\alpha-2}  k)/k$.
+\end{itemize}
+\end{lem}
+
+%\daniel{Secondly, David's note above doesn't state what $3 \alpha  $ should be in either case. By my calculations I think you want $3 \alpha   = 6 + 3\sqrt{2}$ in the first case, and $3 \alpha   = 12$ in the second. \david{I used $3 \alpha  =3 \alpha  $} More seriously, I don't believe the assigned values work for Theorem 21. Specifically, we need $\frac{\alpha-1}{\alpha-2}  3 \alpha    \geq \frac{\alpha-1}{\alpha-2} 3 \alpha  $. However $\frac{\alpha-1}{\alpha-2}  3 \alpha    = 9+6\sqrt{2}$ whereas $3 \alpha   = 6+6\sqrt{2}$ and $\frac{\alpha-1}{\alpha-2}  = 1+\frac{1}{\sqrt{2}}$, which I think gives $9 \geq 12+3\sqrt{2}$, unless I made a calculation mistake. Someone else should double check this. Other than that it seems the rest of these calculations are correct.} \david{I got my numbers wrong. Now fixed. Optimising the constants is not so important, so I will scrap \cref{ImprovedTreeProductSqrt} in favour of the proof with mainly integer coefficients.}
+
+\begin{proof}
+We proceed by induction on $|V(G)$|.
+
+\textbf{Case 1.} $|V(G)| < \alpha  k$: Then $S$ is not specified. Let $T$ be the 1-vertex tree with $V(T)=\{x\}$, and let $B_x:=V(G)$. Then $(B_x:x\in V(T))$ is the desired tree-partition, since $|B_x|=|V(G)|<\alpha  k \leq \frac{\alpha-1}{\alpha-2}  3 \alpha    kd$ and $\Delta(T)=0\leq \frac{1}{\alpha-2} 3 \alpha   d$. Now assume that $|V(G)| \geq \alpha  k$. 
+
+If $S$ is not specified, then let $S$ be any set of $\ceil{\alpha k}$ vertices in $G$ (implying $|S|\leq 3 \alpha  kd$)
+
+\textbf{Case 2.} $|V(G-S)|\leq \frac{\alpha-1}{\alpha-2}  3 \alpha   kd$: Let $T$ be the 2-vertex tree with $V(T)=\{y,z\}$ and $E(T)=\{yz\}$. Note that $\Delta(T)=1\leq \frac{1}{\alpha-2} 3 \alpha    d$ and $\deg_T(z)=1\leq (\frac{1}{\alpha-2}|S|-2 \frac{1}{\alpha-2} k)/k$. Let $B_z:=S$ and $B_y:=V(G-S)$. Thus $|B_z|=|S|\leq \frac{\alpha-1}{\alpha-2} |S|- \frac{\alpha}{\alpha-2} k\leq \frac{\alpha-1}{\alpha-2}  3 \alpha   kd$ and $|B_y|\leq |V(G-S)|\leq \frac{\alpha-1}{\alpha-2}  3 \alpha   kd$. Hence $(B_x:x\in V(T))$ is the desired tree-partition of $G$. Now assume that $|V(G-S)|\geq \frac{\alpha-1}{\alpha-2}  3 \alpha   kd$.
+
+\textbf{Case 3.} $\alpha k \leq |S|\leq 3 \alpha   k$: Let $S':=\bigcup\{ N_G(v)\setminus S: v\in S\}$. Thus $|S'|\leq d |S|\leq 3 \alpha   kd\leq 3 \alpha  kd$. If $|S'|< \alpha  k$ then add $\alpha k-|S'|$ vertices from $V(G-S-S')$ to $S'$, so that $|S'|=\alpha k$. This is well-defined since 
+$|V(G-S)| \geq \frac{\alpha-1}{\alpha-2}  3 \alpha   kd \geq \alpha k$, implying $|V(G-S-S')| \geq \alpha k-|S'|$.
+By induction, there exists a tree-partition $(B_x:x\in V(T'))$ of $G-S$ with width at most $\frac{\alpha-1}{\alpha-2}  3 \alpha    kd$, such that $\Delta(T')\leq \frac{1}{\alpha-2} 3 \alpha   d$ and there exists $z'\in V(T')$ such that:
+\begin{itemize}
+    \item $S'\subseteq B_{z'}$, 
+    \item $|B_{z'}|\leq \frac{\alpha-1}{\alpha-2} |S'|- \frac{\alpha}{\alpha-2} k \leq \frac{\alpha-1}{\alpha-2} 3 \alpha  kd - \frac{\alpha}{\alpha-2} k$,
+    \item $\deg_{T'}(z')\leq ( \frac{1}{\alpha-2} |S'| - 2 \frac{1}{\alpha-2}  k)/k \leq (\frac{1}{\alpha-2} 3 \alpha  kd-2 \frac{1}{\alpha-2} k)/k= \frac{1}{\alpha-2}3 \alpha  d-2 \frac{1}{\alpha-2} $.
+\end{itemize}
+Let $T$ be the tree obtained from $T'$ by adding one new node $z$ adjacent to $z'$. Let $B_z:=S$. So $(B_x:x\in V(T))$ is a tree-partition of $G$ with width at most $\max\{\frac{\alpha-1}{\alpha-2}  3 \alpha   kd,|S|\}\leq\max\{\frac{\alpha-1}{\alpha-2}  3 \alpha   kd,3 \alpha  k\}=\frac{\alpha-1}{\alpha-2}  3 \alpha   kd$. By construction, $\deg_T(z)=1 \leq ( \frac{1}{\alpha-2} |S| - 2 \frac{1}{\alpha-2}  k)/k$ (since $|S|\geq \alpha k$ and $2 \frac{1}{\alpha-2} +1 \leq \frac{1}{\alpha-2} \alpha   $) and $\deg_{T}(z') = \deg_{T'}(z')+1\leq \frac{1}{\alpha-2} 3 \alpha  d - 2 \frac{1}{\alpha-2}  + 1  \leq \frac{1}{\alpha-2} 3 \alpha   d$. Every other vertex in $T$ has the same degree as in $T'$. Hence $\Delta(T)\leq \frac{1}{\alpha-2} 3 \alpha   d$, as desired. Finally, $S=B_z$ and $|B_z|=|S| \leq \frac{\alpha-1}{\alpha-2}  |S|- \frac{\alpha}{\alpha-2} k$ (since $|S|\geq \alpha k$ and $ \frac{\alpha}{\alpha-2}  \leq (\frac{\alpha-1}{\alpha-2} -1) \alpha $).
+
+\textbf{Case 4.} $3 \alpha   k \leq |S|\leq 3 \alpha  kd$: By the separator lemma of \citet[(2.6)]{RS-II}, there are induced subgraphs $G_1$ and $G_2$ of $G$ with $G_1\cup G_2=G$ and $|V(G_1\cap G_2)|\leq k$, where $|S\cap V(G_i)|\leq \frac23 |S|$ for each $i\in\{1,2\}$. Let $S_i := (S\cap V(G_i))\cup V(G_1\cap G_2)$ for each $i\in\{1,2\}$.
+
+We now bound $|S_i|$. For a lower bound, since $|S\cap V(G_1)|\leq \frac23 |S|$, we have $|S_2|\geq |S\setminus V(G_1)|\geq \frac13 |S| \geq \frac13 3 \alpha  k \geq \alpha k $. By symmetry, $|S_1|\geq  \alpha k $. For an upper bound, $|S_i|\leq\frac23 |S| + k \leq \frac23 3 \alpha  kd + k \leq 3 \alpha  kd$ (since $3 \alpha  d\geq 3$). Also note that $|S_1|+|S_2|\leq |S|+2k$.
+
+We have shown that $\alpha k \leq |S_i|\leq 3 \alpha  kd$ for each $i\in\{1,2\}$. Thus we may apply induction to $G_i$ with $S_i$ the specified set. Hence there exists a tree-partition $(B^i_x:x\in V(T_i))$ of $G_i$ with width at most $\frac{\alpha-1}{\alpha-2}  3 \alpha    kd$, such that $\Delta(T_i)\leq \frac{1}{\alpha-2} 3 \alpha   d$ and there exists $z_i\in V(T_i)$ such that:
+\begin{itemize}
+    \item $S_i\subseteq B_{z_i}$, 
+    \item $|B_{z_i}|\leq \frac{\alpha-1}{\alpha-2} |S_i|- \frac{\alpha}{\alpha-2} k$,
+    \item $\deg_{T_i}(z_i)\leq ( \frac{1}{\alpha-2} |S_i| - 2 \frac{1}{\alpha-2}  k)/k$.
+\end{itemize}
+Let $T$ be the tree obtained from the disjoint union of $T_1$ and $T_2$ by merging $z_1$ and $z_2$ into a vertex $z$. Let $B_z:= B^1_{z_1}\cup B^2_{z_2}$. Let $B_x:= B^i_x$ for each $x\in V(T_i)\setminus\{z_i\}$. Since $G=G_1\cup G_2$ and $V(G_1\cap G_2)\subseteq B^1_{z_1}\cap B^2_{z_2} \subseteq B_z$, we have that $(B_x:x\in V(T))$ is a tree-partition of $G$. 
+By construction, $S\subseteq B_z$ and since $V(G_1\cap G_2)\subseteq B^i_{z_i}$ for each $i$, 
+\begin{align*}
+    |B_z| 
+    & \leq |B^1_{z_1}|+|B^2_{z_2}| - |V(G_1\cap G_2)|\\
+    & \leq (\frac{\alpha-1}{\alpha-2} |S_1|- \frac{\alpha}{\alpha-2} k) +  (\frac{\alpha-1}{\alpha-2} |S_2|- \frac{\alpha}{\alpha-2} k) - |V(G_1\cap G_2)|\\
+    & = \frac{\alpha-1}{\alpha-2} ( |S_1|+ |S_2|) -2 \frac{\alpha}{\alpha-2} k - |V(G_1\cap G_2)|\\
+    & \leq \frac{\alpha-1}{\alpha-2} ( |S| + 2|V(G_1\cap G_2)| ) -2 \frac{\alpha}{\alpha-2} k - |V(G_1\cap G_2)|\\
+    & = \frac{\alpha-1}{\alpha-2}  |S|  -2 \frac{\alpha}{\alpha-2} k + (2\frac{\alpha-1}{\alpha-2} -1) |V(G_1\cap G_2)|\\
+    & \leq \frac{\alpha-1}{\alpha-2}  |S|  -2 \frac{\alpha}{\alpha-2} k + (2\frac{\alpha-1}{\alpha-2} -1) k\\
+    & \leq \frac{\alpha-1}{\alpha-2} |S| -  \frac{\alpha}{\alpha-2}  k\qquad \text{(since $ 2\frac{\alpha-1}{\alpha-2} -1 \leq  \frac{\alpha}{\alpha-2} $)}\\
+    & \leq \frac{\alpha-1}{\alpha-2}  3 \alpha   kd -  \frac{\alpha}{\alpha-2}  k \\
+    & \leq \frac{\alpha-1}{\alpha-2}  3 \alpha    kd \quad \text{(since $\frac{\alpha-1}{\alpha-2}  3 \alpha    \geq \frac{\alpha-1}{\alpha-2} 3 \alpha  $ and $ \frac{\alpha}{\alpha-2} \geq 0$)}
+\end{align*}
+Every other part has the same size as in the tree-partition of $G_1$ or $G_2$. So this tree-partition of $G$ has width at most $\frac{\alpha-1}{\alpha-2}  3 \alpha   kd$. 
+Note that 
+\begin{align*}
+ \deg_T(z)  & = \deg_{T_1}(z_1) + \deg_{T_2}(z_2)\\
+    & \leq  (\frac{1}{\alpha-2}|S_1|-2 \frac{1}{\alpha-2} k)/k + (\frac{1}{\alpha-2}|S_2|-2 \frac{1}{\alpha-2} k)/k\\
+    & \leq  (\frac{1}{\alpha-2}(|S_1|+|S_2|)-22 \frac{1}{\alpha-2} k)/k\\
+    & \leq  (\frac{1}{\alpha-2}(|S|+2k)-22 \frac{1}{\alpha-2} k)/k\\
+    & \leq  (\frac{1}{\alpha-2}|S|-2 \frac{1}{\alpha-2} k)/k \qquad \text{(since $2\frac{1}{\alpha-2}  \leq  2 \frac{1}{\alpha-2} $)}\\
+    & \leq  (\frac{1}{\alpha-2}3 \alpha  kd-2 \frac{1}{\alpha-2} k)/k \\
+    & \leq  \frac{1}{\alpha-2} 3 \alpha    d. \qquad \text{(since $\frac{1}{\alpha-2} 3 \alpha    \geq \frac{1}{\alpha-2}3 \alpha  $ and $2 \frac{1}{\alpha-2}  \geq 0$)}
+\end{align*}
+Every other node of $T$ has the same degree as in $T_1$ or $T_2$. 
+Thus $\Delta(T) \leq \frac{1}{\alpha-2} 3 \alpha   d$. This completes the proof.
+\end{proof}
+
+
+\section{General version}
+
+
+We need the following definitions. For a graph~$G$ and a tree~$T$, a \defn{tree-partition} of~$G$ is a partition~${(V_x \colon x\in V(T))}$ of~${V(G)}$ indexed by the nodes of~$T$, such that for every edge~${vw}$ of~$G$, if~${v \in V_x}$ and~${w \in V_y}$, then~${x = y}$ or~${xy \in E(T)}$. The \defn{width} of a tree-partition is~${\max\{ |{V_x}| \colon x \in V(T)\}}$. The \defn{tree-partition-width} of a graph $G$ is the minimum width of a tree-partition of $G$. Observe that $G$ has tree-partition-width at most $k$ if and only if $G$ is isomorphic to a subgraph of $T\boxtimes K_k$ for some tree $T$. Thus \cref{ImprovedTreeProduct} is implied by the following lemma.
+
+%(since the theorem is trivial if $\Delta(G)\leq 2$, so we may assume $d\geq 3$).
+
+
+
+\begin{lem}
+Fix $k,d\in\mathbb{N}$. 
+Let $c_1,\dots,c_9$ be positive real numbers such that $c_1d \geq c_3$ and $c_9\leq c_4$ and $c_1d\geq c_9$ and $c_4 d\geq 3$ and $2 c_5-1 \leq c_6 $ and $c_6 \leq (c_5-1) c_3$ and $c_1\geq c_5c_4$ and $2c_7  \leq  c_8$ and $c_2 \geq c_7c_4$ and $c_8+1 \leq c_7 c_3  $ and $1- c_8  \leq (c_2-c_7 c_4)d$ and $ c_9 \geq 3c_3$. 
+
+\david{This lemma is how I work out all the magic numbers in the above. \cref{ImprovedTreeProductSqrt} follows with $c_1=9+6\sqrt{2}$ and $c_2=3+3\sqrt{2}$ and $c_3=2+\sqrt{2}$ and $c_9=c_4=6+3\sqrt{2}$ and $c_5=1+\frac{1}{\sqrt{2}}$ and $c_6=1+\sqrt{2}$ and $c_7=\frac{1}{\sqrt{2}}$ and $c_8=\sqrt{2}$. 
+\cref{ImprovedTreeProduct} follows with $c_1=18$ and $c_2=6$ and $c_3=4$ and $c_9=c_4=12$ and $c_5=\frac32 $ and $c_6=2$ and $c_7=\frac12$ and $c_8=1$. Let's keep this generic version for now in case we need to re-work the numbers. }
+
+Let $G$ be a graph with $\tw(G)\leq k-1$ and $\Delta(G)\leq d$.
+Then $G$ has a tree-partition $(B_x:x\in V(T))$ of width at most $c_1kd$ such that $\Delta(T)\leq c_2 d$. 
+Moreover, for any set $S\subseteq V(G)$ with $c_3 k\leq|S| \leq c_4 kd$, there exists a tree-partition $(B_x:x\in V(T))$ of $G$ with width at most $c_1 kd$, such that $\Delta(T)\leq c_2d$ and there exists $z\in V(T)$ such that:
+\begin{itemize}
+    \item $S\subseteq B_z$, 
+    \item $|B_z|\leq c_5|S|-c_6k$,
+    \item $\deg_T(z)\leq ( c_7 |S| - c_8 k)/k$.
+\end{itemize}
+\end{lem}
+
+%\daniel{Secondly, David's note above doesn't state what $c_9$ should be in either case. By my calculations I think you want $c_9 = 6 + 3\sqrt{2}$ in the first case, and $c_9 = 12$ in the second. \david{I used $c_9=c_4$} More seriously, I don't believe the assigned values work for Theorem 21. Specifically, we need $c_1 \geq c_5c_4$. However $c_1 = 9+6\sqrt{2}$ whereas $c_4 = 6+6\sqrt{2}$ and $c_5 = 1+\frac{1}{\sqrt{2}}$, which I think gives $9 \geq 12+3\sqrt{2}$, unless I made a calculation mistake. Someone else should double check this. Other than that it seems the rest of these calculations are correct.} \david{I got my numbers wrong. Now fixed. Optimising the constants is not so important, so I will scrap \cref{ImprovedTreeProductSqrt} in favour of the proof with mainly integer coefficients.}
+
+\begin{proof}
+We proceed by induction on $|V(G)$|.
+
+\textbf{Case 1.} $|V(G)| < c_3 k$: Then $S$ is not specified. Let $T$ be the 1-vertex tree with $V(T)=\{x\}$, and let $B_x:=V(G)$. Then $(B_x:x\in V(T))$ is the desired tree-partition, since $|B_x|=|V(G)|<c_3 k \leq c_1 kd$ and $\Delta(T)=0\leq c_2d$. Now assume that $|V(G)| \geq c_3 k$. 
+
+If $S$ is not specified, then let $S$ be any set of $\ceil{c_3k}$ vertices in $G$ (implying $|S|\leq c_4kd$)
+
+\textbf{Case 2.} $|V(G-S)|\leq c_1kd$: Let $T$ be the 2-vertex tree with $V(T)=\{y,z\}$ and $E(T)=\{yz\}$. Note that $\Delta(T)=1\leq c_2 d$ and $\deg_T(z)=1\leq (c_7|S|-c_8k)/k$. Let $B_z:=S$ and $B_y:=V(G-S)$. Thus $|B_z|=|S|\leq c_5|S|-c_6k\leq c_1kd$ and $|B_y|\leq |V(G-S)|\leq c_1kd$. Hence $(B_x:x\in V(T))$ is the desired tree-partition of $G$. Now assume that $|V(G-S)|\geq c_1kd$.
+
+\textbf{Case 3.} $c_3k \leq |S|\leq c_9 k$: Let $S':=\bigcup\{ N_G(v)\setminus S: v\in S\}$. Thus $|S'|\leq d |S|\leq c_9 kd\leq c_4kd$. If $|S'|< c_3 k$ then add $c_3k-|S'|$ vertices from $V(G-S-S')$ to $S'$, so that $|S'|=c_3k$. This is well-defined since 
+$|V(G-S)| \geq c_1kd \geq c_3k$, implying $|V(G-S-S')| \geq c_3k-|S'|$.
+By induction, there exists a tree-partition $(B_x:x\in V(T'))$ of $G-S$ with width at most $c_1 kd$, such that $\Delta(T')\leq c_2d$ and there exists $z'\in V(T')$ such that:
+\begin{itemize}
+    \item $S'\subseteq B_{z'}$, 
+    \item $|B_{z'}|\leq c_5|S'|-c_6k \leq c_5c_9kd -c_6k$,
+    \item $\deg_{T'}(z')\leq ( c_7 |S'| - c_8 k)/k \leq (c_7 c_4kd-c_8k)/k= c_7c_4d-c_8$.
+\end{itemize}
+Let $T$ be the tree obtained from $T'$ by adding one new node $z$ adjacent to $z'$. Let $B_z:=S$. So $(B_x:x\in V(T))$ is a tree-partition of $G$ with width at most $\max\{c_1kd,|S|\}\leq\max\{c_1kd,c_9k\}=c_1kd$. By construction, $\deg_T(z)=1 \leq ( c_7 |S| - c_8 k)/k$ (since $|S|\geq c_3k$ and $c_8+1 \leq c_7 c_3  $) and $\deg_{T}(z') = \deg_{T'}(z')+1\leq c_7 c_4d - c_8 + 1  \leq c_2d$. Every other vertex in $T$ has the same degree as in $T'$. Hence $\Delta(T)\leq c_2d$, as desired. Finally, $S=B_z$ and $|B_z|=|S| \leq c_5 |S|-c_6k$ (since $|S|\geq c_3k$ and $c_6 \leq (c_5-1) c_3$).
+
+\textbf{Case 4.} $c_9 k \leq |S|\leq c_4kd$: By the separator lemma of \citet[(2.6)]{RS-II}, there are induced subgraphs $G_1$ and $G_2$ of $G$ with $G_1\cup G_2=G$ and $|V(G_1\cap G_2)|\leq k$, where $|S\cap V(G_i)|\leq \frac23 |S|$ for each $i\in\{1,2\}$. Let $S_i := (S\cap V(G_i))\cup V(G_1\cap G_2)$ for each $i\in\{1,2\}$.
+
+We now bound $|S_i|$. For a lower bound, since $|S\cap V(G_1)|\leq \frac23 |S|$, we have $|S_2|\geq |S\setminus V(G_1)|\geq \frac13 |S| \geq \frac13 c_9k \geq c_3k $. By symmetry, $|S_1|\geq  c_3k $. For an upper bound, $|S_i|\leq\frac23 |S| + k \leq \frac23 c_4kd + k \leq c_4kd$ (since $c_4d\geq 3$). Also note that $|S_1|+|S_2|\leq |S|+2k$.
+
+We have shown that $c_3k \leq |S_i|\leq c_4kd$ for each $i\in\{1,2\}$. Thus we may apply induction to $G_i$ with $S_i$ the specified set. Hence there exists a tree-partition $(B^i_x:x\in V(T_i))$ of $G_i$ with width at most $c_1 kd$, such that $\Delta(T_i)\leq c_2d$ and there exists $z_i\in V(T_i)$ such that:
+\begin{itemize}
+    \item $S_i\subseteq B_{z_i}$, 
+    \item $|B_{z_i}|\leq c_5|S_i|-c_6k$,
+    \item $\deg_{T_i}(z_i)\leq ( c_7 |S_i| - c_8 k)/k$.
+\end{itemize}
+Let $T$ be the tree obtained from the disjoint union of $T_1$ and $T_2$ by merging $z_1$ and $z_2$ into a vertex $z$. Let $B_z:= B^1_{z_1}\cup B^2_{z_2}$. Let $B_x:= B^i_x$ for each $x\in V(T_i)\setminus\{z_i\}$. Since $G=G_1\cup G_2$ and $V(G_1\cap G_2)\subseteq B^1_{z_1}\cap B^2_{z_2} \subseteq B_z$, we have that $(B_x:x\in V(T))$ is a tree-partition of $G$. 
+By construction, $S\subseteq B_z$ and since $V(G_1\cap G_2)\subseteq B^i_{z_i}$ for each $i$, 
+\begin{align*}
+    |B_z| 
+    & \leq |B^1_{z_1}|+|B^2_{z_2}| - |V(G_1\cap G_2)|\\
+    & \leq (c_5|S_1|-c_6k) +  (c_5|S_2|-c_6k) - |V(G_1\cap G_2)|\\
+    & = c_5( |S_1|+ |S_2|) -2c_6k - |V(G_1\cap G_2)|\\
+    & \leq c_5( |S| + 2|V(G_1\cap G_2)| ) -2c_6k - |V(G_1\cap G_2)|\\
+    & = c_5 |S|  -2c_6k + (2c_5-1) |V(G_1\cap G_2)|\\
+    & \leq c_5 |S|  -2c_6k + (2c_5-1) k\\
+    & \leq c_5|S| - c_6 k\qquad \text{(since $ 2c_5-1 \leq c_6$)}\\
+    & \leq c_5 c_4 kd - c_6 k \\
+    & \leq c_1 kd \quad \text{(since $c_1 \geq c_5c_4$ and $c_6\geq 0$)}
+\end{align*}
+Every other part has the same size as in the tree-partition of $G_1$ or $G_2$. So this tree-partition of $G$ has width at most $c_1kd$. 
+Note that 
+\begin{align*}
+ \deg_T(z)  & = \deg_{T_1}(z_1) + \deg_{T_2}(z_2)\\
+    & \leq  (c_7|S_1|-c_8k)/k + (c_7|S_2|-c_8k)/k\\
+    & \leq  (c_7(|S_1|+|S_2|)-2c_8k)/k\\
+    & \leq  (c_7(|S|+2k)-2c_8k)/k\\
+    & \leq  (c_7|S|-c_8k)/k \qquad \text{(since $2c_7  \leq  c_8$)}\\
+    & \leq  (c_7c_4kd-c_8k)/k \\
+    & \leq  c_2 d. \qquad \text{(since $c_2 \geq c_7c_4$ and $c_8 \geq 0$)}
+\end{align*}
+Every other node of $T$ has the same degree as in $T_1$ or $T_2$. 
+Thus $\Delta(T) \leq c_2d$. This completes the proof.
+\end{proof}
+
+
+\section{Version 24}
+
+\begin{lem}
+Fix $k,d\in\mathbb{N}$. 
+Let $G$ be a graph with $\tw(G)\leq k-1$ and $\Delta(G)\leq d$.
+Then $G$ has a tree-partition $(B_x:x\in V(T))$ of width at most $24kd$ such that $\Delta(T)\leq 6 d$. 
+Moreover, for any set $S\subseteq V(G)$ with $4 k\leq|S| \leq 12 kd$, there exists a tree-partition $(B_x:x\in V(T))$ of $G$ with width at most $24 kd$, such that $\Delta(T)\leq 6d$ and there exists $z\in V(T)$ such that:
+\begin{itemize}
+    \item $S\subseteq B_z$, 
+    \item $|B_z|\leq 2|S|-4k$,
+    \item $\deg_T(z)\leq \frac{|S|}{2k} - 1$.
+\end{itemize}
+\end{lem}
+
+\begin{proof}
+We proceed by induction on $|V(G)$|.
+
+\textbf{Case 1.} $|V(G)| < 4 k$: Then $S$ is not specified. Let $T$ be the 1-vertex tree with $V(T)=\{x\}$, and let $B_x:=V(G)$. Then $(B_x:x\in V(T))$ is the desired tree-partition, since $|B_x|=|V(G)|<4 k \leq 24 kd$ and $\Delta(T)=0\leq 6d$. Now assume that $|V(G)| \geq 4 k$. 
+
+If $S$ is not specified, then let $S$ be any set of $4k$ vertices in $G$. 
+
+\textbf{Case 2.} $|V(G)\setminus S|\leq 24kd$: Let $T$ be the 2-vertex tree with $V(T)=\{y,z\}$ and $E(T)=\{yz\}$. So $\Delta(T)=1\leq 6 d$ and $\deg_T(z)=1\leq \frac{|S|}{2k} - 1$. Let $B_z:=S$ and $B_y:=V(G-S)$. Thus $|B_z|=|S|\leq 2|S|-4k\leq 24kd$ and $|B_y|\leq |V(G-S)|\leq 24kd$. Hence $(B_x:x\in V(T))$ is the desired tree-partition of $G$. Now assume that $|V(G-S)|\geq 24kd$.
+
+\textbf{Case 3.} $4k \leq |S|\leq 12 k$: Let $S':=\bigcup\{ N_G(v)\setminus S: v\in S\}$. Thus $|S'|\leq d |S|\leq 12 kd$. If $|S'|< 4 k$ then add $4k-|S'|$ vertices from $V(G-S-S')$ to $S'$, so that $|S'|=4k$. This is well-defined since 
+$|V(G-S)| \geq 24kd \geq 4k$, implying $|V(G-S-S')| \geq 4k-|S'|$.
+By induction, there exists a tree-partition $(B_x:x\in V(T'))$ of $G-S$ with width at most $24 kd$, such that $\Delta(T')\leq 6d$ and there exists $z'\in V(T')$ such that:
+\begin{itemize}
+    \item $S'\subseteq B_{z'}$, 
+    \item $|B_{z'}|\leq 2|S'|-4k \leq 24kd -4k$,
+    \item $\deg_{T'}(z')\leq \frac{|S'|}{2k}-1 \leq 6d-1$.
+\end{itemize}
+Let $T$ be the tree obtained from $T'$ by adding one new node $z$ adjacent to $z'$. Let $B_z:=S$. So $(B_x:x\in V(T))$ is a tree-partition of $G$ with width at most $\max\{24kd,|S|\}\leq\max\{24kd,12k\}=24kd$. By construction, $\deg_T(z)=1 \leq \frac{|S|}{2k}-1$ and $\deg_{T}(z') = \deg_{T'}(z')+1\leq (6d-1)+1=6d$. Every other vertex in $T$ has the same degree as in $T'$. Hence $\Delta(T)\leq 6d$, as desired. Finally, $S=B_z$ and $|B_z|=|S| \leq 2 |S|-4k$.
+
+\textbf{Case 4.} $12 k \leq |S|\leq 12kd$: By the separator lemma of \citet[(2.6)]{RS-II}, there are induced subgraphs $G_1$ and $G_2$ of $G$ with $G_1\cup G_2=G$ and $|V(G_1\cap G_2)|\leq k$, where $|S\cap V(G_i)|\leq \frac23 |S|$ for each $i\in\{1,2\}$. Let $S_i := (S\cap V(G_i))\cup V(G_1\cap G_2)$ for each $i\in\{1,2\}$.
+
+We now bound $|S_i|$. For a lower bound, since $|S\cap V(G_1)|\leq \frac23 |S|$, we have $|S_2|\geq |S\setminus V(G_1)|\geq \frac13 |S| \geq 4k $. By symmetry, $|S_1|\geq  4k $. For an upper bound, $|S_i|\leq\frac23 |S| + k \leq 8kd + k \leq 12kd$. By construction, $|S_1|+|S_2|\leq
+|S| + 2|V(G_1\cap G_2)| \leq |S|+2k$.
+
+We have shown that $4k \leq |S_i|\leq 12kd$ for each $i\in\{1,2\}$. Thus we may apply induction to $G_i$ with $S_i$ the specified set. Hence there exists a tree-partition $(B^i_x:x\in V(T_i))$ of $G_i$ with width at most $24 kd$, such that $\Delta(T_i)\leq 6d$ and there exists $z_i\in V(T_i)$ such that:
+\begin{itemize}
+    \item $S_i\subseteq B_{z_i}$, 
+    \item $|B_{z_i}|\leq 2|S_i|-4k$,
+    \item $\deg_{T_i}(z_i)\leq \frac{|S_i|}{2k} - 1$.
+\end{itemize}
+Let $T$ be the tree obtained from the disjoint union of $T_1$ and $T_2$ by merging $z_1$ and $z_2$ into a vertex $z$. Let $B_z:= B^1_{z_1}\cup B^2_{z_2}$. Let $B_x:= B^i_x$ for each $x\in V(T_i)\setminus\{z_i\}$. Since $G=G_1\cup G_2$ and $V(G_1\cap G_2) = B^1_{z_1}\cap B^2_{z_2} \subseteq B_z$, we have that $(B_x:x\in V(T))$ is a tree-partition of $G$. By construction, $S\subseteq B_z$ and
+\begin{align*}
+    |B_z|  \leq |B^1_{z_1}|+|B^2_{z_2}|
+     \leq (2|S_1|-4k) +  (2|S_2|-4k)
+    & = 2( |S_1|+|S_2|) -8k\\
+    & \leq 2(|S|+2k)-8k \\
+    & = 2|S|-4 k\\
+    & < 24 kd.
+\end{align*}
+Every other part has the same size as in the tree-partition of $G_1$ or $G_2$. So this tree-partition of $G$ has width at most $24kd$. 
+Note that 
+\begin{align*}
+ \deg_T(z)   = \deg_{T_1}(z_1) + \deg_{T_2}(z_2)
+     \leq  (\frac{|S_1|}{2k} -1) + (\frac{|S_2|}{2k} - 1)
+    & =  \frac{|S_1|+|S_2|}{2k} -2\\
+    & \leq  \frac{|S|+2k}{2k} -2\\
+    & =  \frac{|S|}{2k} -1\\
+    & <  6 d.
+\end{align*}
+Every other node of $T$ has the same degree as in $T_1$ or $T_2$. 
+Thus $\Delta(T) \leq 6d$. This completes the proof.
+\end{proof}
+
+\section{Some Version}
+
+\begin{lem}
+Fix $k,d\in\mathbb{N}$. 
+Let $c_1,\dots,c_8$ be positive real numbers such that $c_1d \geq c_3$ and $c_1d\geq c_4$ and $c_4 d\geq 3$ and $2 c_5-1 \leq c_6 $ and 
+$c_6 \leq (c_5-1) c_3$ and $c_1\geq c_5c_4$ and $2c_7  \leq  c_8$ and
+$c_2 \geq c_7c_4$ and $c_8+1 \leq c_7 c_3  $ and 
+$1- c_8  \leq (c_2-c_7 c_4)d$ and $ c_4 \geq 3c_3$. 
+
+\david{This lemma is how I work out all the magic numbers in the above. \cref{ImprovedTreeProductSqrt} follows with $c_1=9+6\sqrt{2}$ and $c_2=6+3\sqrt{2}$ and $c_3=2+\sqrt{2}$ and $c_4=6+6\sqrt{2}$ and $c_5=1+\frac{1}{\sqrt{2}}$ and $c_6=1+\sqrt{2}$ and $c_7=\frac{1}{\sqrt{2}}$ and $c_8=\sqrt{2}$. 
+\cref{ImprovedTreeProduct} follows with $c_1=18$ and $c_2=6$ and $c_3=4$ and $c_4=12$ and $c_5=\frac32 $ and $c_6=2$ and $c_7=\frac12$ and $c_8=1$.}
+
+Let $G$ be a graph with $\tw(G)\leq k-1$ and $\Delta(G)\leq d$.
+Then $G$ has a tree-partition $(B_x:x\in V(T))$ of width at most $c_1kd$ such that $\Delta(T)\leq c_2 d$. 
+Moreover, for any set $S\subseteq V(G)$ with $c_3 k\leq|S| \leq c_4 kd$, there exists a tree-partition $(B_x:x\in V(T))$ of $G$ with width at most $c_1 kd$, such that $\Delta(T)\leq c_2d$ and there exists $z\in V(T)$ such that:
+\begin{itemize}
+    \item $S\subseteq B_z$, 
+    \item $|B_z|\leq c_5|S|-c_6k$,
+    \item $\deg_T(z)\leq ( c_7 |S| - c_8 k)/k$.
+\end{itemize}
+\end{lem}
+
+\begin{proof}
+We proceed by induction on $|V(G)$|.
+
+\textbf{Case 1.} $|V(G)| < c_3 k$: Then $S$ is not specified. Let $T$ be the 1-vertex tree with $V(T)=\{x\}$, and let $B_x:=V(G)$. Then $(B_x:x\in V(T))$ is the desired tree-partition, since $|B_x|=|V(G)|<c_3 k \leq c_1 kd$ and $\Delta(T)=0\leq c_2d$. Now assume that $|V(G)| \geq c_3 k$. 
+
+If $S$ is not specified, then let $S$ be any set of $\ceil{c_3k}$ vertices in $G$ (implying $|S|\leq c_4kd$)
+
+\textbf{Case 2.} $|V(G)\setminus S|\leq c_1kd$: Let $T$ be the 2-vertex tree with $V(T)=\{y,z\}$ and $E(T)=\{yz\}$. Note that $\Delta(T)=1\leq c_2 d$ and $\deg_T(z)=1\leq (c_7|S|-c_8k)/k$. Let $B_z:=S$ and $B_y:=V(G-S)$. Thus $|B_z|=|S|\leq c_5|S|-c_6k\leq c_1kd$ and $|B_y|\leq |V(G-S)|\leq c_1kd$. Hence $(B_x:x\in V(T))$ is the desired tree-partition of $G$. Now assume that $|V(G-S)|\geq c_1kd$.
+
+\textbf{Case 3.} $c_3k \leq |S|\leq c_4 k$: Let $S':=\bigcup\{ N_G(v)\setminus S: v\in S\}$. Thus $|S'|\leq d |S|\leq c_4 kd\leq c_4kd$. If $|S'|< c_3 k$ then add $c_3k-|S'|$ vertices from $V(G-S-S')$ to $S'$, so that $|S'|=c_3k$. This is well-defined since 
+$|V(G-S)| \geq c_1kd \geq c_3k$, implying $|V(G-S-S')| \geq c_3k-|S'|$.
+By induction, there exists a tree-partition $(B_x:x\in V(T'))$ of $G-S$ with width at most $c_1 kd$, such that $\Delta(T')\leq c_2d$ and there exists $z'\in V(T')$ such that:
+\begin{itemize}
+    \item $S'\subseteq B_z$, 
+    \item $|B_{z'}|\leq c_5|S'|-c_6k \leq c_5c_4kd -c_6k$,
+    \item $\deg_{T'}(z')\leq ( c_7 |S'| - c_8 k)/k \leq (c_7 c_4kd-c_8k)/k= c_7c_4d-c_8$.
+\end{itemize}
+Let $T$ be the tree obtained from $T'$ by adding one new node $z$ adjacent to $z'$. Let $B_z:=S$. So $(B_x:x\in V(T))$ is a tree-partition of $G$ with width at most $\max\{c_1kd,|S|\}\leq\max\{c_1kd,c_4k\}=c_1kd$. By construction, $\deg_T(z)=1 \leq ( c_7 |S| - c_8 k)/k$ (since $|S|\geq c_3k$ and $c_8+1 \leq c_7 c_3  $) and $\deg_{T}(z') = \deg_{T'}(z')+1\leq c_7 c_4d - c_8 + 1  \leq c_2d$. Every other vertex in $T$ has the same degree as in $T'$. Hence $\Delta(T)\leq c_2d$, as desired. Finally, $S=B_z$ and $|B_z|=|S| \leq c_5 |S|-c_6k$ (since $|S|\geq c_3k$ and $c_6 \leq (c_5-1) c_3$).
+
+\textbf{Case 4.} $c_4 k \leq |S|\leq c_4kd$: By the separator lemma of \citet[(2.6)]{RS-II}, there are induced subgraphs $G_1$ and $G_2$ of $G$ with $G_1\cup G_2=G$ and $|V(G_1\cap G_2)|\leq k$, where $|S\cap V(G_i)|\leq \frac23 |S|$ for each $i\in\{1,2\}$. Let $S_i := (S\cap V(G_i))\cup V(G_1\cap G_2)$ for each $i\in\{1,2\}$.
+
+We now bound $|S_i|$. For a lower bound, since $|S\cap V(G_1)|\leq \frac23 |S|$, we have $|S_2|\geq |S\setminus V(G_1)|\geq \frac13 |S| \geq \frac13 c_4k \geq c_3k $. By symmetry, $|S_1|\geq  c_3k $. For an upper bound, $|S_i|\leq\frac23 |S| + k \leq \frac23 c_4kd + k \leq c_4kd$ (since $c_4d\geq 3$). Also note that $|S_1|+|S_2|\leq |S|+2k$.
+
+We have shown that $c_3k \leq |S_i|\leq c_4kd$ for each $i\in\{1,2\}$. Thus we may apply induction to $G_i$ with $S_i$ the specified set. Hence there exists a tree-partition $(B^i_x:x\in V(T_i))$ of $G_i$ with width at most $c_1 kd$, such that $\Delta(T_i)\leq c_2d$ and there exists $z_i\in V(T_i)$ such that:
+\begin{itemize}
+    \item $S_i\subseteq B_{z_i}$, 
+    \item $|B_{z_i}|\leq c_5|S_i|-c_6k$,
+    \item $\deg_{T_i}(z_i)\leq ( c_7 |S_i| - c_8 k)/k$.
+\end{itemize}
+Let $T$ be the tree obtained from the disjoint union of $T_1$ and $T_2$ by merging $z_1$ and $z_2$ into a vertex $z$. Let $B_z:= B^1_{z_1}\cup B^2_{z_2}$. Let $B_x:= B^i_x$ for each $x\in V(T_i)\setminus\{z_i\}$. Since $G=G_1\cup G_2$ and $V(G_1\cap G_2)\subseteq B^1_{z_1}\cap B^2_{z_2} \subseteq B_z$, we have that $(B_x:x\in V(T))$ is a tree-partition of $G$. 
+By construction, $S\subseteq B_z$ and since $V(G_1\cap G_2)\subseteq B^i_{z_i}$ for each $i$, 
+\begin{align*}
+    |B_z| 
+    & \leq |B^1_{z_1}|+|B^2_{z_2}| - |V(G_1\cap G_2)|\\
+    & \leq (c_5|S_1|-c_6k) +  (c_5|S_2|-c_6k) - |V(G_1\cap G_2)|\\
+    & = c_5( |S_1|+ |S_2|) -2c_6k - |V(G_1\cap G_2)|\\
+    & \leq c_5( |S| + 2|V(G_1\cap G_2)| ) -2c_6k - |V(G_1\cap G_2)|\\
+    & = c_5 |S|  -2c_6k + (2c_5-1) |V(G_1\cap G_2)|\\
+    & \leq c_5 |S|  -2c_6k + (2c_5-1) k\\
+    & \leq c_5|S| - c_6 k\qquad \text{(since $ 2c_5-1 \leq c_6$)}\\
+    & \leq c_5 c_4 kd - c_6 k \\
+    & \leq c_1 kd \quad \text{(since $c_1 \geq c_5c_4$ and $c_6\geq 0$)}
+\end{align*}
+Every other part has the same size as in the tree-partition of $G_1$ or $G_2$. So this tree-partition of $G$ has width at most $c_1kd$. 
+Note that 
+\begin{align*}
+ \deg_T(z)  & = \deg_{T_1}(z_1) + \deg_{T_2}(z_2)\\
+    & \leq  (c_7|S_1|-c_8k)/k + (c_7|S_2|-c_8k)/k\\
+    & \leq  (c_7(|S_1|+|S_2|)-2c_8k)/k\\
+    & \leq  (c_7(|S|+2k)-2c_8k)/k\\
+    & \leq  (c_7|S|-c_8k)/k \qquad \text{(since $2c_7  \leq  c_8$)}\\
+    & \leq  (c_7c_4kd-c_8k)/k \\
+    & \leq  c_2 d. \qquad \text{(since $c_2 \geq c_7c_4$ and $c_8 \geq 0$)}
+\end{align*}
+Every other node of $T$ has the same degree as in $T_1$ or $T_2$. 
+Thus $\Delta(T) \leq c_2d$. This completes the proof.
+\end{proof}
+
+
+
+\section{Another Version}
+
+\begin{lem}
+Fix $k,d\in\mathbb{N}$. 
+Let $c_1,\dots,c_9$ be positive real numbers such that $c_1d \geq c_3$ and
+$c_9\leq c_4$ and
+$c_1d\geq c_9$ and $c_4 d\geq 3$ and $2 c_5 \leq c_6 $ and 
+$c_6 \leq (c_5-1) c_3$ and $c_1\geq c_5c_4$ and $2c_7  \leq  c_8$ and
+$c_2 \geq c_7c_4$ and $c_8+1 \leq c_7 c_3  $ and 
+$1- c_8  \leq (c_2-c_7 c_4)d$ and $ c_9 \geq 3c_3$ and
+$c_10\geq 1$. 
+
+Let $G$ be a graph with $\tw(G)\leq k-1$ and $\Delta(G)\leq d$.
+Then $G$ has a tree-partition $(B_x:x\in V(T))$ of width at most $c_1kd$ such that the growth is at most $c_10r$. 
+Moreover, for any set $S\subseteq V(G)$ with $c_3 k\leq|S| \leq c_4 kd$, there exists a tree-partition $(B_x:x\in V(T))$ of $G$ with width at most $c_1 kd$, such that $\Delta(T)\leq c_2d$ 
+\david{at this point, can we add ``$T$ has $r$-growth 
+at most $( c_7 c c_4 kd - c_8 k)r/k$ for all $r\geq 1$? This comes from plugging in the largest value of $S$ into the induction hypothesis below} and there exists $z\in V(T)$ such that:
+\begin{itemize}
+    \item $S\subseteq B_z$, 
+    \item $|B_z|\leq c_5|S|-c_6k$,
+    \item For all $r\geq 1$, $|N_T(z,r)|\leq ( c_7 |N_G(S,r)| - c_8 k r)/k$. \david{I don't see how this can work in Case 3.}
+\end{itemize}
+\end{lem}
+
+\begin{proof}
+We proceed by induction on $|V(G)$|.
+
+\marc{I will adjust Cases 1,2 later. Picking large enough constants should make these cases trivial.}
+\textbf{Case 1.} $|V(G)| < c_3 k$: Then $S$ is not specified. Let $T$ be the 1-vertex tree with $V(T)=\{x\}$, and let $B_x:=V(G)$. Then $(B_x:x\in V(T))$ is the desired tree-partition, since $|B_x|=|V(G)|<c_3 k \leq c_1 kd$ and $\Delta(T)=0\leq c_2d$. Now assume that $|V(G)| \geq c_3 k$. 
+
+If $S$ is not specified, then let $S$ be any set of $c_3k$ vertices in $G$. \david{Assume $c_3k\in\mathbb{N}$}
+
+\textbf{Case 2.} $|V(G)\setminus S|\leq c_1kd$: Let $T$ be the 2-vertex tree with $V(T)=\{y,z\}$ and $E(T)=\{yz\}$. Note that $\Delta(T)=1\leq c_2 d$ and $\deg_T(z)=1\leq (c_7|S|-c_8k)/k$. Let $B_z:=S$ and $B_y:=V(G-S)$. Thus $|B_z|=|S|\leq c_5|S|-c_6k\leq c_1kd$ and $|B_y|\leq |V(G-S)|\leq c_1kd$. Hence $(B_x:x\in V(T))$ is the desired tree-partition of $G$. Now assume that $|V(G-S)|\geq c_1kd$.
+
+
+
+\textbf{Case 3.} $c_3k \leq |S|\leq c_9 k$: Let $S':=\bigcup\{ N_G(v)\setminus S: v\in S\}$. Thus $|S'|\leq d |S|\leq c_9 kd\leq c_4kd$. If $|S'|< c_3 k$ then add $c_3k-|S'|$ vertices from $V(G-S-S')$ to $S'$, so that $|S'|=c_3k$. This is well-defined since 
+$|V(G-S)| \geq c_1kd \geq c_3k$, implying $|V(G-S-S')| \geq c_3k-|S'|$.
+By induction, there exists a tree-partition $(B_x:x\in V(T'))$ of $G-S$ with width at most $c_1 kd$, such that $\Delta(T')\leq c_2d$ and there exists $z'\in V(T')$ such that:
+\begin{itemize}
+    \item $S'\subseteq B_z$, 
+    \item $|B_{z'}|\leq c_5|S'|-c_6k \leq c_5c_9kd -c_6k$,
+    \item For all $r\geq 1$, $|N_T'(z',r)|\leq ( c_7 |N_{G-S}(S',r)| - c_8 kr)/k \leq (c_7 c_4kd-c_8kr)/k= c_7c_4d-c_8r$. \david{there seems to be missing $r$s here}
+\end{itemize}
+Let $T$ be the tree obtained from $T'$ by adding one new node $z$ adjacent to $z'$. Let $B_z:=S$. So $(B_x:x\in V(T))$ is a tree-partition of $G$ with width at most $\max\{c_1kd,|S|\}\leq\max\{c_1kd,c_9k\}=c_1kd$. By construction, $|N_T(z,1)|=1\leq c_10$ and $N_T(z,r)=N_{T'}(z',r-1)+1\leq ( c_7 |N_{G-S}(S',r-1)| - c_8 k(r-1))/k + 1$ for $r\geq 2$. We note that since $S'=N(S)$, $|N_{G-S}(S',r-1)|=|N_G(S,r)|-|S|$, thus $N_T(z,r)\leq ( c_7 (|N_G(S,r)|-|S|) - c_8 k(r-1))/k + 1 = ( c_7|N_G(S,r)| - c_8 k(r-1) - c_7|S|+k)/k\leq ( c_7|N_G(S,r)| - c_8 kr)/k$ as $c_7|S|\geq c_7c_3\geq c_8+1$. Since $|S|\leq c_9k$ and $N_G(S,r)\leq |S|cr$, we also have that $N_T(z,r)\leq c_7*c_9*k*c*r\leq c_10r$
+
+$\deg_T(z)=1 \leq ( c_7 |S| - c_8 k)/k$ (since $|S|\geq c_3k$ and $c_8+1 \leq c_7 c_3  $) and $\deg_{T}(z') = \deg_{T'}(z')+1\leq c_7 c_4d - c_8 + 1  \leq c_2d$. Every other vertex in $T$ has the same degree as in $T'$. Hence $\Delta(T)\leq c_2d$, as desired. Finally, $S=B_z$ and $|B_z|=|S| \leq c_5 |S|-c_6k$ (since $|S|\geq c_3k$ and $c_6 \leq (c_5-1) c_3$).
+
+\textbf{Case 4.} $c_9 k \leq |S|\leq c_4kd$: By the separator lemma of \citet[(2.6)]{RS-II}, there are induced subgraphs $G_1$ and $G_2$ of $G$ with $G_1\cup G_2=G$ and $|V(G_1\cap G_2)|\leq k$, where $|S\cap V(G_i)|\leq \frac23 |S|$ for each $i\in\{1,2\}$. Let $S_i := (S\cap V(G_i))\cup V(G_1\cap G_2)$ for each $i\in\{1,2\}$.
+
+We now bound $|S_i|$. For a lower bound, since $|S\cap V(G_1)|\leq \frac23 |S|$, we have $|S_2|\geq |S\setminus V(G_1)|\geq \frac13 |S| \geq \frac13 c_9k \geq c_3k $. By symmetry, $|S_1|\geq  c_3k $. For an upper bound, $|S_i|\leq\frac23 |S| + k \leq \frac23 c_4kd + k \leq c_4kd$ (since $c_4d\geq 3$). Also note that $|S_1|+|S_2|\leq |S|+2k$.
+
+We have shown that $c_3k \leq |S_i|\leq c_4kd$ for each $i\in\{1,2\}$. Thus we may apply induction to $G_i$ with $S_i$ the specified set. Hence there exists a tree-partition $(B^i_x:x\in V(T_i))$ of $G_i$ with width at most $c_1 kd$, such that $\Delta(T_i)\leq c_2d$ and there exists $z_i\in V(T_i)$ such that:
+\begin{itemize}
+    \item $S_i\subseteq B_{z_i}$, 
+    \item $|B_{z_i}|\leq c_5|S_i|-c_6k$,
+    \item $\deg_{T_i}(z_i)\leq ( c_7 |S_i| - c_8 k)/k$.
+\end{itemize}
+Let $T$ be the tree obtained from the disjoint union of $T_1$ and $T_2$ by merging $z_1$ and $z_2$ into a vertex $z$. Let $B_z:= B^1_{z_1}\cup B^2_{z_2}$. Let $B_x:= B^i_x$ for each $x\in V(T_i)\setminus\{z_i\}$. Since $G=G_1\cup G_2$ and $V(G_1\cap G_2)\subseteq B^1_{z_1}\cap B^2_{z_2} \subseteq B_z$, we have that $(B_x:x\in V(T))$ is a tree-partition of $G$. By construction, $S\subseteq B_z$ and
+\begin{align*}
+    |B_z| & \leq |B^1_{z_1}|+|B^2_{z_2}|\\
+    & \leq (c_5|S_1|-c_6k) +  (c_5|S_2|-c_6k)\\
+    & \leq c_5(|S|+2k)-2c_6k \\
+    & \leq c_5|S|-c_6 k\qquad \text{(since $ 2c_5 \leq c_6 $)}\\
+    & \leq c_5 c_4 kd - c_6 k \\
+    & \leq c_1 kd \quad \text{(since $c_1 \geq c_5c_4$ and $c_6\geq 0$)}
+\end{align*}
+Every other part has the same size as in the tree-partition of $G_1$ or $G_2$. So this tree-partition of $G$ has width at most $c_1kd$. 
+Note that 
+\begin{align*}
+ \deg_T(z)  & = \deg_{T_1}(z_1) + \deg_{T_2}(z_2)\\
+    & \leq  (c_7|S_1|-c_8k)/k + (c_7|S_2|-c_8k)/k\\
+    & \leq  (c_7(|S_1|+|S_2|)-2c_8k)/k\\
+    & \leq  (c_7(|S|+2k)-2c_8k)/k\\
+    & \leq  (c_7|S|-c_8k)/k \qquad \text{(since $2c_7  \leq  c_8$)}\\
+    & \leq  (c_7c_4kd-c_8k)/k \\
+    & \leq  c_2 d. \qquad \text{(since $c_2 \geq c_7c_4$ and $c_8 \geq 0$)}
+\end{align*}
+Every other node of $T$ has the same degree as in $T_1$ or $T_2$. 
+Thus $\Delta(T) \leq c_2d$. This completes the proof.
+\end{proof}
+
+
+
+\section{Chat}
+
+\david{Can the above proof can be adapted to show that if $f_G(r)\leq cr$ then $G\subseteq T\boxtimes K_{c'}$ where $T$ has quadratic growth? First we consider $T$ to be rooted with edges oriented away from the root, and define the rooted growth as the number of vertices reachable by directed paths of length at most $r$. If $T$ has linear rooted growth, then I think $T$ has quadratic growth (to be checked). Then the main lemma works with linear rooted growth. In the above lemma we generalise the condition $\deg_T(z) \leq |S|/2k -1$ to the subtree of $T$ rooted at $z$ with `directed radius' $r$ has at most $(|S|-2k)r/?$ vertices (or something like that). So the growth is further limited by the size of $S$. Note that  $?k\leq |S|\leq ?kd$ and $k\approx c^2$ and $d=c$, which means
+$?c^2\leq |S|\leq ?c^3$, which means we get linear rooted growth. This condition enables us to merge subtrees together in Case 4 and maintain the properties (I hope). I will try and work out some details today.}
+
+\david{ Case 3 is problematic}
+
+\marc{Rooted linear growth as you are describing (with edges orientated away from the root) is linear growth. As for any vertex, it's $r$-neighbourhood is contained inside it's "r-ancestor's" (the unique ancestor a distance r away) $2r$-"directed neighbourhood".}
+\david{Good point, so forget what I wrote about quadratic growth, this is a way to get linear growth! Unfortunately, I cannot see how to make the above proof work. It seems Cases 3 and 4 require contradictory induction hypotheses. } 
+
+\marc{Yes, that was what I was finding too. Although I think the reason for this is that we really need to use that fact that an $r$-ball has at most $cr$ vertices for arbitarily large values of $r$, as otherwise you can take a binary tree with every edge subdivided $d$ times, which has exponential growth but linear growth for $d\leq r$, and that will kill any lemma regarding linear growth you want to prove using only "local" properties. Maybe a hypothesis that says something like the size $r$-ball in the tree at the root is some function of the size of the $r$-ball centred at $S$?}
+
+\marc{The hypothesis that $|N_T(z,r)|\leq (c1*|N_G(S,r)|-c2*k*r)/k$ (where $N_G(_,r)$ is the $r$-neighbourhood, $z$ is the root, $r\geq 1$) looks good to me given that in Case 3, $N_{G-S}(N(S),r)=N_G(S,r+1)-|S|$, and in Case 4, $|N_G1(S1,r)|+|N_G2(S2,r)|\leq |N_G(S)|+2ckr$. I will attempt a proof.}
+
+\marc{Trying to adapt the existing proof for the above purposes:}
+
+\marc{Adding the extra vertices to S' in Case 3 is an issue. Can we avoid this?} \david{Currently we assume that $|S|\geq c_3k$. To avoid the vertex-addition step in Case~3, we can drop this assumption and allow very small $S$, but then the induction hypothesis needs to be $\deg_T(z)\leq\max\{1,(c_7|S|-c_8k)/k\}$ (because obviously $\deg_T(z)\geq 1$), and more generally we need $|N_T(z,r)|\leq \max\{r,(c_1 |N_G(S,r)|-c_2kr)/k\}$. I'm not sure if $r$ is the right thing to add here, but $|N_T(z,r)|\geq r$.}
+
+
+%\marc{I realised when I was taking a break to go for a walk that we might be able to bypass this. We can note that $|N(S)|\geq |S|/c$ (as $S\subseteq N(N(S))$) [Correction: This is not true. Some vertices in $S$ may not have neighbours outside of $S$. Ignore this part of the comment], so for $S$ large enough in Case 3, $N(S)$ also satisfies induction hypothesis. The question is then if both $S$ and $N(S)$ are small. 
+
+\marc{[Cut out part of original comment as it was not correct] Maybe we just keep adding $N_r(S)$ as a path in $T$ until $r$ is large enough such that $N_r(S)$ is nontrivial.}
+
+\marc{Regarding your comment, taking the max with $r$ is probably not a good idea as eventually $r$ will be larger than the max distance from $|S|$ to any other vertex (the eccentricity I believe it is called?), this will case problems in Case 4. It may be better to cap $r$ at the eccentricity, as it is true that $|V(G)|\geq$ eccentricity, but not $|V(G)|\geq r$. It is probably worth considering the fact that if either $G_1$ or $G_2$ is reaches the cap, the extra neighbourhood given by the small intersection of $G_1$ and $G_2$ must also be small (well below the cap). This should be enough to avoid the extra neighbourhood problem.}
+
+%\marc{I have been thinking some more about how to get around this obstacle. My current line of thinking is that if $N(S)$ is too small (say smaller than $|S|$), we instead consider the second neighbour (the second layer of the BFS from $S$, and if that's small, the third neighbourhood, etc until one is big enough. I suggested before that we could then just attach all the other layers in between in a normal path of the same length (as the inductive step would have done anyway), but this struggles because these layers might be so small that removing them makes very little difference to the size of the $r$ neighbourhood - this causes issue as we are unable subtract away the size of the removed layers to make the total amount subtracted large enough for the induction hypothesis. I think we can get around this by picking $q$ such that the total size of these layers is about $q|S|$ (pick $q$ as the closest even integer). If $L_d$ was the first "large" layer, and we use induction on $L_d$, we can create a tree where the parts containing $L_0$ and $L_d$ are a distance $q$ by an adding appropriate branch to move up and back along to burn enough layers. This still isn't quite enough though, because now the distances in $T$ and $G$ are no longer synced. I think we can get around this by being less precise about what ball size the induction hypothesis uses. For the $r$-ball in $T$, instead of comparing it with the $r$-ball in $G$ from $S$, we consider a different number $s$ for the $s$-ball, with the link being that the size of this $s$-ball is linear in $r$ (which basically comes from the fact that the change in radius only comes from merging a bunch of tiny layers together that together only add a few factors of $|S|$ into the total size of the ball in $G$). I'm going to try writing this in a separate document for now until I'm happy with the idea.} EDIT: Doesn't work
+
+\marc{Also, to address one of David's comment he left in the copy I made below, you really do not want to make the inductive hypothesis independent of the size of the larger neighbourhoods (in favour of a fixed linear size), as this plays really badly with case 3, as you can have $|N(S)|>|S|$, this really leaves you with no way to continue without increasing the constants each time, at least as far as I can see.}
+
+\david{An induction hypothesis that looks promising is:
+\[ |B_T^r(z) | \leq \alpha |B_G^r(S)| - \beta r \]
+for some $\alpha,\beta$ which depend on $k$ and $d$, and where we assume $\alpha |B_G^r(S)| \gg \beta r$ for all $r\in\NN$. I wonder if we can augment the graph (in a preliminary step) so that  
+$\alpha |B_G^r(v)| \gg \gamma r$ for all $r\in\NN$, implying
+$\alpha |B_G^r(S)| \gg \beta r$.
+}
+\marc{Is d the growth here? Anyway, I found that I could not make this work easily due to when the neighbourhood shrinks. I did note that if $N(S)$ is small but the next layer is not, if you connect the 2nd layer and $S$ directly (when their share a neighbour in $N(S)$), I believe obtain a graph of "low growth wrt $S$", ie for any set $Q$ containing $S$, the growth from $Q$ is a constant ($d$) times $|Q|r$. That said, I also realizes, do we even need the $r$ multiplying beta? In Case 4, the only overlap between $N_{G_1}(S_1,r)$ and $N_{G_2}(S_2,r)$ IS $G_1\cap G_2$, ie is of size $k$. So we only double count a constant number of times, instead of the double counting growing in $r$.} \david{
+We get 
+\[ |N_T(z,r)| = |N_{T_1}(z_1,r)|+|N_{T_2}(x_2,r)|
+\leq 
+\alpha|N_{G_1}(S_1,r)| - \gamma r
++\alpha|N_{G_2}(S_2,r)| - \gamma r.
+\]
+Note that $N_{G_1}(S_1,r)$ and $N_{G_2}(S_2,r)$ both include $N_G(V((G_1\cap G_2)-S),r)$, which might not be in 
+$N_G(S,r)$, so we need to count all of $N_G(V((G_1\cap G_2)-S),r)$ directly (not by induction). So
+\[ |N_T(z,r)| = |N_{T_1}(z_1,r)|+|N_{T_2}(x_2,r)|
+\leq 
+\alpha|N_{G_1}(S_1,r)| - \gamma r
++\alpha|N_{G_2}(S_2,r)| - \gamma r\]
+and 
+\[|N_T(z,r)|
+\leq 
+\alpha|N_G(V(G_1\cap G_2),r) + 
+\alpha|N_G(S,r)| - 2\gamma r
+\leq 
+ckr  + 
+\alpha|N_G(S,r)| - 2\gamma r.
+\]
+Assuming $\gamma\geq ck$,
+\[ |N_T(z,r)| \leq 
+\alpha|N_G(S,r)| - \gamma r,
+\]
+as desired. }
+
+\marc{Case 3 is still a problem though? When $N(S)$ is too small? Also, don't forgot that you double count $S_1\cap S_2$, but you also double count $z$}
+
+
+\end{document}

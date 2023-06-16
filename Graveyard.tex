@@ -1,0 +1,487 @@
+\documentclass[12pt]{article}
+%\usepackage[UKenglish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amsthm,amsfonts,amssymb,graphicx,float,microtype,thmtools,underscore,mathtools}
+\usepackage[shortlabels]{enumitem}
+\setlist[itemize]{topsep=0ex,itemsep=0ex,parsep=0.3ex}
+\setlist[enumerate]{topsep=0ex,itemsep=0ex,parsep=0.3ex}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+%%%%
+%\usepackage{breakurl} %needed for arXiv
+\usepackage[unicode=true]{hyperref}
+\hypersetup{ 
+	colorlinks,
+	linkcolor={blue!60!black},
+	citecolor={black},
+	urlcolor={blue!60!black},
+	pdftitle={$O(\sqrt{n})$ Product Structure for Minor-Closed Classes}} 
+%%%%
+\usepackage[capitalise, compress, nameinlink, noabbrev]{cleveref}
+\crefname{lem}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{cor}{Corollary}{Corollaries}
+%%%%
+\newcommand{\defn}[1]{\textcolor{Maroon}{\emph{#1}}}
+%%%%
+\usepackage[longnamesfirst,numbers,sort&compress]{natbib}
+\makeatletter
+\def\NAT@spacechar{~}
+\makeatother
+\setlength{\bibsep}{0.4ex plus 0.2ex minus 0.2ex}
+%%%%
+\usepackage[margin=30mm]{geometry}
+\renewcommand{\baselinestretch}{1.1}
+\setlength{\footnotesep}{\baselinestretch\footnotesep}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1.25ex}
+\allowdisplaybreaks
+%%%
+\newcommand{\half}{\ensuremath{\protect\tfrac{1}{2}}}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\set}{\{}{\}} 
+%%%% Commands
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+%%%
+\DeclareMathOperator{\scol}{scol}
+\DeclareMathOperator{\wcol}{wcol}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\pw}{pw}
+\DeclareMathOperator{\td}{td}
+\DeclareMathOperator{\sep}{sep}
+\DeclareMathOperator{\stw}{stw}
+\DeclareMathOperator{\ltw}{ltw}
+\DeclareMathOperator{\rtw}{rtw}
+%%
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\JJ}{\mathcal{J}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\BB}{\mathcal{B}}
+\newcommand{\FF}{\mathcal{F}}
+\newcommand{\GG}{\mathcal{G}}
+\newcommand{\HH}{\mathcal{H}}
+\newcommand{\LL}{\mathcal{L}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\OO}{\mathcal{O}}
+\newcommand{\WW}{\mathcal{W}}
+\newcommand{\scr}[1]{\mathcal{#1}}
+\newcommand{\ds}[1]{\mathbb{#1}}
+%%%
+\newcommand{\david}[1]{{\color{blue} DW: #1}}
+\newcommand{\vida}[1]{{\color{DarkGreen} V: #1}}
+\newcommand{\robert}[1]{\textcolor{red}{RH: #1}}
+\newcommand{\michal}[1]{\textcolor{brown}{MTS: #1}}
+\newcommand{\eppstein}[1]{\textcolor{magenta}{DE: #1}}
+\newcommand{\pat}[1]{\textcolor{yellow}{PM: #1}}
+\newcommand{\gwen}[1]{\textcolor{cyan}{GJ: #1}}
+\newcommand{\marc}[1]{\textcolor{blue}{MD: #1}}
+%%%
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+%%%
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{ques}[thm]{Question}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem*{claim}{Claim}
+\crefname{obs}{Observation}{Observations}
+\newtheorem*{lem*}{Lemma}
+\theoremstyle{definition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem*{conj*}{Conjecture}
+%%%
+\newcommand{\header}[1]{\subsection*{\boldmath\textcolor{blue}{#1}}}
+
+\begin{document}
+\title{Graveyard}
+
+\author{
+Marc Distel\,\footnotemark[2] \qquad
+Vida Dujmovi\'c\footnotemark[6]\qquad
+David Eppstein\,\footnotemark[3] \\
+Robert~Hickingbotham\,\footnotemark[2] \qquad
+Gwenael Joret\,\footnotemark[4] \qquad
+Micha\l{} T.~Seweryn\footnotemark[5]\\
+Pat Morin\footnotemark[7]\qquad 
+David~R.~Wood\,\footnotemark[2]
+}
+
+
+
+\maketitle
+
+
+
+\footnotetext[2]{School of Mathematics, Monash University, Melbourne, Australia (\texttt{\{marc.distel,robert.hickingbotham, david.wood\}@monash.edu}). Research of Wood supported by the Australian Research Council. Research of Distel and Hickingbotham supported by Australian Government Research Training Program Scholarships.}
+
+\footnotetext[3]{Computer Science Department, University of California, Irvine (\texttt{eppstein@uci.edu}). Research supported in part by NSF grant CCF-2212129.}
+ 
+\footnotetext[4]{Computer Science Department, Université Libre de Bruxelles, Belgium (\texttt{gwenael.joret@ulb.be}). Supported by an ARC grant from the Wallonia-Brussels Federation of Belgium and a CDR
+grant from the National Fund for Scientific Research (FNRS).}
+
+\footnotetext[5]{Department of Theoretical Computer Science, Jagiellonian University, Kraków, Poland (\texttt{michal.seweryn@tcs.uj.edu.pl}).}
+
+\footnotetext[6]{School of Computer Science and Electrical Engineering, University of Ottawa, Ottawa, Canada (\texttt{vida.dujmovic@uottawa.ca}). Research supported by NSERC and the Ontario Ministry of Research and Innovation.},\,\,
+
+\footnotetext[7]{School of Computer Science, Carleton University, Ottawa, Canada (\texttt{morin@scs.carleton.ca}). Research  supported by NSERC and the Ontario Ministry of Research and Innovation.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Old Proofs}
+
+\begin{thm}[\citep{RS-XVI}]
+\label{GMST}
+For every integer $t$ there exists $k$ such that every $K_t$-minor-free graph has a tree decomposition in which each torso is $k$-almost-embeddable.
+\end{thm}
+
+\begin{lem}
+\label{AlmostEmbeddable4}
+For integers $g,p,a\geq 0$ and $k\geq 1$, there is an integer $c$ such that every $(g,p,k,a)$-almost embeddable graph on $n$ vertices has a partition $\PP$ where $\tw(G/\PP)\leq 4$ and $|X|\leq c\sqrt{n}$ for each $X\in\PP$.
+\end{lem}
+
+\begin{proof}
+Let $A$ and $G_0,G_1,\dots,G_s$ and $F_1,\dots,F_s$ be as defined above. 
+	
+Let $G'_0$ be obtained from $G_0$ as follows. Initialise $G'_0:=G_0$ and add a minimal set of edges so that $G'_0$ is connected and is still embedded in the same surface as $G_0$, 
+and $F_1,\dots,F_s$ are faces of $G'_0$. Now apply the following operations to $G_i$ for each $i\in\{1,\dots,s\}$. Say the cyclic ordering of $V(F_i)$ is $(x_1,\dots,x_m)$. Add a vertex $z_i$ into the face $F_i$ of $G_0$ adjacent to $x_1,\dots,x_m$.  Let $(B_1,\dots,B_m)$ be an $F_i$-vortex of $G_i$ with width at most $k$. We may greedily find integers $a_1,\dots,a_q\in\{1,\dots,m\}$  such that $a_1=1$ and if $Z_i:=B_{a_1}\cup\dots\cup B_{a_q}$, then for each $j\in\{1,\dots,q\}$ the set $Y_{i,j}:=(B_{a_j+1}\cup B_{a_j+2}\cup\dots\cup B_{a_{j+1}-1})\setminus Z_i$ has at least $\sqrt{kn}$ vertices and at most $\sqrt{kn}+k$ vertices, where $a_{q+1}=a_1$. Note that $|Z_i|\leq kq\leq\sqrt{kn}$ and $q \leq n/ \sqrt{kn}=\sqrt{n/k}$. In $G'_0$ contract the facial path $(x_{a_j+1},x_{a_j+2},\dots,x_{a_{j+1}-1})$ into a vertex $y_{i,j}$, for each $j\in\{1,\dots,q\}$. In $G'_0$ contract the edge $z_ix_{a_j}$ into $z_i$ for each $j\in\{1,\dots,q\}$. Call the vertices $y_{i,j}$ and $z_i$ of $G'_0$ \defn{special}.
+	
+In $G'_0$, for each $i\in\{1,\dots,s-1\}$ add a handle between some face incident to $z_i$ and $z_{i+1}$. Add a vertex $r$ to $G'_0$ adjacent to $z_1,\dots,z_s$. Embed $r$ and the edges incident to $r$ in the added handles. Note that $G'_0$ is embedded in a surface with Euler genus at most $g+2(s-1) \leq g+2p-2$.  
+	
+Let $T$ be a \textsc{bfs}-spanning tree of $G'_0$ rooted at $r$ (which exists since $G'_0$ is connected). Let $V_0,V_1,\dots$ be the corresponding layering of $G'_0$. So $V_0=\{r\}$ and $V_1=\{z_1,\dots,z_s\}$ and $V_2$ contains all vertices $y_{i,j}$ (possibly plus others). For $i<0$, let $V_i:=\emptyset$. By \cref{GenusPartition} there is an $H$-partition $\PP$ of $G'_0$ such that $\tw(H)\leq 3$ and each part of $\PP$ is a subset of the union of at most $\max\{2g+4p-4,3\}\leq 2g+4p+3$ vertical paths in $T$. Note that each vertical path in $T$ has at most two special vertices (some $z_i$ and some $y_{i,j}$). 
+	
+	Let $m:= \ceil{\sqrt{n}}$. 
+	For $\ell\in\{3,4,\dots,m-1\}$, 
+	let $\widehat{V}_\ell:= V_\ell \cup V_{\ell+m}\cup V_{\ell+2m}\cup\dots$.
+	Since $|\widehat{V}_3|+|\widehat{V}_4|+\dots+|\widehat{V}_{m-1}| \leq n$ there exists  $\ell\in\{3,4,\dots,m-1\}$ such that $|\widehat{V}_\ell|\leq n/(m-3) \leq 2\sqrt{n}$ vertices.  
+	
+	For $j\in\{0,1,\dots\}$, let $\PP_j$ be the $H_j$-partition of $G'_0[V_{\ell+(j-1)m+1}\cup \dots\cup V_{\ell+jm-1}]$ induced by $\PP$, where $H_j$ is a copy of $H$ (and $H_0,H_1,\dots$ are pairwise disjoint), and $\PP_j$ has width at most $(2g+4p+3)\sqrt{n}$.
+	
+	Let $H'$ be the graph obtained from $H_0\cup H_1\cup \dots$ by adding one dominant vertex $\alpha$. Thus $\tw(H')\leq 4$. Associate with $\alpha$ the set of vertices $\widehat{V}_\ell$ in $G_0$, which has size at most $2\sqrt{n}$. 
+	
+	Now $\{\widehat{V}_\ell\}\cup\PP_0\cup\PP_1\cup\dots$ is an $H'$-partition of $G'_0$  with width at most $(2g+4p+3)\sqrt{n}$.
+	
+By construction  (since $\ell\geq 3$), $\PP_0$ is a partition of $G'_0[V_0\cup V_2\cup V_2\cup\dots\cup V_{\ell-1}]$. In particular, each vertex $y_{i,j}$ (which is in $V_2$) is in some part $X$ of $\PP_0$. Replace $y_{i,j}$ in $X$ by $Y_{i,j}$. Similarly, each vertex $z_{i}$ (which is in $V_1$) is in some part $X$ of $\PP_0$. Replace $z_i$ in $X$ by $Z_i$. Remove $r$ from the part of $\PP_0$ that contains $r$. 
+	For each part $X$ of $\PP_0$, each vertical path in $T$ has at most two special vertices (some $z_i$ and some $y_{i,j}$). The corresponding replacements contribute at most $2\sqrt{kn}+k$ vertices to $X$. Since $X$ is contained in the union of at most $2g+4p+3$ vertical paths in $T$, 
+	$$|X|\leq (2g+4p+3)\sqrt{n} + (2g+4p+3)(2\sqrt{kn}+k) \leq 3\sqrt{k}(2g+4p+3)\sqrt{n}.$$
+	
+	Finally, add $A$ to the part $\widehat{V}_\ell$. Since $\alpha$ is dominant in $H'$, we obtain an $H'$-partition of $G$ with width 
+	$\max\{a+2,3\sqrt{k}(2g+4p+3)\}\sqrt{n}$, where $\tw(H')\leq 4$. 
+\end{proof}
+
+
+
+\begin{proof}[Proof of \cref{ConstantTwSqrtn}.]
+Let $G$ be an $n$-vertex $K_t$-minor-free graph. By \cref{GMST}, $G$ has a tree-decomposition $(B_x:x\in V(T))$ in which each torso is $k$-almost-embeddable, for some $k=k(t)$. By 
+\citep[Lemma 21]{DMW17}, every clique in a $k$-almost-embeddable graph has at most $9k$ vertices. So the adhesion of this tree-decomposition is at most $9k$. 
+By \cref{AlmostEmbeddable4}, each torso $\mathcal{T}_x$ is contained in $H_x\boxtimes K_p$ where $\tw(H_x)\leq 4$ and $p\leq c\sqrt{n}$ and $c=c(t)$. 
+By \cref{CliqueSums}, $G$ is contained in $J\boxtimes K_m$ for some graph $J$ with treewidth at most $6$, and where $m\leq\max\{c\sqrt{n},\sqrt{kn}\}$.
+\end{proof}
+
+
+\begin{lem}\label{CliqueSums}
+   Let $k,p,w,n\in \NN$ and let $G$ be an $n$-vertex graph that has a tree-decomposition $(B_x:x \in V(T))$ with adhesion $k$ in which each torso $\mathcal{T}_x$ is contained in $J_x\boxtimes K_p$ for some graph $J_x$ with treewidth at most $w$. Then $G$ is contained in $H\boxtimes K_m$ for some graph $H$ with treewidth at most $w+2$, and where $m\leq\max\{p,\sqrt{kn}\}$.
+\end{lem}
+
+
+\begin{lem}\label{WeightedTree}
+For any weighted tree $T$ and any $w\in \RR^+$, there exists an edge $e\in E(T)$ such that each subtree of $T-e$ has weight at least $w$ or there exists $x\in V(T)$ such that each subtree of $T-x$ has weight less than $w$.
+\end{lem}
+
+
+\begin{proof}
+    Suppose that for every $e\in E(T)$, there is a subtree of $T-e$ with weight less than $w$. Direct $e$ to the vertex that belong to such a subtree. Since $T$ is a tree, there is a vertex $x\in V(T)$ such that no edge is directed towards $x$. Then each subtree of $T-x$ has weight less than $w$.
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{CliqueSums}]
+    Let $r\in V(T)$ be an (arbitrary) root of $T$. For every node $x\in V(T)$ with parent $y$, let $X_x:=B_x\cap B_y$ (where $X_r=\emptyset$) and let $\tilde{B_x}:=B_x-X_x$. Observe that $(\tilde{B}_x \colon x \in V(T))$ is a partition of $V(G)$. Partition $T$ into the maximum number of connected subtrees $(T_1,\dots,T_s)$ such that $|\bigcup (\tilde{B_x}: x \in V(T_i))|\geq \sqrt{kn}$ for all $i \in [s]$. Then $s\leq n/\sqrt{kn}=\sqrt{n/k}$. Let $G_i:=G[\bigcup(\tilde{B_x}: x \in V(T_i))]$ and let $r_i$ be the root of $T_i$.  Let $Q:= \bigcup (X_{r_i}:i\in [s])$ and observe that $|Q|\leq ks\leq \sqrt{kn}$. Now if there is an edge $x_ix_j\in E(T)$ where $x_i\in V(T_i)$ and $x_j\in V(T_j)$, then $x_i=r_i$ or $x_j=r_j$. Thus $G-Q$ is the disjoint union of $G_1,\dots,G_s$.
+    
+    \begin{claim}
+        $G_i$ is contained in $H_i\boxtimes K_m$ for some graph $H_i$ with treewidth at most $w+1$, and where $m\leq\max\{p,\sqrt{kn}\}$.
+    \end{claim}
+    \begin{proof}
+        For each $x\in V(T_i)$, let $\gamma(x):=|\tilde{B_{x}}|$ be a weighting function.
+        By the maximality of $s$, there is no edge $e\in E(T_i)$ such that both subtrees of $T_i-e$ has weight at least $\sqrt{kn}$. By \cref{WeightedTree}, there exists $x_i\in V(T_i)$ such that each component $C_1,\dots,C_q$ of $G_i-\tilde{B_{x_i}}$ has at most $\sqrt{kn}$ vertices.
+        By assumption, the torso $\mathcal{T}_i$ of $B_{x_i}$ has a $J_i$-partition $\PP'$ with width at most $p$ where $\tw(J_i)\leq w$. Add $(C_1,\dots, C_q)$ to the partition $\PP'$ to obtain a partition $\PP$ of $G_i$ with quotient $H_i$. Then $\PP$ has width at most $\max\{p,\sqrt{kn}\}$. Moreover, for each $j\in [q]$, the neighbourhood of $C_j$ (in $G_i$) is a clique $Y_j$ in $\mathcal{T}_i$. Thus the vertices $Z_j$ in $J_i$ that indexes the parts in $\PP'$ that contain $Y_j$ are a clique. Since $\tw(J_i)\leq w$, it follows that $|Z_j|\leq w+1$. Therefore $H_i$ can be obtained from $J_i$ by adding $(\leq w+1)$-simplical vertices. This increases the treewidth by at most $1$, as required.
+    \end{proof}
+
+    Let $H$ be the graph obtained from the disjoint union of $H_1,\dots, H_s$ by adding one dominant vertex $\alpha$. Then $\tw(H)\leq w+2$. By associating $Q$ with $\alpha$, we obtain an $H$-partition of $G$ with width $\max\{p,\sqrt{kn}\}$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Treewidth $5$}
+\robert{This section is a work in progress...}
+
+% \begin{lem}\label{EulerBFS}
+% For every $g\in \NN$ there is an integer $c$ such that for every graph $G$ with Euler genus $g$ on $n$ vertices, for every \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$, there is a tree decomposition $(B_x\colon x\in V(T))$ of $G$ with width $c\sqrt{n}$ where $|B_x\cap (V_1\cup V_2)|\leq 4g+6$ for all $x\in V(T)$.
+% \end{lem}
+% \robert{What is the constant $c$ that this proof gives?}
+% \begin{proof}[Proof Sketch]
+%      Use the layered tree-decomposition of \citet{DMW17} with \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$. So each bag intersects $V_i$ in at most $2g+3$ vertices. Let $m:= \ceil{\sqrt{n}}$. \david{$m:= \ceil{\sqrt{?gn}}$ works better}
+% 	For $\ell\in\{3,4,\dots,m-1\}$, 
+% 	let $\widehat{V}_\ell:= V_\ell \cup V_{\ell+m}\cup V_{\ell+2m}\cup\dots$.
+% 	Since $|\widehat{V}_3|+|\widehat{V}_4|+\dots+|\widehat{V}_{m-1}| \leq n$ there exists  $\ell\in\{3,4,\dots,m-1\}$ such that $|\widehat{V}_\ell|\leq n/(m-3) \leq 2\sqrt{n}$ vertices. Find $j\in [3,m]$ such that $|\widehat{V_j}|\leq O(\sqrt{n})$. Take disjoint tree-decompositions of the components of $G-\widehat{V_j}$. Add $\hat{V_j}$ to every bag. We get a tree-decomposition of $G$ with width $O(\sqrt{n})$ such that each bag intersects $V_1 \cup V_2$ in at most $4g+6$ vertices.
+% \end{proof}
+
+The following is a special case of \citep[Theorem~12]{ISW}. 
+
+\begin{lem}[\cite{ISW}]\label{TdecompPartition}
+    Let $G$ be a $K_{3,t}$-minor-free graph, and $(T,\mathcal{W})$ be a tree-decomposition of $G$. Then $G$ has an $H$-partition $\PP$ where each part $X\in \PP$ is contained in the union of at most $t-1$ bags in $\mathcal{W}$ and $\tw(H)\leq 3$.
+\end{lem}
+
+
+
+%As graphs with Euler genus $g$ are $K_{3,2g+3}$-minor-free, \cref{EulerBFS,TdecompPartition} immediately imply the following.
+
+\begin{lem}\label{bfsPartitionGenus}
+    For every $g\in \NN$ there is an integer $c$ such that for every graph $G$ with Euler genus $g$ on $n$ vertices, for every \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$, there is an $H$-partition $\PP$ of $G$ with width at most $c\sqrt{n}$ where $\tw(H)\leq 3$ and $|X\cap (V_1\cup V_2)|\leq 4(g+1)(2g+3)$ for all $X \in \PP$.\robert{Make the the constant $c$ explicit}
+\end{lem}
+
+\begin{proof}[Proof Sketch]
+    Since graphs with Euler genus $g$ are $K_{3,2g+3}$-minor-free, by \cref{TdecompPartition} it suffice to prove the following claim: 
+    
+    \begin{claim}
+        For every $g\in \NN$ there is an integer $c$ such that for every $n$-vertex graph $G$ with Euler genus $g$, for every \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$, there is a tree decomposition $(B_x\colon x\in V(T))$ of $G$ with width $c\sqrt{n}$ where $|B_x\cap (V_1\cup V_2)|\leq 4g+6$ for all $x\in V(T)$.
+    \end{claim}
+    \robert{Note that the proof of \citep[Theorem~12]{DMW17} assumes that $G$ is a triangulation. Does triangulating a graph affect the \textsc{bfs}-layering? If so, then we may want to change our lemma statement so that it holds only for triangulations.} \david{Given a connected graph $G$, find a BFS spanning tree $T$ in $G$, let $G'$ be a triangulation of $G$, so $T$ is a BFS spanning tree of $G'$, let $(V_0,V_1,\dots)$ be the corresponding layering of $G'$....}
+    
+    \begin{proof}[Proof Sketch]
+        \citep[Theorem~12]{DMW17} showed that there is a tree-decomposition $(B_x \colon x\in V(T))$ of $G$ where each bag $B_x$ intersects $V_i$ in at most $2g+3$ vertices. Let $m:= \ceil{\sqrt{n/g}}+3$.
+	       For $\ell\in\{3,4,\dots,m-1\}$, 
+	       let $\widehat{V}_\ell:= V_\ell \cup V_{\ell+m}\cup V_{\ell+2m}\cup\dots$.
+	       Since $|\widehat{V}_3|+|\widehat{V}_4|+\dots+|\widehat{V}_{m-1}| < n$ there exists  $\ell\in\{3,4,\dots,m-1\}$ such that $|\widehat{V}_{\ell}|\leq n/(m-3) \leq \sqrt{ng}$ vertices. Let $G_1,\dots,G_j$ be the components of $G-\widehat{V_{\ell}}$. For each $i\in [j]$, let $(B_x^{(i)}:= B_x \cap V(G_i)\colon x\in V(T^{(i)})$ be a tree-decomposition of $G_i$ where $T_i$ is a disjoint copy of $T$. Then $|B_x^{(i)}|\leq (2g+3)m$ for all $i\in [j]$ and $x\in V(T^{(i)})$. Add $\hat{V_j}$ to every bag then connect $T_1,\dots,T_j$ by a minimal set of edges. This gives a tree-decomposition of $G$ with width $(2g+3)m+|\widehat{V}_j|-1=  (2g+3)( \ceil{\sqrt{n/g}}+3)+\sqrt{ng}$ such that each bag intersects $V_1 \cup V_2$ in at most $4g+6$ vertices.
+    \end{proof}
+\end{proof}
+
+
+\begin{lem}
+For integers $g,p\geq 0$ and $k\geq 1$, there is an integer $c$ such that every $(g,p,k,0)$-almost embeddable graph on $n$ vertices has an $H$-partition $\PP$ where $\tw(H)\leq 3$ and $|X|\leq c\sqrt{n}$ for each $X\in\PP$.
+\end{lem}
+
+\begin{proof}
+    Let $G_0,G_1,\dots,G_s$ and $F_1,\dots,F_s$ be as defined above. 
+	
+    Let $G'_0$ be obtained from $G_0$ as follows. Initialise $G'_0:=G_0$ and add a minimal set of edges so that $G'_0$ is connected and is still embedded in the same surface as $G_0$
+    and $F_1,\dots,F_s$ are faces of $G'_0$. Now apply the following operations to $G_i$ for each $i\in\{1,\dots,s\}$. Say the cyclic ordering of $V(F_i)$ is $(x_1,\dots,x_m)$. Add a vertex $z_i$ into the face $F_i$ of $G_0$ adjacent to $x_1,\dots,x_m$.  Let $(B_1,\dots,B_m)$ be an $F_i$-vortex of $G_i$ with width at most $k$. We may greedily find integers $a_1,\dots,a_q\in\{1,\dots,m\}$  such that $a_1=1$ and if $Z_i:=B_{a_1}\cup\dots\cup B_{a_q}$, then for each $j\in\{1,\dots,q\}$ the set $Y_{i,j}:=(B_{a_j+1}\cup B_{a_j+2}\cup\dots\cup B_{a_{j+1}-1})\setminus Z_i$ has at least $\sqrt{kn}$ vertices and at most $\sqrt{kn}+k$ vertices, where $a_{q+1}=a_1$. Note that $|Z_i|\leq kq\leq\sqrt{kn}$ and $q \leq n/ \sqrt{kn}=\sqrt{n/k}$. In $G'_0$ contract the facial path $(x_{a_j+1},x_{a_j+2},\dots,x_{a_{j+1}-1})$ into a vertex $y_{i,j}$, for each $j\in\{1,\dots,q\}$. In $G'_0$ contract the edge $z_ix_{a_j}$ into $z_i$ for each $j\in\{1,\dots,q\}$. Call the vertices $y_{i,j}$ and $z_i$ of $G'_0$ \defn{special}.
+	
+    In $G'_0$, for each $i\in\{1,\dots,s-1\}$ add a handle between some face incident to $z_i$ and $z_{i+1}$. Add a vertex $r$ to $G'_0$ adjacent to $z_1,\dots,z_s$. Embed $r$ and the edges incident to $r$ in the added handles. Note that $G'_0$ is embedded in a surface with Euler genus at most $g+2(s-1) \leq g+2p-2$.  
+	
+    Let $V_0,V_1,\dots$ be  a \textsc{bfs}-layering of $G'_0$ where $V_0=\{r\}$. So $V_1=\{z_1,\dots,z_s\}$ and $V_2$ contains all vertices $y_{i,j}$ (possibly plus others). By \cref{bfsPartitionGenus} there is an $H$-partition $\PP$ of $G'_0$ with width at most $c\sqrt{n}$ where $\tw(H)\leq 3$ and $|X\cap (V_1\cup V_2)|\leq 4(g+1)(2g+3)$ for all $X \in \PP$. So each part $X$ has at most $4(g+1)(2g+3)$ special vertices. In particular, each vertex $y_{i,j}$ (which is in $V_2$) is in some part $X$ of $\PP$. Replace $y_{i,j}$ in $X$ by $Y_{i,j}$. Similarly, each vertex $z_{i}$ (which is in $V_1$) is in some part $X$ of $\PP$. Replace $z_i$ in $X$ by $Z_i$. Remove $r$ from the part of $\PP$ that contains $r$. This gives an $H$-partition of $G$. Moreover, the corresponding replacements contribute at most $4(g+1)(2g+3)\sqrt{kn}+k$ vertices to $X$. So $|X|\leq (c+4(g+1)(2g+3))\sqrt{n}+k$ for all $X \in \PP$ as desired. 
+\end{proof}
+
+
+\begin{lem}\label{CliqueSumsApices}
+   Let $k,p,w,n\in \NN$ and let $G$ be an $n$-vertex graph that has a tree-decomposition $(B_x:x \in V(T))$ with adhesion $k$ in which each torso $\mathcal{T}_x$ is contained in $J_x\boxtimes K_p+K_k$ for some graph $J_x$ with treewidth at most $w$. Then $G$ is contained in $H\boxtimes K_m$ for some graph $H$ with treewidth at most $w+2$, and where $m\leq\max\{p,2\sqrt{kn}\}$.
+\end{lem}
+
+\begin{proof}
+    Let $r\in V(T)$ be an (arbitrary) root of $T$. For every node $x\in V(T)$ with parent $y$, let $X_x:=B_x\cap B_y$ (where $X_r=\emptyset$) and let $\tilde{B_x}:=B_x-X_x$. Observe that $(\tilde{B}_x \colon x \in V(T))$ is a partition of $V(G)$. Partition $T$ into the maximum number of connected subtrees $(T_1,\dots,T_s)$ such that $|\bigcup (\tilde{B_x}: x \in V(T_i))|\geq \sqrt{nk}$ for all $i \in [s]$. Then $s\leq n/\sqrt{nk}=\sqrt{n/k}$. Let $G_i:=G[\bigcup(\tilde{B_x}: x \in V(T_i))]$ and let $r_i$ be the root of $T_i$.  Let $Q:= \bigcup (X_{r_i}:i\in [s])$ and observe that $|Q|\leq ks\leq \sqrt{kn}$. Now if there is an edge $x_ix_j\in E(T)$ where $x_i\in V(T_i)$ and $x_j\in V(T_j)$, then $x_i=r_i$ or $x_j=r_j$. Thus $G-Q$ is the disjoint union of $G_1,\dots,G_s$.
+    
+    \begin{claim}
+        There exists $A_i\subseteq V(G_i)$ where $|A_i|\leq k$ such that $G_i-A_i$ is contained in $H_i\boxtimes K_m$ for some graph $H_i$ with treewidth at most $w+1$, and where $m\leq\max\{p,\sqrt{kn}\}$.
+    \end{claim}
+    \begin{proof}
+        For each $x\in V(T_i)$, let $\gamma(x):=|\tilde{B_{x}}|$ be a weighting function.
+        By the maximality of $s$, there is no edge $e\in E(T_i)$ such that both subtrees of $T_i-e$ has weight at least $\sqrt{kn}$. By \cref{WeightedTree}, there exists $x_i\in V(T_i)$ such that each component $C_1,\dots,C_q$ of $G_i-\tilde{B_{x_i}}$ has at most $\sqrt{kn}$ vertices.
+        By assumption, there exists $A_i\subset V(B_{x_i})$ where $|A_i|\leq k$ such that $\mathcal{T}_i-A_i$ of $B_{x_i}$ has a $J_i$-partition $\PP'$ with width at most $p$ where $\tw(J_i)\leq w$. Add $(C_1,\dots, C_q)$ to the partition $\PP'$ to obtain a partition $\PP$ of $G_i-A_i$ with quotient $H_i$. Then $\PP$ has width at most $\max\{p,\sqrt{kn}\}$. Moreover, for each $j\in [q]$, the neighbourhood of $C_j$ (in $G_i$) is a clique $Y_j$ in $\mathcal{T}_i$. Thus the vertices $Z_j$ in $J_i$ that indexes the parts in $\PP'$ that contain $Y_j$ are a clique. Since $\tw(J_i)\leq w$, it follows that $|Z_j|\leq w+1$. Therefore $H_i$ can be obtained from $J_i$ by adding $(\leq w+1)$-simplical vertices. This increases the treewidth by at most $1$, as required.
+    \end{proof}
+    Observe that $|\bigcup (A_i: i \in [s])|\leq ks\leq \sqrt{kn}$.
+    Let $H$ be the graph obtained from the disjoint union of $H_1,\dots, H_s$ by adding one dominant vertex $\alpha$. Then $\tw(H)\leq w+2$. By associating $Q\cup \bigcup (A_i: i \in [s])$ with $\alpha$, we obtain an $H$-parititon of $G$ with width $\max\{p,2\sqrt{kn}\}$.
+\end{proof}
+
+
+\section{Alternative Proof for tw=4}
+\robert{The proof in this section had a hole in it}
+
+  \begin{lem}\label{CliqueSumsApicesNew}
+   Let $k,p,w,n\in \NN$ and let $G$ be an $n$-vertex graph that has a tree-decomposition $(B_x:x \in V(T))$ with adhesion $k$ in which each torso $\mathcal{T}_x$ is contained in $J_x\boxtimes K_p+K_k$ for some graph $J_x$ with treewidth at most $w$. Then $G$ is contained in $H\boxtimes K_m$ for some graph $H$ with treewidth at most $w+1$, and where $m\leq\max\{p,2\sqrt{kn}\}$.
+\end{lem}
+
+\begin{proof}
+    Let $r\in V(T)$ be an (arbitrary) root of $T$. For every node $x\in V(T)$ with parent $y$, let $X_x:=B_x\cap B_y$ (where $X_r=\emptyset$) and let $\tilde{B_x}:=B_x-X_x$. Observe that $(\tilde{B}_x \colon x \in V(T))$ is a partition of $V(G)$. For each $x\in V(T)$, let $\gamma(x):=|\tilde{B_{x}}|$ be a weighting function. By \cref{TreeSep} with $p=\sqrt{?n}$, there is a set $S'=\{s_1,\dots,s_p\}$ of at most $p$ nodes such that each component of $T-S$ has total weight at most $\frac{n}{p+1}\leq \sqrt{n}$. Let $s_0:=r$ and let $S=S'\cup \{s_0\}$ For each $i\in [0,p]$, let $(T_0,T_1,\dots,T_s)$ be maximal disjoint subtrees of $T$ where $T_i$ is rooted at $s_i$. Let $G_i:=G[\bigcup(\tilde{B_x}: x \in V(T_i))]$. Let $Q:= \bigcup (X_{t}: t \in S)$ and observe that $|Q|\leq kp \leq \sqrt{?kn}$. Now if there is an edge $x_ix_j\in E(T)$ where $x_i\in V(T_i)$ and $x_j\in V(T_j)$, then $x_i=r_i$ or $x_j=r_j$. Thus $G-Q$ is the disjoint union of $G_1,\dots,G_s$.
+    
+    \begin{claim}
+        There exists $A_i\subseteq V(G_i)$ where $|A_i|\leq k$ such that $G_i-A_i$ is contained in $H_i\boxtimes K_m$ for some graph $H_i$ with treewidth at most $w$, and where $m\leq\max\{p+\sqrt{n},\sqrt{kn}\}$.
+    \end{claim}
+    \begin{proof}
+        It follows by \cref{TreeSep} that $G_i-\tilde{B_{s_i}}$ has at most $\sqrt{kn}$ vertices. Let $(C_1,\dots, C_q)$ be the components of $G_i-\tilde{B_{s_i}}$. By assumption, there exists $A_i\subset V(B_{s_i})$ where $|A_i|\leq k$ such that $\mathcal{T}_i-A_i$ of $B_{s_i}$ has a $J_i$-partition $\PP'$ with width at most $p$ where $\tw(J_i)\leq w$. Now for each $j\in [q]$, the neighbourhood of $C_j$ (in $G_i$) is a clique $Y_j$ in $\mathcal{T}_i$.  Thus the vertices $Z_j$ in $J_i$ that indexes the parts in $\PP'$ that contain $Y_j$ are a clique. Add $V(C_j)$ to some part that is indexed by $Z_J$. This increases the width of a part by at most $\sqrt{n}$ without affecting the quotient graph, as required.
+    \end{proof}
+    Observe that $|\bigcup (A_i: i \in [s])|\leq ks\leq \sqrt{kn}$.
+    Let $H$ be the graph obtained from the disjoint union of $H_1,\dots, H_s$ by adding one dominant vertex $\alpha$. Then $\tw(H)\leq w+1$. By associating $Q\cup \bigcup (A_i: i \in [s])$ with $\alpha$, we obtain an $H$-parititon of $G$ with width $\max\{p,2\sqrt{kn}\}$.
+\end{proof}
+    
+    
+\end{proof}
+
+
+\section{Marc's Original tw=4 proof}
+
+
+
+    Following the proof of \cref{CliqueSums}  \robert{\cref{CliqueSums} would probably be removed after this is properly written. So I suggest copying as much of the original proof as needed here}, we consider $T$ to be rooted at some vertex $r$, and for every vertex $x\in V(T)$ with parent $y$, we let $X_x:=B_x\cap B_y$ and let $\tilde{B}_x:=B_x-X_x$. We then know that we may partition $T$ into subtrees $T_1,\dots,T_s$, define $G_i=G[\cup(\tilde{B}_x:x\in V(T_i))]$, and then find a set $Q$ of size at most $\sqrt{kn}$ such that $G-Q$ is the disjoint union of $G_1,\dots,G_s$. Further, we know that each $T_i$ contains a vertex $x_i$ such that each component $C$ of $G_i-B(x_i)$ has at most $\sqrt{kn}$ vertices, and the neighbourhood of $C$ in $G_i$ is a clique in the torso $\scr{T}_i$ at $x_i$. We now diverge from the original proof. \marc{It may almost be easier to copy the original proof rather than do this whole recap}.
+    
+    Let $S_i\subseteq V(\scr{T}_i)$ and $\scr{P}$ \robert{I suggest calling this $\scr{P}_i$ and calling it a $J_i$-partition } be a partition of $G_i-S_i$ \robert{Should this be $\scr{T}_i-S_i$?} satisfying the stated conditions of the lemma. Let $Q':=Q+\cup S_i$ \robert{Let $Q'$ be the union of $Q$ and $(\bigcup (S_i \colon i \in [s])$} and note that $|Q'|\leq \sqrt{kn}+\sum \scr{T}_i/n \leq \sqrt{kn}+\sqrt{n}$ \marc{Not quite right as the torsos overlap, need to exclude the $X_t$ from the size of the torso in the lemma statement} \robert{Isn't $\sum |\scr{T}_i|\leq n+ks$ so the overlap shoudln't be an issue}.
+    
+    Let $G':=\scr{T}_i-S_i$ \robert{Call this $G_i'$}, and let $H$ be the quotient of $G'$. Let $C_1,\dots,C_s$ be the components of $G_i-G'-S_i$ \robert{ $G_i-\scr{T}_i$?}, we know that for each component $C_j$, the parts of $G'$ that contain the neighbourhood of $C_j$ in $G'$ form a clique of size at most $w+1$, let $K_{C_j}$ denote this clique. If $|K_c|\leq w$, then we may put the entirety of $C$ into a new parts and the treewidth of the quotient will still be at most $w$ - hence we may focus our efforts on the components $C$ for which $|K_{C_j}|=w+1$.
+    
+    For a clique $J$ in $H$ of size $w+1$, let $G_J=G[\cup(C_j:1\leq j\leq s \& K_{C_j}=J)]$. Let $J_1,\dots,J_{z_i}$ be a maximal set of such cliques such that each $|G_{J_j}|\geq |G_i|/\sqrt{n}$. Since $G_J$ belonging to distinct (but not necessarily disjoint) cliques are disjoint, we must have that $\sum z_i \leq \sqrt{n}$. For each $J_j$, let $K_{j,1},\dots,K_{j,a_{i,j}}$ be a maximal set of vertex disjoint cliques in $G'$ realising $J_j$, we know that $a_{i,j}\leq q$ by assumption of $\scr{P}$. Thus if we let $Q'':=Q'+\cup_i\cup_{1\leq j\leq z_i}\cup_{1\leq m\leq a_{i,j}}K_{j,m}$, we know that $|Q''|\leq (1+\sqrt{k}+qw)\sqrt{n}$.
+    
+    Let $G'':=G'-Q''$ \robert{I suggest having $G_i''$}, and let $L$ be an ordering of $H$ such that every part has at most $w$ neighbours greater than it, this exists as the degeneracy of $H$ is at most $w$ \robert{I suggest having a separate lemma for this. The lemma statement would be something like the following: `For every graph $G$ with $\tw(G)\leq w$, we can charge $(w+1)$-cliques to vertices in $V(G)$ such that each vertex has at most one clique charged to it.'}. We now consider a partition $\scr{P}'$ of $G''$ as follows. Everything in $G'-Q''$ gets the same part as before, and any connected component $C$ of $G_i-G'-S_i$ with $|K_C-Q''|\leq w$ is put into a new part. For every remaining component $C$ with $|K_C-Q''|=|K_C|= w+1$, let $P\in K_C$ be the part smallest in $L$, and add $C$ to $P$. We note that for every part $P\in V(H)$, $P$ is the lowest vertex (w.r.t $L$) in at most one clique $\tilde{J}$ of size $w+1$, and thus we add at most $|G_{\tilde{J}}|$ vertices to $P$. We note that we cannot have $\tilde{J}=J_j$ for some $j$, as if that was the case then $K_C$ would be a vertex disjoint clique of size $w+1$ realising $J_j$, contradicting the maximality of $a_{i,j}$. Thus, we must have that $|G_{\tilde{J}}|<\sqrt(n)$ by maximality of $z_i$. Thus, $P$ contains at most $p+\sqrt{n}$ vertices. Repeating this process for all the $G''$ (across different $i$), and adding $Q''$ as a single dominant part, we get the desired result.
+
+
+Let $G$ be a graph, and let $\scr{P}$ be an $H$-partition of $G$. Given a clique $C_H$ in $H$, we say that $C_H$ is \defn{realised} by a clique $C_G$ in $G$ if each part of $\PP$ that is indexed by a vertex in $C_H$ contains a vertex in $C_G$.
+
+\marc{This result is NOT supposed to be a standalone lemma, I'm just writing this now to have a sketch of the proof done that can be attached to the main proof later}
+\begin{lem}
+    Let $G$ be a \david{connected?} graph embedded in a surface of Euler genus $g$, let $r\in V(G)$ be some root, let $(L_0,L_1,...,L_m)$ be a BFS layering of $G$ where $L_0=\{r\}$, and let $\scr{P}$ be the $H$-partition obtained from \cref{GenusPartition}. Then any $4$-clique in $H$ is realised by at most $27(2g+3)^2$ vertex-disjoint cliques in $G$.
+\end{lem}
+% \robert{I suggest include the simpler lemma statement: Let $G$ be a graph embedded on a surface of Euler genus $g$ and let $P_1,P_2,P_3,P_4$ be vertex disjoint paths in $G$. Suppose $G$ contains $m$ vertex-disjoint $4$-cliques where each clique contain a vertex from $P_i$ for each $i\in \{1,2,3,4\}$. Then $m<2g+3$}
+\begin{proof}
+    First, note that in the partition $\scr{P}$, there exists one part that is the union of at most $2g$ vertical paths, and every other path in the union of at most 3 vertical paths \marc{This detail is not captured by our current statement of Lemma 3 but exists in the statement given by the original paper}\robert{I suggest we just be lazy and go with $(2g+3)^5$}. For the sake of contradiction, suppose there are $27(2g+3)^2$ vertex-disjoint cliques in $G$ all realising the same $4$-clique in $H$. By the pigeonhole principle, since at least three of the parts involved are only comprised of three paths, and the other is comprised of at most $\max{2g,3}\leq 2g+3$ paths, there are at least $2g+3$ vertex-disjoint cliques such that the vertices in the cliques in a given part are contained on a single vertical path. But by contracting three of the four of these vertices parts into a point, we obtain a $K_{3,2g+3}$-minor, which is a contraction.
+\end{proof}
+\robert{Delete the following as it just repeats the above lemma statement?}
+\begin{lem}
+    Let $G$ be a graph embedded in a surface of genus $g$, let $r\in V(G)$ be some root, let $(L_0,L_1,\dots,L_m)$ be a BFS-layering where $L_0=\{r\}$, and let $\scr{P}$ be the partition obtained from Lemma 3, and let $H$ be the new quotient. Then any $4$-clique in $H$ is realised by at most $27(2g+3)^2$ vertex-disjoint cliques in $G$.
+\end{lem}
+
+\marc{The proof in the vortices case follows pretty easily afterwards. Apart from the vortices, you get a clique in the "split" (ie, after removing some layers) quotient only if you have a clique in the original quotient, as when you split a part, the new parts you create are pairwise non-adjacent. The only issue then is then vortices - as the contraction means that vertex disjoint cliques become no longer vertex disjoint. However, in this case, we note that such a clique must exist within layers 2 and 3, and each part contains only a bounded number of vertices, and hence cliques, from each layer.}
+
+%\robert{I believe this is the lemma statement we need for the next section: 
+%For integers $g,p,a\geq 0$ and $k,N\geq 1$, there is an integer $c$ such that every $(g,p,k,a)$-almost embeddable graph $G$ on $n\leq N$, there exists a set $S\subseteq V(G)$ where $|S|\leq c\frac{n}{\sqrt{N}}$ such that $G-S$ has an $H$-partition $\PP$ for some planar graph $H$ where $\tw(H)\leq 3$, $|X|\leq c\sqrt{N}$ for each $X\in\PP$, and any $4$-clique in $H$ is realised by a bounded number of vertex-disjoint cliques in $G$'.
+%}
+
+
+
+
+
+
+
+
+\appendix
+
+\section{Discussion}
+
+It is open whether every $n$-vertex planar graph $G$ is isomorphic to a subgraph of $H \boxtimes K_m$ for some graph $H$ of treewidth at most $2$.
+
+\vida{Can we prove or disapprove something stronger: \\
+(*) Is every $n$-vertex planar graph $G$ isomorphic to a subgraph of $H \boxtimes K_m$ for some graph $H$ where $H$ is a forest plus a dominant vertex, where $m\in O(n^{1/2})?$
+
+\david{Marc, Robert and I spent two hours yesterday trying to answer this without success. A natural approach is to prove that if $S$ is the set of $100\sqrt{n}$ highest degree vertices in a planar graph $G$, then $\tpw(G-S)\in O(\sqrt{n})$. A further natural strengthening would be $\tpw(G)\in O(\tw(G)+\Delta(G))$ for planar $G$, but I suspect this is false: say $G$ is obtained from a $\Delta$-ary tree of height $h$, by adding a path on each layer. Then $\tw(G)\in O(h)$ (and $\in\Theta(h)$ I think), but I don't see a tree-partition of width $o(h\Delta)$. So I suspect that Ding-Oporowski is tight even for planar graphs.}
+
+Both proving or disproving (*) would be useful. \\
+In particular, disapproving (*) would imply a lower bound of 3 in Theorem 1. Just take a planar graph that disproves (*) and add a dominant vertex to that graph. Resulting graph excludes K6 as a minor but would need tw 3 in any O($\sqrt{n}$) H-partition. Unfortunately the tw=1 lower bound graph in Linial, Matousek,Sheffet, and Tardos can be partition into a path + dominant vertex such that each each part has at most $\sqrt{n}$ vertices.
+
+Proving (*) would be even better. It would be interesting in its own right and likely lead to tw=3 improvement but maybe even to tw=2 using the tricks learnt on how to push mess into a dominant vertex. 
+}
+
+
+%\section{Improving \cref{ConstantTwSqrtn}}
+
+%Note that the proof of \cref{CliqueSums} would allow us to handle clique-sum and apices at the same time (by putting all the apex vertices from each $\mathcal{T}_i$ into $Q$, it follows that $|Q|\leq 2k\sqrt{n}$). The following conjecture (if true) should allow us to improve the treewidth of $H$ in \cref{ConstantTwSqrtn} from `at most $6$' to `at most $5$'.
+
+% \begin{conj}
+% For integers $g,p\geq 0$ and $k\geq 1$, there is an integer $c$ such that every $(g,p,k,0)$-almost embeddable graph on $n$ vertices has a partition $\PP$ where $\tw(G/\PP)\leq 3$ and $|X|\leq c\sqrt{n}$ for each $X\in\PP$.
+% \end{conj}
+
+
+% Using the technique of \cref{AlmostEmbeddable4} for dealing with vortices, I believe the following conjecture would imply the above conjecture.
+
+% \begin{conj}
+%     For every graph $G$ on $n$ vertices with bounded Euler genus $g$ and for every \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$, there exists an $H$-partition $\PP$ of $G$ with width at most $c_1\sqrt{n}$ where $\tw(H)\leq 3$ and $|V_i \cap P|\leq c_2$ for each $P \in \PP$ (where $c_1$ and $c_2$ depends only on $g$).
+% \end{conj}
+
+% \robert{I believe that if there exists a \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$ together with a tree-decomposition of $G$ with width $O(\sqrt{n})$ such that each bag intersect $V_1 \cup V_2$ a bounded number of times, then the results in \citet{ISW} imply the above conjecture.}
+
+% \david{Say $G$ has Euler genus $g$. Use the layered tree-decomposition of \citet{DMW17} with \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$. So each bag intersects $V_i$ in at most $2g+3$ vertices. Find $j\in\{3,4,\dots,\sqrt{n}\}$ such that $|\widehat{V_j}|\leq O(\sqrt{n})$. Take disjoint tree-decompositions of the components of $G-\widehat{V_j}$. Add $\hat{V_j}$ to every bag. We get a tree-decomposition of $G$ with width $O(\sqrt{n})$ such that each bag intersects $V_1 \cup V_2$ in at most $4g+6$ vertices.
+% We can discuss on Monday if this gives $\tw$ 5.} \robert{I believe this method should work! I'll need to check \citet{ISW} that it would give $\tw(H)\leq 3$ but I believe it should.} \david{Vida and I just went through it, and believe $\tw 5$ works. Let's start a new section for the $\tw 5$ proof, and then we can remove the old one once we have checked it.}
+
+%\vida{Note that we use a dominating vertex in each almost embeddable part. And then again dominating vertex to in clique sum part to handle $\sqrt{n}$ adhesion vertices. Is there hope to combine these into one dominating vertex and go down to 5 like that. We would have to use sizes of treedecomposition bags if the answer is yes.}
+
+%\vida{ If you have such a large bag with sqrt(n) vertices in dominating part then that bag has Omega(n) vertices.}
+
+%\vida{David and I just worked this out. It seems to work. But also only gives 5} \david{Say the large torsos have size $n_1,\dots,n_s$. In the $i$-th large torso, we can find $\widehat{V_\ell}$ of size at most $\frac{n_i}{\sqrt{n}}$. Add $\widehat{V_\ell}$ to the apex part. This totals $\sum_{i=1}^s \frac{n_i}{\sqrt{n}} \leq \frac{n}{\sqrt{n}}=\sqrt{n}$ vertices. This is another way to get $\tw 5$. Both methods are interesting. So we should probably include both.}
+
+\section{Alternative Proof of \cref{ConstantTwSqrtn}}
+
+\david{I question whether this proof is sufficiently different to justify its inclusion. }\robert{I'm fine for us not to include both proofs particularly given their similarity. There is then the question as to which one we would include as both have their strength and weaknesses.} \david{I would drop this section. You can put the proof in this section in your thesis if you want.}
+
+\citet[Theorem~12]{ISW} proved the following result. 
+
+\begin{lem}[\cite{ISW}]\label{TdecompPartition}
+    Let $G$ be a $K_{s,t}$-minor-free graph, and $(B_x \colon x\in V(T))$ be a tree-decomposition of $G$. Then $G$ has an $H$-partition $\PP$ where each part $X\in \PP$ is contained in the union of at most $t-1$ bags in $(B_x \colon x\in V(T))$ and $\tw(H)\leq s$. 
+\end{lem}
+
+\david{for consistency, \cref{TdecompPartition} should be in the background section.}
+
+%As graphs with Euler genus $g$ are $K_{3,2g+3}$-minor-free, \cref{EulerBFS,TdecompPartition} immediately imply the following.
+
+\begin{lem}\label{bfsPartitionGenus}
+    For every integer $g\geq 0$ there is an integer $c$ \david{$c$ is not mentioned in this lemma} such that for every \david{connected?} $n$-vertex graph $G$ with Euler genus $g$, for every \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$, there is an $H$-partition $\PP$ of $G$ with width at most $8(g+1){\sqrt{gn}}$ where $\tw(H)\leq 3$ and $|X\cap (V_1\cup V_2)|\leq 4(g+1)(2g+3)$ for all $X \in \PP$.
+\end{lem}
+
+\begin{proof}
+    Since graphs with Euler genus $g$ are $K_{3,2g+3}$-minor-free, by \cref{TdecompPartition} it suffices to show that for every  \textsc{bfs}-layering $(V_0,V_1,V_2,\dots)$ of $G$, there is a tree decomposition $(B_x\colon x\in V(T))$ of $G$ with width $4{\sqrt{gn}}$ where $|B_x\cap (V_1\cup V_2)|\leq 4g+6$ for all $x\in V(T)$.
+        
+    \citet[Theorem~12]{DMW17} showed that there is a tree-decomposition $(B_x' \colon x\in V(T'))$ of $G$ where each bag $B_x'$ intersects $V_i$ in at most $2g+3$ vertices\footnote{Note that the proof of \citep[Theorem~12]{DMW17} is in terms of triangulation. However, by considering an appropriate supergraph of $G$ this implies the more general result. \david{Theorem~12 in \citep{DMW17} says ``Every graph $G$ with Euler genus $g$ has layered treewidth at most $2g +3$''. Why do we need this footnote?}}. Let $m:= \ceil{\sqrt{n/g}}+3$. For $\ell\in\{3,4,\dots,m-1\}$, let $\widehat{V}_\ell:= V_\ell \cup V_{\ell+m}\cup V_{\ell+2m} \cup\dots$. Since $|\widehat{V}_3|+|\widehat{V}_4|+\dots+|\widehat{V}_{m-1}| < n$ there exists $\ell\in\{3,4,\dots,m-1\}$ such that $|\widehat{V}_{\ell}|\leq n/(m-3) \leq \sqrt{gn}$ vertices. Let $G_1,\dots,G_j$ be the components of $G-\widehat{V_{\ell}}$. For each $i\in [j]$, let $(B_x^{(i)}\colon x\in V(T_i))$ be a tree-decomposition of $G_i$ where $B_x^{(i)}:= B_x' \cap V(G_i)$ and $T_i$ is a copy of $T'$ (and $T_1,T_2,\dots,T_j$ are pairwise disjoint). Then $|B_x^{(i)}|\leq (2g+3)m$ for all $i\in [j]$ and $x\in V(T_i)$. Add $\hat{V_{\ell}}$ to every bag, and let $T$ be a tree obtained by connecting $T_1,\dots,T_j$ by a minimal set of edges. This gives a tree-decomposition $(B_x\colon x\in V(T))$ of $G$ with width $(2g+3)m+|\widehat{V}_j|-1=  (2g+3)( \ceil{\sqrt{n/g}}+3)+\sqrt{gn}\leq 4{\sqrt{gn}}$ where each bag intersects $V_1 \cup V_2$ in at most $4g+6$ vertices, as required. 
+\end{proof}
+
+\begin{lem}\label{AlternativeAlmostEmbeddable}
+    For integers $g,p\geq 0$ and $k\geq 1$, every $(g,p,k,0)$-almost embeddable graph on $n$ vertices has an $H$-partition with width at most $12(2g+3+2p)^2\sqrt{kn}+k$ and $\tw(H)\leq 3$. Moreover, any clique in a vortex of $G$ is contained in at most two parts.
+\end{lem}
+
+\begin{proof}
+    Let $G_0,G_1,\dots,G_s$ and $F_1,\dots,F_s$ be as in the definition of $(g,p,k,0)$-almost embeddable, where $s\leq p$. 
+	
+    Let $G'_0$ be obtained from $G_0$ as follows. Initialise $G'_0:=G_0$ and add a minimal set of edges so that $G'_0$ is connected and is still embedded in the same surface as $G_0$
+    and $F_1,\dots,F_s$ are faces of $G'_0$. \david{Need to briefly say why these edges can be added} Now apply the following operations to $G_i$ for each $i\in[s]$. Say the cyclic ordering of $V(F_i)$ is $(x_1,\dots,x_f)$. Add a vertex $z_i$ into the face $F_i$ of $G_0$ adjacent to $x_1,\dots,x_m$. Let $(B_1,\dots,B_f)$ be an $F_i$-vortex of $G_i$ with width at most $k$. We may greedily find integers $a_1,\dots,a_q\in\ [f]$  such that $a_1=1$ and if $Z_i:=B_{a_1}\cup\dots\cup B_{a_q}$, then for each $j\in [q]$ the set $Y_{i,j}:=(B_{a_j+1}\cup B_{a_j+2}\cup\dots\cup B_{a_{j+1}-1})\setminus Z_i$ has at least $\sqrt{kn}$ vertices and at most $\sqrt{kn}+k$ vertices, where $a_{q+1}=a_1$. Note that $q \leq n/ \sqrt{kn}=\sqrt{n/k}$ so $|Z_i|\leq kq\leq\sqrt{kn}$. In addition, every clique in $G_i$ is contained in $Y_{i,j}\cup Z_i$ for some $j\in [q]$. In $G'_0$ contract the facial path $(x_{a_j+1},x_{a_j+2},\dots,x_{a_{j+1}-1})$ into a vertex $y_{i,j}$, for each $j\in [q]$. In $G'_0$ contract the edge $z_ix_{a_j}$ into $z_i$ for each $j\in [q]$. Call the vertices $y_{i,j}$ and $z_i$ of $G'_0$ \defn{special}.
+	
+    In $G'_0$, for each $i\in [s-1]$ add a handle between some face incident to $z_i$ and $z_{i+1}$. Add a vertex $r$ to $G'_0$ adjacent to $z_1,\dots,z_s$. Embed $r$ and the edges incident to $r$ in the added handles. Note that $G'_0$ is embedded in a surface with Euler genus at most $g+2(s-1) \leq g+2p-2$. 
+	
+    Let $(V_0,V_1,\dots)$ be a \textsc{bfs}-layering of $G'_0$ where $V_0=\{r\}$. So $V_1=\{z_1,\dots,z_s\}$ and $V_2$ contains all vertices $y_{i,j}$ (possibly plus others). By \cref{bfsPartitionGenus} there is an $H$-partition $\PP'$ of $G'_0$ with width at most $8(g+2p-1){\sqrt{n(g+2p-2)}}$ where $\tw(H)\leq 3$ and $|X\cap (V_1\cup V_2)|\leq 4(g+1)(2g+3)$ for all $X \in \PP'$.
+    
+    We now modify this partition of $G_0'$ to obtain a partition of $G$. Each part $X$ has at most $4(g+1)(2g+3)$ special vertices. In particular, each vertex $y_{i,j}$ (which is in $V_2$) is in some part $X$ of $\PP'$. Replace $y_{i,j}$ in $X$ by $Y_{i,j}$. Similarly, each vertex $z_{i}$ (which is in $V_1$) is in some part $X$ of $\PP'$. Replace $z_i$ in $X$ by $Z_i$. Remove $r$ from the part of $\PP'$ that contains $r$. This defines an $H$-partition $\PP$ of $G$ where every clique in a vortex of $G$ is contained in at most two parts. Moreover, for a part $X\in \PP'$ the corresponding replacements contribute at most $4(g+1)(2g+3)\sqrt{kn}+k$ vertices to $X$. So $|X|\leq 8(g+2p-1){\sqrt{n(g+2p-2)}}+4(g+1)(2g+3)\sqrt{kn}+k\leq 12(2g+3+2p)^2\sqrt{kn}+k $ for all $X \in \PP$.
+\end{proof}
+
+
+\begin{lem}\label{AlternativeCliqueSums}
+    Let $k,p,w,N\geq 1$ be integers, and let $G$ be an $N$-vertex graph with a rooted tree-decomposition $(B_x:x\in V(T))$ of adhesion at most $k$ such that for every $x\in V(T)$:
+    \begin{itemize}
+        \item The torso $\torso{G}{B_x}$ contains a set $A_x\subseteq B_x$ with $|A_x|\leq k$ such that $\torso{G}{B_x}-A_x$ has a $J_x$-partition $\PP_x$ of width at most $b$ where $\tw(J_x)\leq w$; and
+        \item Every child-adhesion clique in $\torso{G}{B_x}-A_x$ is contained in at most $w$ parts in $\PP_x$.
+    \end{itemize}
+     Then $G$ has an $H$-partition of width at most $\max\{p,2k\sqrt{N}\}$ such that $\tw(H)\leq w+1$. Moreover, $H$ contains a vertex $\alpha$ such that $\tw(H-\alpha)\leq 3$.
+\end{lem}
+% Let $k,p,w,n\geq 1$ be integers and let $G$ be an $n$-vertex graph that has a tree-decomposition $(B_x:x \in V(T))$ with adhesion $k$ in which each torso $\torso{G}{B_x}$ is contained in $J_x\boxtimes K_p+K_k$ for some graph $J_x$ with treewidth at most $w$. Then $G$ is contained in $H\boxtimes K_m$ for some graph $H$ with treewidth at most $w+2$, and where $m\leq\max\{p,2\sqrt{kn}\}$.
+
+\begin{proof}
+    Let $r\in V(T)$ be the root of $T$. For every node $x\in V(T)$ with parent $y$, let $X_x:=B_x\cap B_y$ (where $X_r=\emptyset$) and let $B_x':=B_x-X_x$. Observe that $({B}'_x \colon x \in V(T))$ is a partition of $V(G)$. For each $x\in V(T)$, let $\gamma(x):=|B_{x}'|$ be a weighting function of $T$. By \cref{TreeSep} with $m:=\ceil{\sqrt{N}}-1$, there is a set $Z'=\{z_1,\dots,z_{m}\}\subseteq V(T)$ such that each component of $T-Z'$ has total weight at most $\frac{N}{m+1}\leq \sqrt{N}$. Let $z_0:=r$ and let $Z:=Z'\cup \{z_0\}$. Let $(T_0,T_1,\dots,T_m)$ be maximal disjoint subtrees of $T$ where $T_i$ is rooted at $z_i$. For each $i\in [0,m]$, let $G_i:=G[\bigcup(B_x': x \in V(T_i))]$. Let $Q:= \bigcup (X_{z}: z \in Z)$ and observe that $|Q|\leq km \leq k\sqrt{N}$. If there is an edge $xy\in E(T)$, where $y$ is the parent of $x$, and $x\in V(T_i)$ and $y\in V(T_j)$ for distinct $i,j$, then $x=z_i$. Thus $G-Q$ is the disjoint union of $G_0,\dots,G_m$.
+
+     \begin{claim}
+        There exists $A_i\subseteq V(G_i)$ where $|A_i|\leq k$ such that $G_i-A_i$ has an $H_i$-partition of width at most $\max\{b,\sqrt{N}\}$ for some graph $H_i$ with treewidth at most $w$.
+    \end{claim}
+    \begin{proof}
+         Let $C_1,\dots, C_q$ be the components of $G_i-B_{z_i}'$. For each $j\in [q]$, let $T_j'$ be a minimal subtree of $T$ such that $(B_x'\cap V(C_j) \colon x\in V(T_j'))$ is a partition of $C_j$. Since $C_j$ is connected and $C_j\cap B_{z_{\beta}}'=\emptyset$ for all $\beta\in [0,m]$, it follows that $V(T_j')\cap Z=\emptyset$. Thus by \cref{TreeSep}, $|V(C_j)|\leq |\bigcup(B_x' \colon x\in V(T_j'))|\leq \gamma(T_j')\leq \sqrt{N}$. By assumption, there is a set $A_i\subseteq B_{z_i}$ where $|A_i|\leq k$ such that $\torso{G}{B_{z_i}}-A_i$ has a $J_i$-partition $\PP_i'$ with width at most $b$ where $\tw(J_i)\leq w$ and each child-adhesion clique in $\torso{G}{B_{z_i}}-A_{i}$ is contained in at most $w$ parts in $\PP_i'$. Add $V(C_1),\dots, V(C_q)$ to the partition $\PP_i'$ to obtain a partition $\PP_i$ of $G_i-S_i$ with quotient $H_i$. Then $\PP_i$ has width at most $\max\{b,\sqrt{N}\}$. For each $j\in [q]$, let $\alpha_j\in V(H_i)$ be the vertex that indexes $V(C_j)$ and let $N_j$ be the neighbourhood of $\alpha_j$. Now since the neighbourhood of $C_j$ in $G_i$ is a child-adhesion clique in $\torso{G}{B_{z_i}}$, it follows by assumption that $N_j$ is a $(\leq w)$-clique in $J_i$. Thus there is a node $x\in V(T^{(i)})$ such that $N_j\subseteq W_x^{(i)}$. Add a leaf node $\ell$ adjacent to $x$ and let $W_{\ell}^{(i)}:=N_j\cup \{\alpha_j\}$. Repeat this procedure for all $j\in [q]$ to obtain a tree-decomposition of $H_i$ with width at most $w$. Thus $\tw(H_i)\leq w$.
+    \end{proof}
+    Observe that $|(\bigcup A_i:i\in [0,m])|\leq k(m+1)\leq k\sqrt{N}$ so $|Q\cup (\bigcup A_i:i\in [0,m])|\leq 2k\sqrt{N}$. Let $H$ be the graph obtained from the disjoint union of $H_0,\dots, H_m$ by adding one dominant vertex $\alpha$. Then $\tw(H)\leq w+1$. Associate $Q\cup (\bigcup A_i:i\in [0,m])$ with $\alpha$, to obtain an $H$-partition of $G$ with width $\max\{b,2k\sqrt{N}\}$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{ConstantTwSqrtn}]
+    Let $G$ be an $n$-vertex $K_t$-minor-free graph. By \cref{GMSTimproved}, $G$ has a rooted tree-decomposition $(B_x:x\in V(T))$ in which each torso $\torso{G}{B_x}$ is $k$-almost-embeddable (for some $k=k(t)$), and every child-adhesion clique in $\torso{G}{B_x}-A_x$ is either contained in a vortex of $\torso{G}{B_x}$ or is of size $3$. By \citep[Lemma 21]{DMW17}, every clique in a $k$-almost-embeddable graph has at most $9k$ vertices. So the adhesion of $(B_x:x\in V(T))$ is at most $9k$. By \cref{AlternativeAlmostEmbeddable}, $\torso{G}{B_x}-A_x$ has a $J_x$-partition $\PP_x$ for some graph $J_x$ where $\tw(J_x)\leq 3$ and $|X|\leq 12(2k+3+2k)^2\sqrt{kn}+k\leq 2592 k^3\sqrt{n}$ for each $X\in\PP_x$. Moreover, any clique in a vortex of $\torso{G}{B_x}$ is contained in at most two parts in $\PP_x$. As such, every child-adhesion clique in $\torso{G}{B_x}-A_x$ is contained in at most three parts in $\PP_x$. By \cref{AlternativeCliqueSums}, $G$ has an $H$-partition where $H$ contains a vertex $\alpha$ such that $\tw(H-\alpha)\leq 3$ with width at most $m\leq 2592 k^3\sqrt{n}$. Thus by \cref{ObsPartitionProduct}, $G$ is contained in $H\boxtimes K_m$ where $\tw(H)\leq 4$.
+\end{proof}
+\end{document}
+
+
+
+    
+\end{document}
