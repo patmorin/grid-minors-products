@@ -111,8 +111,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\title{\bf\boldmath\fontsize{18pt}{18pt}\selectfont
-Grid Minors and Products}
+\title{\MakeUppercase{Grid Minors and Products}}
 
 \author{
 Vida Dujmovi{\'c}\,\footnotemark[3]\qquad
@@ -301,7 +300,15 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
     \ge n - \tfrac{1}{4}\left(\frac{6n}{\pi^2}\right)\sum_{i=1}^{p-1} 1/i^2
     \ge  n - \tfrac{1}{4}n = \tfrac{3}{4}n \enspace .
   \]
-  Let $L$ be the set of leaves of $T'$.  Each leaf of $T'$ is the upper endpoint of a vertical path in $T$ of order $p$.  Therefore, if $|L|\ge \tfrac{1}{4}n/p$ then we are done, so assume that $|L|<\tfrac{1}{4}n/p$.
+  Let $L$ be the set of leaves of $T'$.  Each leaf of $T'$ is the upper endpoint of a vertical path in $T$ of order $p$.  Therefore, if $|L|\ge \tfrac{1}{4}n/p$ then we are done, so assume that $|L|<\tfrac{1}{4}n/p$.  (See \ref{disjoint_p_paths_figs})
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics{figs/disjoint-paths}
+    \end{center}
+    \caption{Finding paths in the tree $T'$ induced by nodes of height at least $p=4$.}
+    \label{disjoint_p_paths_figs}
+  \end{figure}
 
   Let $S$ be the set of nodes of $T'$ that have two or more children in $T'$.  A standard fact about rooted trees is that the number of leaves in a rooted tree is greater than the number of internal nodes with at least two children.  Therefore, $|S|<|L|\le \tfrac{1}{4}n/p$.
 
@@ -403,8 +410,18 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
 \end{lem}
 
 \begin{proof}
-  Recall that $S_{\ell,p}$ has vertex set $\{v_0\}\cup\{v_{i,j}:(i,j)\in \{1,\ldots,\ell\}\times\{1,\ldots,p\}\}$. For each $i\in\{1,\ldots,\ell\}$ let $A_i=S_{\ell,p}[v_{i,1},\ldots,v_{i,p}]$ denote the $i$th \defn{arm} of $S_{\ell,p}$.  Let $P_1,\ldots,P_{N/p}$ be pairwise vertex-disjoint paths in $T$, each of order $p$.  Let $T_0:=T\boxprod \{v_0\}$, for each $i\in\{1,\ldots,\ell\}$ let $T_i:=T\boxprod A_i$, for each $j\in \{1,\ldots,p\}$, let $T_{i,j}:=T\boxprod \{v_{i,j}\}$, for each $k\in\{1,\ldots,N/p\}$, let $P_{k,i}=P_k\boxprod A_i$ and let $P_{k,i,j}:=P_k\boxprod \{v_{i,j}\}$,
+  Recall that $S_{\ell,p}$ has vertex set $\{v_0\}\cup\{v_{i,j}:(i,j)\in \{1,\ldots,\ell\}\times\{1,\ldots,p\}\}$. For each $i\in\{1,\ldots,\ell\}$ let $A_i=S_{\ell,p}[v_{i,1},\ldots,v_{i,p}]$ denote the $i$th \defn{arm} of $S_{\ell,p}$.  Let $P_1,\ldots,P_{N/p}$ be pairwise vertex-disjoint paths in $T$, each of order $p$.  Let $T_0:=T\boxprod \{v_0\}$, for each $i\in\{1,\ldots,\ell\}$ let $T_i:=T\boxprod A_i$, for each $j\in \{1,\ldots,p\}$, let $T_{i,j}:=T\boxprod \{v_{i,j}\}$, for each $k\in\{1,\ldots,N/p\}$, let $P_{k,i}=P_k\boxprod A_i$ and let $P_{k,i,j}:=P_k\boxprod \{v_{i,j}\}$.
 
+  \begin{figure}
+    \begin{center}
+      \includegraphics[page=4]{figs/product}
+    \end{center}
+    \caption{Visualizing the product in \cref{star_times_star}}
+  \end{figure}
+
+
+
+  Refer to \cref{product_fig}.
   Consider $T_i$ for some $i\in\{1,\ldots,\ell\}$. For visualization purposes, it is helpful to organize $T_i$ into $p$ rows $T_{i,1},\ldots,T_{i,p}$.  For each $j\in\{1,\ldots,p-1\}$, $T_{i,j}$ and $T_{i,j+1}$ are `adjacent' in the sense that each vertex $(a,v_{i,j})\in V(T_{i,j})$ is adjacent to $(a,v_{i,j+1})\in v(T_{i,j+1})$.  We then organize $T_1,\ldots,T_{\ell}$ into a sequence of blocks. These blocks are independent in the sense that there is no edge betwen $T_{i}$ and $T_j$ for any $i\neq j$.  However, there is a hidden row $T_0$ that is adjacent to the first row $T_{i,1}$ of each block $T_i$. Our model of the grid will be broken up into $p/4\times p/4$ subgrids. The branch sets of each subgrid will include a $p/4\times p/4$ grid within the $p\times p$ grid $P_{k,i}$ (which is contained in the block $T_i$) for some $k$ and $i$.  The hidden row $T_0$ will allows to extend the branch sets of boundary vertices of the $p/4\times p/4$ subgrid into $T_{i'}$ for any $i'$ and from there they can be extended so that they are adjacent to other $p/4\times p/4$ subgrids.
 
   We will construct a model of the $\boxplus_{r\times r}$ for some $r\in \Omega(\sqrt{N})$ to be specified shortly.  We partition this model into subgrids of size $p/6\times p/6$.  Therefore, we need $s:=r/(p/6)\times r/(p/6)$ such subgrids $G_1,\ldots,G_s$.   To construct the branch sets for $G_i$ we start with a $p/6\times p/6$ subgrid in $P_{i,i}$ and each vertex of the subgrid is assigned a singleton branch set in the obvious way.  This subgrid has $2p/3-4$ `boundary' vertices, $4$ of which are `corner' vertices. As illustrated in \cref{something}, we create $p$ disjoint paths in $P_{i,i}$ from the boundary vertices to $P_{i,i,1}$.  We then add one vertex of $P_{i,0}$ to each path.  In this way, the first $2p/3$ vertices of the path $P_{i,0}$ are partitioned into four subpaths, each of size $p/6$ corresponding to edges coming out of the left, top, right, and bottom of $G_i$.  The final $p/3$ vertices of $P_{i,0}$ are not yet used.\todo{This should be made more precise, to describe what's happening in the figure.}
