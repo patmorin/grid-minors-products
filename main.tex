@@ -1,4 +1,4 @@
-\documentclass[lotsofwhite]{patmorin}
+\documentclass[kpfonts,lotsofwhite]{patmorin}
 \usepackage[UKenglish]{babel}
 \usepackage[T1]{fontenc}
  % Something in here is breaking cleveref
@@ -40,7 +40,7 @@
 % \setlength{\parskip}{1.2ex}
 % \allowdisplaybreaks
 %%%%%%%%%%
-% \usepackage{todonotes}
+\usepackage{todonotes}
 \graphicspath{{figs/}}
 \usepackage{paralist}
 \newcommand{\boxprod}{\mathbin{\Box}}
@@ -238,7 +238,9 @@ Note that, for any tree with $T$ with $n$ leaves and at least one non-leaf verte
 %   The paths in $\PP$ partition $V(T)\setminus\{x\}$ and each has a subtree rank in the set $\{0,\ldots,\floor{\log_2 (n-1)}\}$.  It follows that, for some $r\in\{0,\ldots,\log_2 (n-1)\}$, the paths in $\PP$ of subtree rank $r$ contain a total of at least $(n-1)/(\floor{\log_2 (n-1)}+1)$ vertices.  By the same reasoning, it follows that for some $s\in\{0,\ldots,\floor{\log_2 (n-1)}\}$, there is a subset $\PP'\subseteq\PP$ that contains a total of at least $(n-1)/(\floor{\log_2 n}+1)^2$ vertices and such that each path in $\PP'$ has subtree rank $r$ and length rank $s$.  Each path in $\PP'$ has length less than $2^{s+1}$, so the number of paths in $\PP'$ is $\ell > (n-1)/2^{s+1}(\floor{\log_2 (n-1)}+1)^2$.  Each path in $\PP'$ has a prefix containing exactly $p:=2^s$ vertices.  Therefore, $p\ell > (n-1)/2(\floor{\log_2 (n-1)}+1)^2$.  Since the paths in $\PP'$ all have the same rank, the component $R$ of $T-\{V(P):P\in\PP'\}$ that contains the root, $x$, of $T$ is adjacent to one endpoint of each path in $\PP'$.
 % \end{proof}
 
-The \defn{length} of a path $v_0,\ldots,v_r$ is the number, $r$, of edges in the path. The \defn{depth} of a node $v$ in a tree $T$ is the length of the path, in $T$, from $v$ to the root of $T$. A path $P$ in a rooted tree $T$ is \defn{vertical} if, for each $i\in\N$, $V(P)$ contains at most one node of depth $i$. The node of minimum-depth in a vertical path is its \defn{upper endpoint} and the node of maximum depth in a vertical path is its \defn{lower endpoint}.  The \defn{height} $h_T(v)$ of a node $v$ in $T$ is the maximum order of a vertical path in $T$ whose upper endpoint is $v$.  For each $i\in\N$, $\mathdefn{H_i(T)}:=\{v\in V(T):h_T(v)=i\}$ and $\mathdefn{n_i(T)}:=|H_i(T)|$.  Two vertices of $T$ are \defn{unrelated} if neither is a $T$-ancestor of the other.  A set $\mathcal{P}:=\{P_1,\ldots,P_r\}$ of paths in $T$ is \defn{unrelated} if, for each distinct $i,j\in\{1,\ldots,r\}$, no vertex in $P_i$ is a $T$-ancestor of a vertex in $P_j$.
+The \defn{length} of a path $v_0,\ldots,v_r$ is the number, $r$, of edges in the path. The \defn{depth} of a node $v$ in a tree $T$ is the length of the path, in $T$, from $v$ to the root of $T$. A path $P$ in a rooted tree $T$ is \defn{vertical} if, for each $i\in\N$, $V(P)$ contains at most one node of depth $i$. The node of minimum-depth in a vertical path is its \defn{upper endpoint} and the node of maximum depth in a vertical path is its \defn{lower endpoint}.  The \defn{height} $h_T(v)$ of a node $v$ in $T$ is the maximum order of a vertical path in $T$ whose upper endpoint is $v$.  For each $i\in\N$, $\mathdefn{H_i(T)}:=\{v\in V(T):h_T(v)=i\}$ and $\mathdefn{n_i(T)}:=|H_i(T)|$.  Two vertices of $T$ are \defn{unrelated} if neither is a $T$-ancestor of the other, otherwise they are \defn{related}.  A pair of paths $P_1$ and $P_2$ in $T$ is \defn{completely unrelated} if $v$ and $w$ are unrelated, for each $v\in V(P_1)$ and each $w\in V(P_2)$.  We say that $P_1$ and $P_2$ are \defn{completely related} if $v$ and $w$ are related, for each $v\in V(P_1)$ and each $w\in V(P_2)$.
+
+
 
 Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint of a vertical path of order $i$, we immediately have the following observation:
 
@@ -246,7 +248,7 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
   For any rooted tree $T$ and any $i\in\N$, $T$ contains an unrelated set of $n_i(T)$ vertical paths, each of order $i$.
 \end{obs}
 
-\begin{lem}\label{newer_subdivided_star_minor}
+\begin{lem}\label{newer_subdivided_star_minor}\label{subdivided_star}
   For every tree $T$ with $n \ge 1$ nodes, there exists integers $\ell$,$p$ with $\ell p^2 \in \Omega(n)$ such that $T$ contains an unrelated set $\{P_1,\ldots,P_\ell\}$ of vertical paths, each of order $p$.
 \end{lem}
 
@@ -278,7 +280,7 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
 
 \cref{newer_subdivided_star_minor} has the following interpretation in terms of subdivided stars.
 
-\begin{cor}\label{subdivided_star_minor_ii}
+\begin{cor}\label{subdivided_star_minor}
   For any connected graph $G$ with $n\ge 2$ vertices, there exists integers $\ell,p$ with $\ell p^2\in\Omega(n)$ such that $S_{\ell,p}\preceq G$.
 \end{cor}
 
@@ -288,24 +290,24 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
 \end{proof}
 
 
-\begin{lem}
-  Let $T$ be a rooted tree with $n\ge 1$ nodes such that $n_i(T)<6\alpha n/(\pi i)^2$ for each $i\in\{1,\ldots,p-1\}$.  Then there exists $\ell'$ with $p\ell'\in \Omega(n)$ such that $T$ contains a set $P_1,\ldots,P_{\ell'}$ of $\ell'$ pairwise-disjoint vertical paths, each of order $p$
+\begin{lem}\label{disjoint_p_paths}
+  Let $T$ be a rooted tree with $n\ge 1$ nodes such that $n_i(T)< \tfrac{1}{4}6n/(\pi i)^2$ for each $i\in\{1,\ldots,p-1\}$.  Then there exists $\ell'$ with $p\ell' \ge (1-3\alpha)n$ such that $T$ contains a set $P_1,\ldots,P_{\ell'}$ of $\ell'$ pairwise-disjoint vertical paths, each of order $p$ and such that $P_i$ is either completely unrelated to $P_j$ or completely related to $P_j$, for each distinct $i,j\in\{1,\ldots,\ell'\}$.
 \end{lem}
 
 \begin{proof}
   Let $T':=T-(\bigcup_{i=1}^{p-1} H_i(T))$ be the subtree of $T$ induced by nodes of height at least $p$.  Then,
   \[
     |T'|\ge |T| - \sum_{i=1}^{p-1} n_i(T)
-    \ge n - \left(\frac{6\alpha n}{\pi^2}\right)\sum_{i=1}^{p-1} 1/i^2
-    \ge  n-\alpha n = (1-\alpha)n \enspace .
+    \ge n - \tfrac{1}{4}\left(\frac{6n}{\pi^2}\right)\sum_{i=1}^{p-1} 1/i^2
+    \ge  n - \tfrac{1}{4}n = \tfrac{3}{4}n \enspace .
   \]
-  Let $L$ be the set of leaves of $T'$.  Each leaf of $T'$ is the upper endpoint of a vertical path in $T$ of order $p$.  Therefore, if $|L|\ge \alpha n/p$ then we are done, so assume that $|L|<\alpha n/p$.
+  Let $L$ be the set of leaves of $T'$.  Each leaf of $T'$ is the upper endpoint of a vertical path in $T$ of order $p$.  Therefore, if $|L|\ge \tfrac{1}{4}n/p$ then we are done, so assume that $|L|<\tfrac{1}{4}n/p$.
 
-  Let $S$ be the set of nodes of $T'$ that have two or more children in $T'$.  A standard fact about rooted trees is that the number of leaves in a rooted tree is greater than the number of internal nodes with at least two children.  Therefore, $|S|<|L|\le \alpha n/p$.
+  Let $S$ be the set of nodes of $T'$ that have two or more children in $T'$.  A standard fact about rooted trees is that the number of leaves in a rooted tree is greater than the number of internal nodes with at least two children.  Therefore, $|S|<|L|\le \tfrac{1}{4}n/p$.
 
-  For each $v\in S\cup L$, let $P_v$ be the vertical path of maximum length whose lower endpoint is $v$ and that does not contain any node in $(S\cup L)\setminus \{v\}$.  Then $\mathcal{P}:=\{P_v:v\in S\cup L\}$ is a partition of $V(T')$ into at most $|S|+|L|\le 2\alpha n/p$ parts, each of which induces a vertical path in $T'$.
+  For each $v\in S\cup L$, let $P_v$ be the vertical path of maximum length whose lower endpoint is $v$ and that does not contain any node in $(S\cup L)\setminus \{v\}$.  Then $\mathcal{P}:=\{P_v:v\in S\cup L\}$ is a partition of $V(T')$ into at most $r:=|S|+|L|\le \tfrac{1}{2}n/p$ parts, each of which induces a vertical path in $T'$.
 
-  Let $\mathcal{P}=\{P_1,\ldots,P_r\}$ and, for each $i\in\{1,\ldots,p\}$, let $P'_i$ be a subpath of $P_i$ of order $\floor{|P_i|/p}$.  Then $\sum_{i=1}^r |P_i'|\ge \sum_{i=1}^r (|P_i|-(p-1)) \ge (1-\alpha) n - (p-1)r\ge (1-3\alpha)n$. For each $i\in\{1,\ldots,r\}$, $P_i'$ can be partitioned in $|P_i'|/p$ vertex-disjoint paths, each of order $p$.  The total number of paths obtained this way is $\ell := (\sum_{i=1}^r |P_i'|/p) \ge (1-3\alpha)n/p$.  Therefore $T$ contains $\ell$ pairwise vertex-disjoint paths, each of order $p$, where $\ell p \ge (1-3\alpha)n$.
+  Let $\mathcal{P}=\{P_1,\ldots,P_r\}$ and, for each $i\in\{1,\ldots,p\}$, let $P'_i$ be a subpath of $P_i$ of order $\floor{|P_i|/p}$.  Then $\sum_{i=1}^r |P_i'|\ge \sum_{i=1}^r (|P_i|-(p-1)) \ge |T'| - (p-1)r\ge \tfrac{3}{4}n-\tfrac{1}{2}n=\tfrac{1}{4}n$. For each $i\in\{1,\ldots,r\}$, $P_i'$ can be partitioned in $|P_i'|/p$ vertex-disjoint paths, each of order $p$.  The total number of paths obtained this way is $\ell := (\sum_{i=1}^r |P_i'|/p) \ge \tfrac{1}{4}n/p$.  Therefore $T$ contains $\ell$ pairwise vertex-disjoint paths, each of order $p$, where $\ell p \ge \tfrac{1}{4}n$.  Except for its lower endpoint, each vertex of $P_i$ has exactly one child in $T$.  This ensure that $P_i$ is either completely related or completely unrelated to $P_j$ for any $i\neq j$.
 \end{proof}
 
 
@@ -394,16 +396,43 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
 
 \subsection{The Product of Two Special Trees}
 
-We now complete the second half of our proof, by showing that two large subdivided stars contain a large grid minor.
+% We now complete the second part of our proof, by showing that the two trees guaranteed by \cref{subdivided_star_minor} and
 
 \begin{lem}\label{star_times_star}
-  Let $p\ge 12$ be a multiple of $4$, let $N$ be a positive multiple of $p$, let $\ell\ge 1$ be integers such that $p^2\ell \ge N$, and let $T$ be a rooted tree that contains $N/p$ pairwise-disjoint vertical paths, each of order $p$.  Then $\gm(T\boxprod S_{\ell,p})\in \Omega(\sqrt{N})$.
+  Let $p\ge 12$ be a multiple of $6$, let $N$ be a positive multiple of $p$, let $\ell\ge 1$ be integers such that $p^2\ell \ge N$, and let $T$ be a rooted tree that contains $N/p$ pairwise-disjoint vertical paths, each of order $p$.  Then $\gm(T\boxprod S_{\ell,p})\in \Omega(\sqrt{N})$.
 \end{lem}
 
 \begin{proof}
   Recall that $S_{\ell,p}$ has vertex set $\{v_0\}\cup\{v_{i,j}:(i,j)\in \{1,\ldots,\ell\}\times\{1,\ldots,p\}\}$. For each $i\in\{1,\ldots,\ell\}$ let $A_i=S_{\ell,p}[v_{i,1},\ldots,v_{i,p}]$ denote the $i$th \defn{arm} of $S_{\ell,p}$.  Let $P_1,\ldots,P_{N/p}$ be pairwise vertex-disjoint paths in $T$, each of order $p$.  Let $T_0:=T\boxprod \{v_0\}$, for each $i\in\{1,\ldots,\ell\}$ let $T_i:=T\boxprod A_i$, for each $j\in \{1,\ldots,p\}$, let $T_{i,j}:=T\boxprod \{v_{i,j}\}$, for each $k\in\{1,\ldots,N/p\}$, let $P_{k,i}=P_k\boxprod A_i$ and let $P_{k,i,j}:=P_k\boxprod \{v_{i,j}\}$,
 
-  Consider $T_i$ for some $i\in\{1,\ldots,\ell\}$. For visualization purposes, it is helpful to organize $T_i$ into $p$ rows $T_{i,1},\ldots,T_{i,p}$.  For each $j\in\{1,\ldots,p-1\}$, $T_{i,j}$ and $T_{i,j+1}$ are `adjacent' in the sense that each vertex $(a,v_{i,j})\in V(T_{i,j})$ is adjacent to $(a,v_{i,j+1})\in v(T_{i,j+1})$.  We then organize $T_1,\ldots,T_{\ell}$ into a sequence of blocks. These blocks are independent in the sense that there is no edge betwen $T_{i}$ and $T_j$ for any $i\neq j$.  However, there is a hidden row $T_0$ that is adjacent to the first row $T_{i,1}$ of each block $T_i$. Our model of the grid will be broken up into $p/4\times p/4$ subgrids. The branch sets of each subgrid will include a $p/4\times p/4$ grid within the $p\times p$ grid $P_{k,i}$ (which is contained in the block $T_i$) for some $k$ and $i$.  The hidden row $T_0$ will allows to extend the branch sets of boundary vertices of the $p/4\times p/4$ subgrid into $T_{i'}$ for any $i'$ and from there they can be extended so that they are adjacent to other $p/4\times p/4$ subgrids. 
+  Consider $T_i$ for some $i\in\{1,\ldots,\ell\}$. For visualization purposes, it is helpful to organize $T_i$ into $p$ rows $T_{i,1},\ldots,T_{i,p}$.  For each $j\in\{1,\ldots,p-1\}$, $T_{i,j}$ and $T_{i,j+1}$ are `adjacent' in the sense that each vertex $(a,v_{i,j})\in V(T_{i,j})$ is adjacent to $(a,v_{i,j+1})\in v(T_{i,j+1})$.  We then organize $T_1,\ldots,T_{\ell}$ into a sequence of blocks. These blocks are independent in the sense that there is no edge betwen $T_{i}$ and $T_j$ for any $i\neq j$.  However, there is a hidden row $T_0$ that is adjacent to the first row $T_{i,1}$ of each block $T_i$. Our model of the grid will be broken up into $p/4\times p/4$ subgrids. The branch sets of each subgrid will include a $p/4\times p/4$ grid within the $p\times p$ grid $P_{k,i}$ (which is contained in the block $T_i$) for some $k$ and $i$.  The hidden row $T_0$ will allows to extend the branch sets of boundary vertices of the $p/4\times p/4$ subgrid into $T_{i'}$ for any $i'$ and from there they can be extended so that they are adjacent to other $p/4\times p/4$ subgrids.
+
+  We will construct a model of the $\boxplus_{r\times r}$ for some $r\in \Omega(\sqrt{N})$ to be specified shortly.  We partition this model into subgrids of size $p/6\times p/6$.  Therefore, we need $s:=r/(p/6)\times r/(p/6)$ such subgrids $G_1,\ldots,G_s$.   To construct the branch sets for $G_i$ we start with a $p/6\times p/6$ subgrid in $P_{i,i}$ and each vertex of the subgrid is assigned a singleton branch set in the obvious way.  This subgrid has $2p/3-4$ `boundary' vertices, $4$ of which are `corner' vertices. As illustrated in \cref{something}, we create $p$ disjoint paths in $P_{i,i}$ from the boundary vertices to $P_{i,i,1}$.  We then add one vertex of $P_{i,0}$ to each path.  In this way, the first $2p/3$ vertices of the path $P_{i,0}$ are partitioned into four subpaths, each of size $p/6$ corresponding to edges coming out of the left, top, right, and bottom of $G_i$.  The final $p/3$ vertices of $P_{i,0}$ are not yet used.\todo{This should be made more precise, to describe what's happening in the figure.}
+
+  Our model is not yet complete.  As is, it is a model of a graph that consists of $s$ components, each of which is a $p/6\times p/6$ grid.  At this point, the vertices in our (not yet-complete) model are all contained in $T_0,T_1,\ldots,T_s$.  This still leaves the vertices of $T_{s+1},\ldots,T_\ell$ unused.  We will use these to extend the models to create the required adjacencies.
+
+  First, suppose that $G_i$ is a subgrid that is immediately to the right of the subgrid $G_j$.  We will extend the branch sets for vertices on the right boundary of $G_i$ so that they become adjacent to the branch sets for vertices in the left boundary of $G_j$. There are two cases to consider.
+
+  \begin{compactitem}
+    \item $P_i$ and $P_j$ are completely related:
+
+    \item $P_i$ and $P_j$ are completely unrelated:
+  \end{compactitem}
+
+
+
+
+  To do this, we will use vertices in $T_{s+1+3(i-1)}$. See \cref{some_figure}. Exactly one vertex $(z,v_0)$ of $P_{i,0}$ correponds to the edge leading from the top left vertex of $G_i$ to the top right vertex of $G_j$.  This vertex is adjacent to
+
+
+
+
+  First, suppose that $G_i$ is a subgrid that is immediately below the subgrid $G_j$.  We will extend the branch sets for vertices in the top of $G_i$ so that they become adjacent to the branch sets for vertices in the bottom of $G_j$. To do this, we will use vertices in $T_{s+1+3(i-1)}$.
+
+
+
+   so that the branch sets of vertices in the top of $G_i$ become adjacent to the branch sets of the vertices in the bottom of $G_j$, where $G_j$ is the subgrid immediately above $G_i$.
+
 
   \pat{Pat is continuing here....}
 
