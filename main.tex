@@ -406,11 +406,11 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
 % We now complete the second part of our proof, by showing that the two trees guaranteed by \cref{subdivided_star_minor} and
 
 \begin{lem}\label{star_times_star}
-  Let $p\ge 12$ be a multiple of $6$, let $N$ be a positive multiple of $p$, let $\ell\ge 1$ be integers such that $p^2\ell \ge N$, and let $T$ be a rooted tree that contains $N/p$ pairwise-disjoint vertical paths, each of order $p$.  Then $\gm(T\boxprod S_{\ell,p})\in \Omega(\sqrt{N})$.
+  Let $p\ge 1$, let $N$ be a positive multiple of $6p$, let $\ell\ge 1$ be integers such that $p^2\ell \ge N$, and let $T$ be a rooted tree that contains $N/6p$ \pat{check} pairwise-disjoint vertical paths, each of order $6p$ such that any pair of these paths is either completely related or completely unrelated.  Then $\gm(T\boxprod S_{\ell,6p})\in \Omega(\sqrt{N})$.
 \end{lem}
 
 \begin{proof}
-  Recall that $S_{\ell,p}$ has vertex set $\{v_0\}\cup\{v_{i,j}:(i,j)\in \{1,\ldots,\ell\}\times\{1,\ldots,p\}\}$. For each $i\in\{1,\ldots,\ell\}$ let $A_i=S_{\ell,p}[v_{i,1},\ldots,v_{i,p}]$ denote the $i$th \defn{arm} of $S_{\ell,p}$.  Let $P_1,\ldots,P_{N/p}$ be pairwise vertex-disjoint paths in $T$, each of order $p$.  Let $T_0:=T\boxprod \{v_0\}$, for each $i\in\{1,\ldots,\ell\}$ let $T_i:=T\boxprod A_i$, for each $j\in \{1,\ldots,p\}$, let $T_{i,j}:=T\boxprod \{v_{i,j}\}$, for each $k\in\{1,\ldots,N/p\}$, let $P_{k,i}=P_k\boxprod A_i$ and let $P_{k,i,j}:=P_k\boxprod \{v_{i,j}\}$.
+  Recall that $S_{\ell,6p}$ has vertex set $\{v_0\}\cup\{v_{i,j}:(i,j)\in \{1,\ldots,\ell\}\times\{1,\ldots,6p\}\}$. For each $i\in\{1,\ldots,\ell\}$ let $A_i=S_{\ell,p}[v_{i,1},\ldots,v_{i,6p}]$ denote the $i$th \defn{arm} of $S_{\ell,6p}$.  Let $P_1,\ldots,P_{N/6p}$ be pairwise vertex-disjoint paths in $T$, each of order $p$.  For each $i\in\{1,\ldots,N/p\}$ let $P_i:= p_{i,1},\ldots,p_{i,p} wehre $p_{i,1}$ is the endpoint of $P_i$ closest to the root of $T$.  Let $T_0:=T\boxprod \{v_0\}$.  For each $i\in\{1,\ldots,\ell\}$ let $T_i:=T\boxprod A_i$, for each $j\in \{1,\ldots,p\}$, let $T_{i,j}:=T\boxprod \{v_{i,j}\}$, for each $k\in\{1,\ldots,N/p\}$, let $P_{k,i}=P_k\boxprod A_i$ and let $P_{k,i,j}:=P_k\boxprod \{v_{i,j}\}$.
 
   \begin{figure}
     \begin{center}
@@ -419,84 +419,10 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
     \caption{Visualizing the product in \cref{star_times_star}}
   \end{figure}
 
-
-
   Refer to \cref{product_fig}.
-  Consider $T_i$ for some $i\in\{1,\ldots,\ell\}$. For visualization purposes, it is helpful to organize $T_i$ into $p$ rows $T_{i,1},\ldots,T_{i,p}$.  For each $j\in\{1,\ldots,p-1\}$, $T_{i,j}$ and $T_{i,j+1}$ are `adjacent' in the sense that each vertex $(a,v_{i,j})\in V(T_{i,j})$ is adjacent to $(a,v_{i,j+1})\in v(T_{i,j+1})$.  We then organize $T_1,\ldots,T_{\ell}$ into a sequence of blocks. These blocks are independent in the sense that there is no edge betwen $T_{i}$ and $T_j$ for any $i\neq j$.  However, there is a hidden row $T_0$ that is adjacent to the first row $T_{i,1}$ of each block $T_i$. Our model of the grid will be broken up into $p/4\times p/4$ subgrids. The branch sets of each subgrid will include a $p/4\times p/4$ grid within the $p\times p$ grid $P_{k,i}$ (which is contained in the block $T_i$) for some $k$ and $i$.  The hidden row $T_0$ will allows to extend the branch sets of boundary vertices of the $p/4\times p/4$ subgrid into $T_{i'}$ for any $i'$ and from there they can be extended so that they are adjacent to other $p/4\times p/4$ subgrids.
+  Consider $T_i$ for some $i\in\{1,\ldots,\ell\}$. For visualization purposes, it is helpful to organize $T_i$ into $p$ rows $T_{i,1},\ldots,T_{i,p}$.  For each $j\in\{1,\ldots,p-1\}$, $T_{i,j}$ and $T_{i,j+1}$ are `adjacent' in the sense that each vertex $(a,v_{i,j})\in V(T_{i,j})$ is adjacent to $(a,v_{i,j+1})\in v(T_{i,j+1})$.  We then organize $T_1,\ldots,T_{\ell}$ into a sequence of blocks. These blocks are independent in the sense that there is no edge betwen $T_{i}$ and $T_j$ for any $i\neq j$.  However, there is a hidden row $T_0$ that is adjacent to the first row $T_{i,1}$ of each block $T_i$. Our model of the grid will be broken up into $p\times p$ subgrids. The branch sets of each subgrid will include a $p\times p$ grid within the $6p\times 6p$ grid $P_{k,i}$ (which is contained in the block $T_i$) for some $k$ and $i$.  The hidden row $T_0$ will allow us to extend the branch sets of the $4p-4$ boundary vertices of the $p\times p$ subgrid into $T_{i'}$ for any $i'$ and from there they can be extended so that they are adjacent to other $p\times p$ subgrids.
 
-  We will construct a model of the $\boxplus_{r\times r}$ for some $r\in \Omega(\sqrt{N})$ to be specified shortly.  We partition this model into subgrids of size $p/6\times p/6$.  Therefore, we need $s:=r/(p/6)\times r/(p/6)$ such subgrids $G_1,\ldots,G_s$.   To construct the branch sets for $G_i$ we start with a $p/6\times p/6$ subgrid in $P_{i,i}$ and each vertex of the subgrid is assigned a singleton branch set in the obvious way.  This subgrid has $2p/3-4$ `boundary' vertices, $4$ of which are `corner' vertices. As illustrated in \cref{something}, we create $p$ disjoint paths in $P_{i,i}$ from the boundary vertices to $P_{i,i,1}$.  We then add one vertex of $P_{i,0}$ to each path.  In this way, the first $2p/3$ vertices of the path $P_{i,0}$ are partitioned into four subpaths, each of size $p/6$ corresponding to edges coming out of the left, top, right, and bottom of $G_i$.  The final $p/3$ vertices of $P_{i,0}$ are not yet used.\todo{This should be made more precise, to describe what's happening in the figure.}
-
-  Our model is not yet complete.  As is, it is a model of a graph that consists of $s$ components, each of which is a $p/6\times p/6$ grid.  At this point, the vertices in our (not yet-complete) model are all contained in $T_0,T_1,\ldots,T_s$.  This still leaves the vertices of $T_{s+1},\ldots,T_\ell$ unused.  We will use these to extend the models to create the required adjacencies.
-
-  First, suppose that $G_i$ is a subgrid that is immediately to the right of the subgrid $G_j$.  We will extend the branch sets for vertices on the right boundary of $G_i$ so that they become adjacent to the branch sets for vertices in the left boundary of $G_j$. There are two cases to consider.
-
-  \begin{compactitem}
-    \item $P_i$ and $P_j$ are completely related (see \cref{straight}):
-
-    \begin{figure}
-      \begin{center}
-        \includegraphics{figs/straight}
-      \end{center}
-      \caption{connecting the left side of $G_i$ to the right side of $G_j$ when $P_i$ and $P_j$ are completely related.}
-      \label{straight}
-    \end{figure}
-
-    \item $P_i$ and $P_j$ are completely unrelated (see \cref{reverso}):
-
-    \begin{figure}
-      \begin{center}
-        \includegraphics{figs/reverso}
-      \end{center}
-      \caption{connecting the left side of $G_i$ to the right side of $G_j$ when $P_i$ and $P_j$ are completely unrelated.}
-      \label{reverso}
-    \end{figure}
-
-  \end{compactitem}
-
-
-
-
-  To do this, we will use vertices in $T_{s+1+3(i-1)}$. See \cref{some_figure}. Exactly one vertex $(z,v_0)$ of $P_{i,0}$ correponds to the edge leading from the top left vertex of $G_i$ to the top right vertex of $G_j$.  This vertex is adjacent to
-
-
-
-
-  First, suppose that $G_i$ is a subgrid that is immediately below the subgrid $G_j$.  We will extend the branch sets for vertices in the top of $G_i$ so that they become adjacent to the branch sets for vertices in the bottom of $G_j$. To do this, we will use vertices in $T_{s+1+3(i-1)}$.
-
-
-
-   so that the branch sets of vertices in the top of $G_i$ become adjacent to the branch sets of the vertices in the bottom of $G_j$, where $G_j$ is the subgrid immediately above $G_i$.
-
-
-  \pat{Pat is continuing here....}
-
-
-  Refer to \cref{t1xt2}.
-  Without loss of generality, assume $p_1\ge p_2$, so $p=p_2$.    Let $x_0$ denote the root of $S_{\ell_1,p_1}$ and let $X_1,\ldots,X_{\ell_1}$ denote the components of $S_{\ell_1,p_1}-\{x_0\}$ (each of which is a path of length  $p_1$).  For each $i\in[\ell_1]$, let $x_{i,1},\ldots,x_{i,p_1}$ denote the vertices of the path $X_i$ ordered so that $x_{i,j}$ has distance $j$ from the root of $S_{\ell_1,p_1}$.   Let $y_0$ denote root of $S_{\ell_2,p_2}$ and let $Y_1,\ldots,Y_{\ell_2}$ denote the components of $S_{\ell_2,p_2}-\{y_0\}$.  For each $(i,j)\in [\ell_1]\times [\ell_2]$, the graph $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ contains the subgraph $G_{i,j}:=X_i\boxprod Y_j$ which is isomorphic to the $p_1\times p$ grid. We remark that, for any $(i_1,j_1)\neq(i_2,j_2)$, $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint.
-
-  \begin{figure}
-    \begin{center}
-      \includegraphics{t1xt2}
-    \end{center}
-    \caption{The graph $S_{2,12}\boxprod S_{3,4}$ is made up of $6$ vertex-disjoint $12\times 4$ grids $G_{1,1},\ldots,G_{2,3}$ joined by $2$ (horizontal) paths, each of size $12$ and $3$ (vertical) paths, each of size $4$.  (The vertex $(x_0,y_0)$ is ommitted from this drawing.)}
-    \label{t1xt2}
-  \end{figure}
-
-  Let $p_0$ be a fixed positive integer whose value is discussed below. If $p \le p_0$, then $\ell_2 p_0 \ge \ell_2 p_2 \ge N$, so $\ell_2\ge N/p_0$.  In this case $S_{\ell_2,p_2}$ contains a subgraph isomorphic to $S_{\ceil{N/p_0}}$.  By \cref{anything_times_star}, $K_{\ceil{N/p_0}}\preceq S_{\ell_1,p_1}\boxprod S_{\ceil{N/p_0}} \preceq S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$.  Since $\gm(K_{\ceil{N/p_0}}) = \floor{\sqrt{N/p_0}}$, this implies that $\gm(S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}) \ge \floor{\sqrt{N/p_0}}\ge \floor{\sqrt{pN}/p_0}=\Omega(\sqrt{pN})$.  Therefore, we may assume that $p\ge p_0$.
-
-  TODO: Using the lower bound on $p$, explain how to reduce the values of $\ell_i$ and $p_i$ by constant factors so that
-   \begin{compactenum}
-     \item $p$ is even;
-     \item $p_1 = 3ap$ for some positive integer $a$;
-     \item $\ell_1p_1 = 4N$ and $\ell_2 p=5N$; and
-     \item $N/p$ is a perfect square
-   \end{compactenum}
-   % By reducing $p_1$ by a factor of at most two, we may assume that $p$ divides $p_1$, so $p_1=ap$ for some integer $a\ge 1$.  If $k_2 < a$ then we may discard paths in $\PP_1$ to reduce their number to $k_2$ and shorten each path in $\PP_1$ so that they all have $p_2$ vertices.  This does not change $N$ or $p$.  If $k_2 \ge a$ then we can discard $k_2\bmod a$ paths from $\PP_2$ so that $k_2$ becomes a multiple of $a$.  This reduces $k_2$ by a factor of at most two.  Finally, we can remove paths from $\PP_1$ so that $p_1k_1 = apk_1 = pk_2$.  This does not decrease $p$ or $N$.  Therefore, we may assume that $\PP_1:=\{P_{1,1},\ldots,P_{1,k}\}$ contains $k$ paths, each of having $ap$ vertices and $\PP_2:=\{P_{2,1},\ldots,P_{2,ak}\}$ contains $ak$ paths, each having $p$ vertices.  In this way, $N=apk$.
-
-
-  Our plan is to piece together $N/p$ disjoint models of $\boxplus_{p/2}$ in order to obtain a model of a grid with side length $\tfrac{p}{2}\sqrt{N/p}=\tfrac{1}{2}\sqrt{pN}$.  Refer to \cref{subgrid}.  Observe that, within $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$, each vertex in the first row of $G_{i,j}$ is adjacent to a distinct vertex in $X_i\times\{y_0\}$. It is helpful to think of $X_i\times\{y_0\}$ as a hidden zeroth row of $G_{i,j}$ and note that this row is shared among $G_{i,j'}$ for all $j\in[\ell_2]$.  We use the notation $G_{i,j}^+$ to denote the subgraph of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ induced by $V(G_{i,j})\cup (X_i\times\{y_0\})$
-
-  As illustrated in \cref{subgrid}, $G_{i,j}^+$ contains a model of $\boxplus_{p/2}$ in which each of the four degree-$2$ vertices of $\boxplus_{p/2}$ has a branch set that contains two distinct vertex of $X_i\times\{y_0\}$ and each of the $2p-4$ degree-$3$ vertices of $\boxplus_{p/2}$ has a branch set that contains one distinct vertex in $X_i\times\{y_0\}$.  In all, these branch sets contain exactly $2p$ vertices, $\{x_{i,s},x_{i,s+1},\ldots,x_{i,s+2p-1}\}\times\{y_0\}$, of the path $X_i\boxprod\{y_0\}$. We call this model is the \defn{canonical model} of $\boxplus_{p/2}$ in $G_{i,j}^+$ that \defn{starts} at $x_{i,s}$.
+  We will construct a model of the $\boxplus_{r\times r}$ for some $r\in \Omega(\sqrt{N})$ to be specified shortly.  We partition this model into subgrids of size $p\times p$.  Therefore, we need $s:=(r/p)\times (r/p)$ such subgrids $G_1,\ldots,G_s$.  Refer to \cref{subgrid}   To construct the branch sets for $G_i$ we start with a $p\times p$ subgrid in $P_{i,i}$ and each vertex of the subgrid is assigned a singleton branch set in the obvious way.  This subgrid has $p-4$ `boundary' vertices, $4$ of which are `corner' vertices. As illustrated in \cref{subgrid}, we create $4p$ disjoint paths in $P_{i,i}$ from the boundary vertices to $P_{i,i,1}$.  We then add one vertex of $P_{i,0}$ to each path.  In this way, the first $4p$ vertices of the path $P_{i,0}$ are partitioned into four subpaths, each of size $p$ corresponding to edges coming out of the left, top, right, and bottom of boundary of $G_i$.  The final $2p$ vertices of $P_{i,0}$ are not yet used.\todo{This should be made more precise, to describe what's happening in the figure.}
 
   \begin{figure}
     \begin{center}
@@ -506,42 +432,116 @@ Since each pair of vertices in $H_i(T)$ is unrelated and is the upper endpoint o
     \label{subgrid}
   \end{figure}
 
-  For each $k\in[N/p]$ we let $\mathcal{M}_k$ be the canonical model of $\boxplus_{p/2}$ in $G_{\ceil{k/a},5k}^+$ and that starts at $x_{\ceil{k/3p},1+3p(k\bmod a)}$.  Before continuing, it is worth discussing the choices of parameters that define $\mathcal{M}_k$.  Let $i:=\ceil{k/a}$, let $j:=5k$, and let $s:=1+3p(k\bmod a)$.  We can think of $G_{1,1},\ldots,G_{\ell_1,\ell_2}$ as being organized into an $\ell_1\times \ell_2$ matrix with $\ell_1$ columnns and $\ell_2$ rows, as in \cref{t1xt2}.  In this matrix, rows $j,\ldots,j+4$ are devoted entirely to $\mathcal{M}_{k}$.  On the other hand, each column $i$ of this matrix will contain $a$ models of $\boxplus_{p/2}$.  Each of these models will use some of the $3ap$ vertices in $X_i\boxprod\{y_0\}$.  The choice of starting point $s$ ensures that $3p$ of the vertices in $X_i\boxprod\{y_0\}$ can be used by $\mathcal{M}_k$.
+  Our model is not yet complete.  As is, it is a model of a graph that consists of $s$ components, each of which is a $p\times p$ grid.  At this point, the vertices in our (not yet-complete) model are all contained in $T_0,T_1,\ldots,T_s$, where $T_i$ contains the branch sets for $G_i$ for each $i\in\{1,\ldots,s\}$.  This still leaves the vertices of $T_{s+1},\ldots,T_\ell$ unused.  We will use these to extend the branch sets of each subgrid $G_i$ to create the required adjacencies.  For each $i\in\{1,\ldots,s\}$, the vertices of $T_{s+4i-3},\ldots,T_{s+4i}$ will be reserved for the branch sets of $G_i$.
+
+  First, suppose that $G_i$ is a subgrid that is immediately to the right of some subgrid $G_j$, so that the left boundary of $G_i$ is adjacent to the right boundary of $G_j$.  We will extend the branch sets for vertices on the left boundary of $G_i$ so that they become adjacent to the branch sets for vertices in the right boundary of $G_j$. Let $x_1,\ldots,x_p$ be the vertices on the left boundary of $G_i$, ordered from top to bottom and, for each $k\in\{1,\ldots,p\}$, let $x_k':=p_{i,k}$ so that $(x_k',v_0)$ is already included in the branch set for $x_k$.  Let $y_0,\ldots,y_p$ be the vertices on the right boundary of $G_j$, ordered from top to bottom and, for each $k\in\{1,\ldots,p\}$, let $y_k':=p_{j,2p+k}$ so that $(y_k',v_0)$ is already included in the branch set of $y_k$. There are two cases to consider.
+
+  \begin{itemize}
+    \item $P_i$ and $P_j$ are completely related (see \cref{straight}): We will extend the branch sets of $x_1,\ldots,x_k$ into $T_{s+4i-3}$.  For each $k\in\{1,\ldots,p\}$, we extend the branch set of $x_k$ so that it includes the path $(x_k',v_{s+4i-3,1}),\ldots,(x_k',v_{s+4i-3,k})$, the path
+    $(y_k',v_{s+4i-3,k}),\ldots,(y_k',v_{s+4i-3,1})$, and the path in $T_{s+4i-3,k}$ from $(x_k',v_{s+4i-3,k})$ to $(y_k',v_{s+4i-3,k})$.  The first vertex $(x_k',v_{s+4i-3,1})$ of this path is adjacent to $(x_k',v_0)$, which ensures that the branch set for $x_k$ is connected.  The last vertex $(y_k',v_{s+4i-3,1})$ is adjacent to $(y_k',v_0)$ which ensures that the branch sets for $x_k$ and $y_k$ are adjacent.
+
+    \begin{figure}
+      \begin{center}
+        \includegraphics{figs/straight}
+      \end{center}
+      \caption{connecting the left side of $G_i$ to the right side of $G_j$ when $P_i$ and $P_j$ are completely related.}
+      \label{straight}
+    \end{figure}
+
+    \item $P_i$ and $P_j$ are completely unrelated (see \cref{reverso}): We will extend the branch sets of $x_1,\ldots,x_k$ into $T_{s+4i-3}$ and $T_{s+4i-2}$. To make the connection between thse two trees we will use an additional $p$ vertices of $P_{i,0}$.  The need for a second tree in this case is due to the fact that the obvious paths in $T_{s+4i-3}$ that were used in the previous case would either intersect each other or reverse the order of connections so that the top-left vertex of $G_i$ would become adjacent to the bottom-right vertex of $G_j$. Routing these paths through two trees allows us to make the connections in the right order using pairwise vertex-disjoint paths. \pat{Continue here.}  
+
+    \begin{figure}
+      \begin{center}
+        \includegraphics{figs/reverso}
+      \end{center}
+      \caption{connecting the left side of $G_i$ to the right side of $G_j$ when $P_i$ and $P_j$ are completely unrelated.}
+      \label{reverso}
+    \end{figure}
+
+  \end{itemize}
+
+
+
+
+  % To do this, we will use vertices in $T_{s+1+3(i-1)}$. See \cref{some_figure}. Exactly one vertex $(z,v_0)$ of $P_{i,0}$ correponds to the edge leading from the top left vertex of $G_i$ to the top right vertex of $G_j$.  This vertex is adjacent to
+  %
+  %
+  %
+  %
+  % First, suppose that $G_i$ is a subgrid that is immediately below the subgrid $G_j$.  We will extend the branch sets for vertices in the top of $G_i$ so that they become adjacent to the branch sets for vertices in the bottom of $G_j$. To do this, we will use vertices in $T_{s+1+3(i-1)}$.
+  %
+  %
+  %
+  %  so that the branch sets of vertices in the top of $G_i$ become adjacent to the branch sets of the vertices in the bottom of $G_j$, where $G_j$ is the subgrid immediately above $G_i$.
+  %
+  %
+  % \pat{Pat is continuing here....}
+  %
+  %
+  % Refer to \cref{t1xt2}.
+  % Without loss of generality, assume $p_1\ge p_2$, so $p=p_2$.    Let $x_0$ denote the root of $S_{\ell_1,p_1}$ and let $X_1,\ldots,X_{\ell_1}$ denote the components of $S_{\ell_1,p_1}-\{x_0\}$ (each of which is a path of length  $p_1$).  For each $i\in[\ell_1]$, let $x_{i,1},\ldots,x_{i,p_1}$ denote the vertices of the path $X_i$ ordered so that $x_{i,j}$ has distance $j$ from the root of $S_{\ell_1,p_1}$.   Let $y_0$ denote root of $S_{\ell_2,p_2}$ and let $Y_1,\ldots,Y_{\ell_2}$ denote the components of $S_{\ell_2,p_2}-\{y_0\}$.  For each $(i,j)\in [\ell_1]\times [\ell_2]$, the graph $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ contains the subgraph $G_{i,j}:=X_i\boxprod Y_j$ which is isomorphic to the $p_1\times p$ grid. We remark that, for any $(i_1,j_1)\neq(i_2,j_2)$, $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint.
+  %
+  % \begin{figure}
+  %   \begin{center}
+  %     \includegraphics{t1xt2}
+  %   \end{center}
+  %   \caption{The graph $S_{2,12}\boxprod S_{3,4}$ is made up of $6$ vertex-disjoint $12\times 4$ grids $G_{1,1},\ldots,G_{2,3}$ joined by $2$ (horizontal) paths, each of size $12$ and $3$ (vertical) paths, each of size $4$.  (The vertex $(x_0,y_0)$ is ommitted from this drawing.)}
+  %   \label{t1xt2}
+  % \end{figure}
+  %
+  % Let $p_0$ be a fixed positive integer whose value is discussed below. If $p \le p_0$, then $\ell_2 p_0 \ge \ell_2 p_2 \ge N$, so $\ell_2\ge N/p_0$.  In this case $S_{\ell_2,p_2}$ contains a subgraph isomorphic to $S_{\ceil{N/p_0}}$.  By \cref{anything_times_star}, $K_{\ceil{N/p_0}}\preceq S_{\ell_1,p_1}\boxprod S_{\ceil{N/p_0}} \preceq S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$.  Since $\gm(K_{\ceil{N/p_0}}) = \floor{\sqrt{N/p_0}}$, this implies that $\gm(S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}) \ge \floor{\sqrt{N/p_0}}\ge \floor{\sqrt{pN}/p_0}=\Omega(\sqrt{pN})$.  Therefore, we may assume that $p\ge p_0$.
+  %
+  % TODO: Using the lower bound on $p$, explain how to reduce the values of $\ell_i$ and $p_i$ by constant factors so that
+  %  \begin{compactenum}
+  %    \item $p$ is even;
+  %    \item $p_1 = 3ap$ for some positive integer $a$;
+  %    \item $\ell_1p_1 = 4N$ and $\ell_2 p=5N$; and
+  %    \item $N/p$ is a perfect square
+  %  \end{compactenum}
+   % By reducing $p_1$ by a factor of at most two, we may assume that $p$ divides $p_1$, so $p_1=ap$ for some integer $a\ge 1$.  If $k_2 < a$ then we may discard paths in $\PP_1$ to reduce their number to $k_2$ and shorten each path in $\PP_1$ so that they all have $p_2$ vertices.  This does not change $N$ or $p$.  If $k_2 \ge a$ then we can discard $k_2\bmod a$ paths from $\PP_2$ so that $k_2$ becomes a multiple of $a$.  This reduces $k_2$ by a factor of at most two.  Finally, we can remove paths from $\PP_1$ so that $p_1k_1 = apk_1 = pk_2$.  This does not decrease $p$ or $N$.  Therefore, we may assume that $\PP_1:=\{P_{1,1},\ldots,P_{1,k}\}$ contains $k$ paths, each of having $ap$ vertices and $\PP_2:=\{P_{2,1},\ldots,P_{2,ak}\}$ contains $ak$ paths, each having $p$ vertices.  In this way, $N=apk$.
+
+
+  % Our plan is to piece together $N/p$ disjoint models of $\boxplus_{p/2}$ in order to obtain a model of a grid with side length $\tfrac{p}{2}\sqrt{N/p}=\tfrac{1}{2}\sqrt{pN}$.  Refer to \cref{subgrid}.  Observe that, within $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$, each vertex in the first row of $G_{i,j}$ is adjacent to a distinct vertex in $X_i\times\{y_0\}$. It is helpful to think of $X_i\times\{y_0\}$ as a hidden zeroth row of $G_{i,j}$ and note that this row is shared among $G_{i,j'}$ for all $j\in[\ell_2]$.  We use the notation $G_{i,j}^+$ to denote the subgraph of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ induced by $V(G_{i,j})\cup (X_i\times\{y_0\})$
+  %
+  % As illustrated in \cref{subgrid}, $G_{i,j}^+$ contains a model of $\boxplus_{p/2}$ in which each of the four degree-$2$ vertices of $\boxplus_{p/2}$ has a branch set that contains two distinct vertex of $X_i\times\{y_0\}$ and each of the $2p-4$ degree-$3$ vertices of $\boxplus_{p/2}$ has a branch set that contains one distinct vertex in $X_i\times\{y_0\}$.  In all, these branch sets contain exactly $2p$ vertices, $\{x_{i,s},x_{i,s+1},\ldots,x_{i,s+2p-1}\}\times\{y_0\}$, of the path $X_i\boxprod\{y_0\}$. We call this model is the \defn{canonical model} of $\boxplus_{p/2}$ in $G_{i,j}^+$ that \defn{starts} at $x_{i,s}$.
+  %
+
+  % For each $k\in[N/p]$ we let $\mathcal{M}_k$ be the canonical model of $\boxplus_{p/2}$ in $G_{\ceil{k/a},5k}^+$ and that starts at $x_{\ceil{k/3p},1+3p(k\bmod a)}$.  Before continuing, it is worth discussing the choices of parameters that define $\mathcal{M}_k$.  Let $i:=\ceil{k/a}$, let $j:=5k$, and let $s:=1+3p(k\bmod a)$.  We can think of $G_{1,1},\ldots,G_{\ell_1,\ell_2}$ as being organized into an $\ell_1\times \ell_2$ matrix with $\ell_1$ columnns and $\ell_2$ rows, as in \cref{t1xt2}.  In this matrix, rows $j,\ldots,j+4$ are devoted entirely to $\mathcal{M}_{k}$.  On the other hand, each column $i$ of this matrix will contain $a$ models of $\boxplus_{p/2}$.  Each of these models will use some of the $3ap$ vertices in $X_i\boxprod\{y_0\}$.  The choice of starting point $s$ ensures that $3p$ of the vertices in $X_i\boxprod\{y_0\}$ can be used by $\mathcal{M}_k$.
 
   % We claim that, for any $1\le k_1 < k_2\le N/p$, $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are vertex disjoint, that is $\cup\mathcal{M}_{k_1}\cap\cup\mathcal{M}_{k_2}=\emptyset$. Let $i_b:=\ceil{k_b/a}$ and $j_b:=5k_b$ for each $b\in\{1,2\}$.  Then $\cup\mathcal{M}_{k_b}\subseteq V(G^+{i_b,j_b})$ for each $b\in\{1,2\}$. The subgraphs $G_{i_1,j_1}$ and $G_{i_2,j_2}$ are vertex disjoint, except when $i:=i_1=i_2$, in which case these two graphs both contain all the vertices in $X_i\times\{y_0\}$.
   % However, $\mathcal{M}_{k_1}$ starts at $(x_{i,1+3p(k_1\bmod a)},y_0)$ while $\mathcal{M}_{k_2}$ starts at $(x_{i,1+3p(k_2\bmod a)},y_0)$.  Since $\ceil{k_1/a}=i_1=i_2\ceil{k_2/a}$ and $k_1\neq k_2$, $1 \le |k_1-k_2| < ap$, so $k_1\bmod a\neq k_2\bmod a$.  Therefore $(x_{i,1+3p(k_1\bmod a)},y_0)$ and $(x_{i,1+3p(k_2\bmod a)},y_0)$ are separated by at least $3p$ vertices $X_i\boxprod\{y_0\}$.  Since each of these models uses only $2p$ consecutive vertices of $X_i\boxprod\{y_0\}$, there is no vertex of $X_i\boxprod\{y_0\}$ used in both models.
 
-  In order to merge these $N/p$ vertex disjoint models of $\boxplus_{p/2}$ into a single model of $\boxplus_{\tfrac 12\sqrt{pN}}$, some of the branch sets of each model $\mathcal{M}_k$ will be extended so that they become adjacent the appropriate branch sets in some other models.  In particular, if $\mathcal{M}_k$ has a $\boxplus_{p/2}$ model $\mathcal{M}_{k'}$ to its left, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the left boundary of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k'}$ corresponding to the right boundary of $\boxplus_{p/2}$.  Similarly, if some $\boxplus_{p/2}$ model $\mathcal{M}_{k''}$ is directly above $\mathcal{M}_k$, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the top of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k''}$ corresponding to the bottom boundary of $\boxplus_{p/2}$.  We now explain how to do this.
-
-  Let $i:=\ceil{k/a}$, $j:=5k$, and $s:=1+3p(k\bmod a)$. Define $i'$, $j'$, and $s'$ similarly, using $k'$ in place of $k$.  To extend the branch sets from $\mathcal{M}_k$ to $\mathcal{M}_{k'}$ we will make use of vertices in $G_{i,j+1}$, $G_{i,j+2}$ and $G_{i',j+2}$, none of which contains vertices used by $\mathcal{M}_t$ for any $t\in[N/p]$.  It will also make use of an additional $p/2$ vertices of $X_i\boxprod\{y_0\}$.\footnote{The additional vertices of  $X_i\boxprod\{y_0\}$ that are used when extending $\mathcal{M}_k$ is the reason we have chosen $p_1=3ap$ rather than $p_1=2ap$.  We are reserving $3p$ consecutive vertices of $X_{i}\boxprod\{y_0\}$ for $\mathcal{M}_k$.}  There are two cases to consider:
-  \begin{compactenum}
-    \item $i = i'$.  See Figure~\ref{modeller_i}. In this case, we extend the $p/2$ branch sets corresponding to the left side of $B_k$ through $G_{i,j+1}$ through $G_{i,j+1}$ to the vertices of $X_i\times\{y_0\}$ contained in the $p/2$ branch sets of $B_{k'}$ corresponding to the right side of $B_{k'}$.
-  \begin{figure}[htbp]
-    \begin{center}
-        \includegraphics[page=2]{modeller}
-    \end{center}
-    \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 1.}
-    \label{modeller_i}
-  \end{figure}
-
-    \item $i\neq i'$.  See Figure~\ref{modeller_ii}.  In this case, we extend the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the leftmost column of $\boxplus_{p/2}$ through $G_{i,j+1}$ into $(x_{i,s+2p},y_0),\ldots,(x_{i,s+5p/2},y_0)$.  Next we continue to extend these branch sets through $G_{i,j+2}$ to any $p/2$ vertices in $\{x_0\}\times Y_j$. From there, we extend branch sets through $G_{i',j+2}$ to the vertices of $X_{i'}\times\{y_0\}$ contained in the $p/2$ branch sets of corresponding to the right side of $\boxplus_{p/2}$.
-
-    We note that the (superfluous looking) routing through $G_{i,j+1}$ is actually necessary, otherwise the branch set for the top left vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_k$ will only become adjacent to the bottom right vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_{k'}$.  Indeed, without this step, the adjacencies between the left column of $M_{k}$ and right column of $M_{k'}$ will be completely reversed.
-  \begin{figure}[htbp]
-    \begin{center}
-        \includegraphics[page=3]{modeller}
-    \end{center}
-    \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 2.}
-    \label{modeller_ii}
-  \end{figure}
-  \end{compactenum}
-  The extension of the branch sets of $\mathcal{M}_{k}$ to those of $\mathcal{M}_{k''}$ is done the same way, but the routing is done through $G_{i,j+3}$, $G_{i,j+4}$, $G_{i',j+4}$ and the remaining $p/2$ vertices of $X_i\boxprod\{y_0\}$ that are reserved for $\mathcal{M}_k$.
-
-  All that remains is to verify that $\mathcal{M}:=\bigcup_{k=1}^{N/p}\mathcal{M}_k$ is indeed a model of $\boxplus_{\tfrac 12\sqrt{pN}}$.  That each branch set of $\mathcal{M}$ induces a connected subgraph of $S_{\ell_1,p_2}\boxprod S_{\ell_2,p_2}$ is clear from construction.
-
-  Next we verify that, that the branch sets in $\mathcal{M}_{k_1}$ are vertex-disjoint from those in $\mathcal{M}_{k_2}$, for any $k_1\neq k_2$. For each $b\in\{1,2\}$, if $\mathcal{M}_{k_b}$ was originally contained in $G^+_{i_b,j_b}$ then, after extending it, all but at most $3p$ of the vertices used in $\mathcal{M}_{k_b}$ are contained in $Z_{b}:=\bigcup_{i\in[\ell_1]}\bigcup_{c=0}^4 G_{i,j_b+c}$. The remaining (at most $3p$) vertices in $\mathcal{M}_{k_b}$ are taken from $3p$ consecutive vertices of $X_{i_b}\boxprod\{y_0\}$.  The definition of $j_b$ ensures that $|j_1-j_2|\ge 5$, so $Z_{1}\cap Z_2=\emptyset$.  The choice of start vertex $x_{i_b,s_b}$ in $X_{i_b}$ for the canonical model $\mathcal{M}_{k_b}$ ensures that $i_1\neq i_2$ or $|s_1-s_2|\ge 3p$.  In the former case we are done.  In the latter case, $(\cup M_{k_b})\cap (V(X_{k_b})\times\{y_0\})=(x_{i,s_b},y_0),\ldots,(x_{i,s_b+3p-1},y_0)$ so the condition $|s_1-s_2|\ge 3p$ ensures that $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are disjoint.
-
-  Finally, we check that, if $xy\in E(\boxplus_{\tfrac 12\sqrt{pN}})$ then some there is some edge $vw$ of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ with $v$ in the branch set $B_x$ of $x$ and $w$ in the branch set $B_y$ of $y$.  If the edge $xy$ has both endpoints in a single $p/2\times p/2$ subgrid, then this is easily verified by the construction of the model $\mathcal{M}_k$ of that subgrid (\cref{subgrid}).  If $v$ and $w$ belong to different subgrids $X$ and $X'$ then, without loss of generality, $X$ is below $X'$ or $X$ is to the right of $X'$.  In this case, the model $\mathcal{M}_{k}$ of $X$ was extended so that the branch sets of the vertices in its top row (respectively, left column) become adjacent to the appropriate branch sets of the model $\mathcal{M}_{k'}$ of $X'$.
+  % In order to merge these $N/p$ vertex disjoint models of $\boxplus_{p/2}$ into a single model of $\boxplus_{\tfrac 12\sqrt{pN}}$, some of the branch sets of each model $\mathcal{M}_k$ will be extended so that they become adjacent the appropriate branch sets in some other models.  In particular, if $\mathcal{M}_k$ has a $\boxplus_{p/2}$ model $\mathcal{M}_{k'}$ to its left, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the left boundary of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k'}$ corresponding to the right boundary of $\boxplus_{p/2}$.  Similarly, if some $\boxplus_{p/2}$ model $\mathcal{M}_{k''}$ is directly above $\mathcal{M}_k$, then the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the top of $\boxplus_{p/2}$ should be extended so that they are adjacent to the $p/2$ branch sets of $\mathcal{M}_{k''}$ corresponding to the bottom boundary of $\boxplus_{p/2}$.  We now explain how to do this.
+  %
+  % Let $i:=\ceil{k/a}$, $j:=5k$, and $s:=1+3p(k\bmod a)$. Define $i'$, $j'$, and $s'$ similarly, using $k'$ in place of $k$.  To extend the branch sets from $\mathcal{M}_k$ to $\mathcal{M}_{k'}$ we will make use of vertices in $G_{i,j+1}$, $G_{i,j+2}$ and $G_{i',j+2}$, none of which contains vertices used by $\mathcal{M}_t$ for any $t\in[N/p]$.  It will also make use of an additional $p/2$ vertices of $X_i\boxprod\{y_0\}$.\footnote{The additional vertices of  $X_i\boxprod\{y_0\}$ that are used when extending $\mathcal{M}_k$ is the reason we have chosen $p_1=3ap$ rather than $p_1=2ap$.  We are reserving $3p$ consecutive vertices of $X_{i}\boxprod\{y_0\}$ for $\mathcal{M}_k$.}  There are two cases to consider:
+  % \begin{compactenum}
+  %   \item $i = i'$.  See Figure~\ref{modeller_i}. In this case, we extend the $p/2$ branch sets corresponding to the left side of $B_k$ through $G_{i,j+1}$ through $G_{i,j+1}$ to the vertices of $X_i\times\{y_0\}$ contained in the $p/2$ branch sets of $B_{k'}$ corresponding to the right side of $B_{k'}$.
+  % \begin{figure}[htbp]
+  %   \begin{center}
+  %       \includegraphics[page=2]{modeller}
+  %   \end{center}
+  %   \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 1.}
+  %   \label{modeller_i}
+  % \end{figure}
+  %
+  %   \item $i\neq i'$.  See Figure~\ref{modeller_ii}.  In this case, we extend the $p/2$ branch sets of $\mathcal{M}_k$ corresponding to the leftmost column of $\boxplus_{p/2}$ through $G_{i,j+1}$ into $(x_{i,s+2p},y_0),\ldots,(x_{i,s+5p/2},y_0)$.  Next we continue to extend these branch sets through $G_{i,j+2}$ to any $p/2$ vertices in $\{x_0\}\times Y_j$. From there, we extend branch sets through $G_{i',j+2}$ to the vertices of $X_{i'}\times\{y_0\}$ contained in the $p/2$ branch sets of corresponding to the right side of $\boxplus_{p/2}$.
+  %
+  %   We note that the (superfluous looking) routing through $G_{i,j+1}$ is actually necessary, otherwise the branch set for the top left vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_k$ will only become adjacent to the bottom right vertex of $\boxplus_{p/2}$ modelled by $\mathcal{M}_{k'}$.  Indeed, without this step, the adjacencies between the left column of $M_{k}$ and right column of $M_{k'}$ will be completely reversed.
+  % \begin{figure}[htbp]
+  %   \begin{center}
+  %       \includegraphics[page=3]{modeller}
+  %   \end{center}
+  %   \caption{Extending $\mathcal{M}_k$ so that is branch sets meet $\mathcal{M}_{k'}$, case 2.}
+  %   \label{modeller_ii}
+  % \end{figure}
+  % \end{compactenum}
+  % The extension of the branch sets of $\mathcal{M}_{k}$ to those of $\mathcal{M}_{k''}$ is done the same way, but the routing is done through $G_{i,j+3}$, $G_{i,j+4}$, $G_{i',j+4}$ and the remaining $p/2$ vertices of $X_i\boxprod\{y_0\}$ that are reserved for $\mathcal{M}_k$.
+  %
+  % All that remains is to verify that $\mathcal{M}:=\bigcup_{k=1}^{N/p}\mathcal{M}_k$ is indeed a model of $\boxplus_{\tfrac 12\sqrt{pN}}$.  That each branch set of $\mathcal{M}$ induces a connected subgraph of $S_{\ell_1,p_2}\boxprod S_{\ell_2,p_2}$ is clear from construction.
+  %
+  % Next we verify that, that the branch sets in $\mathcal{M}_{k_1}$ are vertex-disjoint from those in $\mathcal{M}_{k_2}$, for any $k_1\neq k_2$. For each $b\in\{1,2\}$, if $\mathcal{M}_{k_b}$ was originally contained in $G^+_{i_b,j_b}$ then, after extending it, all but at most $3p$ of the vertices used in $\mathcal{M}_{k_b}$ are contained in $Z_{b}:=\bigcup_{i\in[\ell_1]}\bigcup_{c=0}^4 G_{i,j_b+c}$. The remaining (at most $3p$) vertices in $\mathcal{M}_{k_b}$ are taken from $3p$ consecutive vertices of $X_{i_b}\boxprod\{y_0\}$.  The definition of $j_b$ ensures that $|j_1-j_2|\ge 5$, so $Z_{1}\cap Z_2=\emptyset$.  The choice of start vertex $x_{i_b,s_b}$ in $X_{i_b}$ for the canonical model $\mathcal{M}_{k_b}$ ensures that $i_1\neq i_2$ or $|s_1-s_2|\ge 3p$.  In the former case we are done.  In the latter case, $(\cup M_{k_b})\cap (V(X_{k_b})\times\{y_0\})=(x_{i,s_b},y_0),\ldots,(x_{i,s_b+3p-1},y_0)$ so the condition $|s_1-s_2|\ge 3p$ ensures that $\mathcal{M}_{k_1}$ and $\mathcal{M}_{k_2}$ are disjoint.
+  %
+  % Finally, we check that, if $xy\in E(\boxplus_{\tfrac 12\sqrt{pN}})$ then some there is some edge $vw$ of $S_{\ell_1,p_1}\boxprod S_{\ell_2,p_2}$ with $v$ in the branch set $B_x$ of $x$ and $w$ in the branch set $B_y$ of $y$.  If the edge $xy$ has both endpoints in a single $p/2\times p/2$ subgrid, then this is easily verified by the construction of the model $\mathcal{M}_k$ of that subgrid (\cref{subgrid}).  If $v$ and $w$ belong to different subgrids $X$ and $X'$ then, without loss of generality, $X$ is below $X'$ or $X$ is to the right of $X'$.  In this case, the model $\mathcal{M}_{k}$ of $X$ was extended so that the branch sets of the vertices in its top row (respectively, left column) become adjacent to the appropriate branch sets of the model $\mathcal{M}_{k'}$ of $X'$.
 \end{proof}
 
 This establishes our lower bound on the largest grid minor contained in a graph product:
