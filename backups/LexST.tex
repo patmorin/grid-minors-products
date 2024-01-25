@@ -1,0 +1,58 @@
+% !TeX program = xelatex
+\documentclass{standalone}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pstricks,multido,pstricks-add}
+\psset{unit=10mm}
+\begin{document}
+
+\newcommand{\blah}[4]{
+\multido{\n=1+1,\nn=#1+1}{#4}{\rput(\n,\nn){
+		\psline[linecolor=#3,linewidth=2pt](0,0)(0,1)
+}}
+\multido{\n=1+1,\nn=#2+1}{#4}{\rput(\n,\nn){
+		\psline[linecolor=#3,linewidth=2pt](0,0)(1,0)
+}}
+\multido{\n=1+1,\nn=#1+1}{8}{\rput(\n,\nn){
+		\pscircle[linecolor=darkgray,fillcolor=#3,fillstyle=solid](0,0){0.1}
+}}
+\multido{\n=1+1,\nn=#2+1}{7}{\rput(\n,\nn){
+		\pscircle[linecolor=darkgray,fillcolor=#3,fillstyle=solid](0,0){0.1}
+}}
+}
+
+\newcommand{\blahblah}[4]{
+	\multido{\n=#1+1,\nn=1+1}{#4}{\rput(\n,\nn){
+			\psline[linecolor=#3,linewidth=2pt](0,0)(1,0)
+	}}
+	\multido{\n=#2+1,\nn=1+1}{#4}{\rput(\n,\nn){
+			\psline[linecolor=#3,linewidth=2pt](0,0)(0,1)
+	}}
+	\multido{\n=#1+1,\nn=1+1}{8}{\rput(\n,\nn){
+			\pscircle[linecolor=darkgray,fillcolor=#3,fillstyle=solid](0,0){0.1}
+	}}
+	\multido{\n=#2+1,\nn=1+1}{7}{\rput(\n,\nn){
+			\pscircle[linecolor=darkgray,fillcolor=#3,fillstyle=solid](0,0){0.1}
+	}}
+}
+
+\begin{pspicture}(0,0)(9.3,9.3)
+
+\multido{\n=0+1,\r=0.9+1.0}{9}{\rput[tr]{45}(0.6,\r){$D_{\n}$}}
+\multido{\n=1+1,\r=1.7+1.0}{8}{\rput[tr]{45}(\r,0.85){$D_{-\n}$}}
+
+\multido{\n=1+1}{9}{\psline[linecolor=lightgray](\n,1)(\n,9)}
+\multido{\n=1+1}{9}{\psline[linecolor=lightgray](1,\n)(9,\n)}
+
+\multido{\n=1+1}{9}{\multido{\nn=1+1}{9}{
+	\pscircle[linecolor=darkgray,fillcolor=white,fillstyle=solid](\n,\nn){0.1}}}
+
+\blah{2}{3}{red}{7}
+\blah{5}{6}{red}{4}
+\blah{8}{9}{red}{1}
+
+\blahblah{2}{3}{blue}{7}
+\blahblah{5}{6}{blue}{4}
+\blahblah{8}{9}{blue}{1}
+
+\end{pspicture}
+\end{document}

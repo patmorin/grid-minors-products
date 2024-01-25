@@ -1,0 +1,163 @@
+@preamble{
+   "\def\soft#1{\leavevmode\setbox0=\hbox{h}\dimen7=\ht0\advance
+    \dimen7 by-1ex\relax\if t#1\relax\rlap{\raise.6\dimen7
+    \hbox{\kern.3ex\char'47}}#1\relax\else\if T#1\relax
+    \rlap{\raise.5\dimen7\hbox{\kern1.3ex\char'47}}#1\relax
+    \else\if d#1\relax\rlap{\raise.5\dimen7\hbox{\kern.9ex
+    \char'47}}#1\relax\else\if D#1\relax\rlap{\raise.5\dimen7
+    \hbox{\kern1.4ex\char'47}}#1\relax\else\if l#1\relax
+    \rlap{\raise.5\dimen7\hbox{\kern.4ex\char'47}}#1\relax
+    \else\if L#1\relax\rlap{\raise.5\dimen7\hbox{\kern.7ex
+    \char'47}}#1\relax\else\message{accent \string\soft
+    \space #1 not defined!}#1\relax\fi\fi\fi\fi\fi\fi} "
+}
+
+@STRING{AJC = {Australas. J. Combin.}}
+
+@STRING{CDM = {Contributions to Discrete Math.}}
+
+@STRING{CGTA = {Comput. Geom. Theory Appl.}}
+
+@STRING{CPC = {Combin. Probab. Comput.}}
+
+@STRING{DAM = {Discrete Appl. Math.}}
+
+@STRING{DCG = {Discrete Comput. Geom.}}
+
+@STRING{DM = {Discrete Math.}}
+
+@STRING{DMTCS = {Discrete Math. Theor. Comput. Sci.}}
+
+@STRING{EJC = {Electron. J. Combin.}}
+
+@STRING{ENDM = {Electron. Notes Discrete Math.}}
+
+@STRING{EuJC = {European J. Combin.}}
+
+@STRING{IJCGA = {Internat. J. Comput. Geom. Appl.}}
+
+@STRING{IPL = {Inform. Process. Lett.}}
+
+@STRING{JoCG = {J. Comput. Geom.}}
+
+@STRING{JCTA = {J. Combin. Theory Ser. A}}
+
+@STRING{JCTB = {J. Combin. Theory Ser. B}}
+
+@STRING{JGT = {J. Graph Theory}}
+
+@STRING{LNCS = {Lecture Notes in Comput. Sci.}}
+
+@STRING{SJC = {SIAM J. Comput.}}
+
+@STRING{TCS = {Theoret. Comput. Sci.}}
+
+@article{WoodJGT13,
+author = {Wood, David R.},
+title = {Treewidth of Cartesian Products of Highly Connected Graphs},
+journal = {J. Graph Theory},
+volume = {73},
+number = {3},
+pages = {318-321},
+keywords = {treewidth, cartesian product},
+doi = {https://doi.org/10.1002/jgt.21677},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jgt.21677},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/jgt.21677},
+year = {2013}
+}
+
+@article{FFLS18,
+author = {Fomin, Fedorr V. and Lokshtanov, Daniel and Saurabh, Saket},
+title = {Excluded Grid Minors and Efficient Polynomial-Time Approximation Schemes},
+year = {2018},
+issue_date = {April 2018},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {65},
+number = {2},
+issn = {0004-5411},
+url = {https://doi.org/10.1145/3154833},
+doi = {10.1145/3154833},
+journal = {J. ACM},
+month = {jan},
+articleno = {10},
+numpages = {44},
+keywords = {embedded graph, unit disk graph, bidimensionality, Polynomial-time approximation scheme, parameterized complexity, treewidth, monadic second-order logic}
+}
+
+@misc{DJMMW22,
+      title={Bounded-Degree Planar Graphs Do Not Have Bounded-Degree Product Structure}, 
+      author={Vida Dujmovi{\'c} and Gwenaël Joret and Piotr Micek and Pat Morin and David R. Wood},
+       url = {https://arxiv.org/abs/2212.02388},
+      year={2022},
+      arXiv={2212.02388},
+      archivePrefix={arXiv},
+      primaryClass={math.CO}
+}
+
+
+@article{chuzoy.tan:towards,
+  author       = {Julia Chuzhoy and
+                  Zihan Tan},
+  title        = {Towards tight(er) bounds for the Excluded Grid Theorem},
+  journal      = {J. Comb. Theory, Ser. {B}},
+  volume       = {146},
+  pages        = {219--265},
+  year         = {2021},
+  url          = {https://doi.org/10.1016/j.jctb.2020.09.010},
+  doi          = {10.1016/j.jctb.2020.09.010},
+  timestamp    = {Thu, 14 Oct 2021 09:31:01 +0200},
+  biburl       = {https://dblp.org/rec/journals/jctb/ChuzhoyT21.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DHHJLMMRW23,
+  author       = {Vida Dujmovic and
+                  Robert Hickingbotham and
+                  Jedrzej Hodor and
+                  Gwena{\"{e}}l Joret and
+                  Hoang La and
+                  Piotr Micek and
+                  Pat Morin and
+                  Cl{\'{e}}ment Rambaud and
+                  David R. Wood},
+  title        = {The grid-minor theorem revisited},
+  journal      = {CoRR},
+  volume       = {abs/2307.02816},
+  year         = {2023},
+  url          = {https://doi.org/10.48550/arXiv.2307.02816},
+  doi          = {10.48550/ARXIV.2307.02816},
+  eprinttype    = {arXiv},
+  eprint       = {2307.02816},
+  timestamp    = {Mon, 10 Jul 2023 17:27:00 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2307-02816.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{ROBERTSON198449,
+title = {Graph minors. {III}. {P}lanar tree-width},
+journal = {J. Combin. Theory, Ser. B},
+volume = {36},
+number = {1},
+pages = {49-64},
+year = {1984},
+issn = {0095-8956},
+doi = {https://doi.org/10.1016/0095-8956(84)90013-3},
+url = {https://www.sciencedirect.com/science/article/pii/0095895684900133},
+author = {Neil Robertson and P.D Seymour},
+abstract = {The “tree-width” of a graph is defined and it is proved that for any fixed planar graph H, every planar graph with sufficiently large tree-width has a minor isomorphic to H. This result has several applications which are described in other papers in this series.}
+}
+
+@book{BB1972,
+  title =	 {Nonserial Dynamic Programming},
+  publisher =	 {Academic Press},
+  year =	 1972,
+  author = {Francesco Bertelè and Umberto Brioschi}
+}
+
+@misc{KPS23-2,
+	title={Twin-width of graphs on surfaces}, 
+	author={Daniel Král\!' and Kristýna Pekárková and Kenny \v{S}torgel},
+	year={2023},
+	arXiv={2307.05811},
+}

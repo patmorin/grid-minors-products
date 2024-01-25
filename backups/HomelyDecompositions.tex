@@ -1,0 +1,405 @@
+\section{Homely Decompositions and Other Stuff}
+
+Let $S_k:= K_{1,k}$ be the $k$-leaf star.
+Let $P_n$ be the $n$-vertex path.
+
+
+Let $\beta=(B_x:x\in V(T))$ be a $T$-decomposition
+of a graph $G$ for some tree $T$. Let  $T_v:=T[\{x\in V(T):v\in B_x\}]$ for each vertex $v$ of $G$. Say $(H_v:v\in V(G))$ is a \defn{home-assignment} if
+$H_v\subseteq V(T_v)$ for each $v\in V(G)$;
+$H_v\cap H_w=\emptyset$ for all distinct $v,w\in V(G)$; and for each edge $vw\in E(G)$, $w\in B_x$ for some $x\in H_v$, or $v\in B_x$ for some $x\in H_w$. Say $\beta$ is \defn{homely} if it has a home-assignment.
+
+\begin{lem}
+\label{Homely}
+For any tree $T_1$ with at least $k$ leaves, and for any tree $T_2$, if a graph $G$ has a homely $T_2$-decomposition of width less than $k$, then $G$ is a minor of $T_1 \boxprod T_2$.
+\end{lem}
+
+\begin{proof}
+Let $y_1,\dots,y_k$ be distinct leaves of $T_1$.
+Let $S:=V(T_1)\setminus L$. So $S$ induces a subtree of $T_1$.
+Let $(B_x:x\in V(T_2))$ be a homely $T_2$-decomposition of $G$.
+Let $(H_v:v\in V(G))$ be the corresponding home-assignment.
+For each vertex $v$ of $G$, let $A_v:=\{x\in V(T_2):v\in B_x\}$, which induces a subtree of $T_2$. Let $\col:V(G)\to\{1,\dots,k\}$ be a colouring of $G$ such that $\col(v)\neq\col(w)$ whenever $A_v\cap A_w\neq\emptyset$.
+
+Consider a vertex $v$ of $G$ with $i:=\col(v)$. Let
+$Y_v:=\{(a,h):a\in V(S),h\in H_v\}$ and $Z_v:=\{ (y_i, x):x\in A_v\}$. Let $X_v$ be the subgraph of $T_1 \boxprod T_2$ induced by $Y_v\cup Z_v$. We now show that $X_v$ is connected. Let $y'_i$ be the neighbour of $y_i$ in $T_1$. So $y'_i\in S$. Since $T_2[A_v]$ is connected, $Y_v$ induces a connected subgraph of $T_1\boxprod T_2$. Since $T_1[S]$ is connected, for each $h\in H_v$, the set $Z_v$ induces a connected subgraph of $T_1\boxprod T_2$. Moreover, $(y'_i,h)\in Y_v$ is adjacent to $(y_i,h)\in Z_v$. Thus
+$X_v$ is connected.
+
+We now show that $X_v\cap X_w=\emptyset$ for distinct vertices $v,w\in V(G)$. We have $Y_v\cap Y_w=\emptyset$ since $H_v\cap H_w=\emptyset$.
+We have $Z_v\cap Z_w=\emptyset$ since $A_v\cap A_w=\emptyset$ or $\col(v)\neq\col(w)$.
+We have $Y_v\cap Z_w=\emptyset$ and $Z_v\cap Y_w=\emptyset$ since $S\cap \{y_1,\dots,y_k\}=\emptyset$.
+Hence  $X_v\cap X_w=\emptyset$.
+
+Consider an edge $vw\in E(G)$. By the definition of home-assignment, without loss of generality, $w\in B_h$ for some $h\in H_v$, implying $h\in A_w$.
+Let  $j:=\col(w)$, and let $z$ be the neighbour of $y_j$ in $T_1$, so $z\in S$. Then $(z,h)\in V(X_v)$ is adjacent to $(y_j,h)\in V(X_w)$. Thus $(X_v:v\in V(G))$ is a model of $G$ in $T_1 \boxprod T_2$.
+\end{proof}
+
+\begin{lem}
+\label{HomelyPathDecomposition}
+Every $n$-vertex graph has a homely $P_n$-decomposition of width $\pw(G)$.
+\end{lem}
+
+\begin{proof}
+Say $P_n=(1,2,\dots,n)$.
+It is folklore that $V(G)$ can be enumerated $(v_1,\dots,v_n)$ so that $G$ has a $P_n$-decomposition $(B_1,\dots,B_n)$ with $|B_i|\leq\pw(G)+1$, where $B_i$ is the leftmost bag containing $v_i$ and
+$B_i$ is the leftmost bag for no other vertex.
+Let $H_{v_i}:=\{i\}$. For any edge $v_iv_j$ with $i<j$, we have
+$v_i\in B_j$. So $(H_{v_i}:i\in[n]\}$ is a home-assignment.
+\end{proof}
+
+\cref{Homely,HomelyPathDecomposition} imply:
+
+\begin{cor}
+\label{TreePath}
+For any $n$-vertex graph $G$ with $\pw(G)\leq k$, for any tree $T$ with at least $k+1$ leaves, $G$ is a minor of $T \boxprod P_n$.
+\end{cor}
+
+\begin{cor}
+\label{StarPath}
+Every $n$-vertex graph $G$ of pathwidth at most $k$ is a minor of $S_{k+1} \boxprod P_n$.
+\end{cor}
+
+
+% \begin{lem}
+% If $\pw(G) \leq k$ and $|V(G)|=n$ then $G$ is a minor of $S_{k+1} \boxprod P_n$.
+% \end{lem}
+
+% \begin{proof}
+% Say $P_n=(1,2,\dots,n)$. We may assume $G$ is a $(k+1)$-colourable interval graph, where $I_v =[\ell_v,r_v]$ is the interval for $v$, where
+% $\ell_v,r_v\in\{1,\dots,n\}$ and $\ell_v\leqslant r_v$, and $\ell_v\neq\ell_w$ for distinct $v,w\in V(G)$. If $v$ is coloured $i \in \{1,\dots,k+1\}$, then represent $v$ by the subpath $I_v$ of the copy of $P_n$ associated with the $i$-th leaf of $S_{k+1}$, plus vertex $\ell_v$ in the copy of $P_n$ associated with the root of $S_{k+1}$. This defines a model of $G$ in $S_{k+1} \boxprod P_n$.
+% \end{proof}
+
+Curiously, this lemma provides a rough characterisation of graphs with pathwidth $k$, since every minor of $S_{k+1} \boxprod P_n$ has pathwidth $O(k)$. Also, note that an analogous proof shows that if $\tw(G) \leqslant k$ and $|V(G)|=n$ then $G$ is a minor of $S_{k+1} \boxprod T$, for some $n$-vertex tree $T$ (and every minor of $S_{k+1}\boxprod T$ has treewidth $O(k)$).
+
+Applying \cref{StarPath} with $G$ being the $k\times k$ grid (which has pathwidth $k$) gives:
+
+\begin{cor}
+\label{GridMinorStarPathProduct}
+$\gm( S_k \boxprod P_n ) \geq \min\{k-1,\sqrt{n}\}$.
+\end{cor}
+
+%These results are generalised as follows. Let $T$ be  a rooted tree. A $T$-decomposition $(B_x:x\in V(T))$ of a graph $G$ is \defn{spread} if for all distinct vertices $v,w\in V(G)$ the subtrees $T_v$ and $T_2$ have distinct roots, where $T_v:=[\{x\in V(T):v\in B_x\}]$.
+%For a tree $T$ and graph $G$, a $T$-decomposition $(B_x:x\in V(T))$ of $G$ is \defn{spread} if there is an injection $h:V(G)\to V(T)$ such that $v \in B_{h(v)}$ for each vertex $v$ of $G$.
+
+% \begin{lem}
+% \label{DistinctRoots}
+% For any tree $T_1$ with at least $k$ leaves, and for any tree $T_2$, if a graph $G$ has a spread $T_2$-decomposition of width $k$, then $G$ is a minor of $T_1 \boxprod T_2$.
+% \end{lem}
+
+% \begin{proof}
+% Let $y_1,\dots,y_k$ be distinct leaves of $T_1$.
+% Let $S:=T_1-L$. So $S$ is a connected subtree of $T_1$.
+% Let $(B_x:x\in V(T))$ be a spread $T_2$-decomposition of $G$.
+% For each vertex $v$ of $G$, let $T_v:=[\{x\in V(T):v\in B_x\}]$
+% and let $r_v$ be the root of $T_v$.
+% Fix a $(k+1)$-colouring of $G$, such that if $T_v\cap T_w\neq\emptyset$ then $\col(v)\neq\col(w)$. For each vertex $v$ of $G$, if $i:=\col(v)$ then let $X_v$ be the subgraph of $T_1 \boxprod T_2$ induced by $\{(a,r_v):a\in V(S)\} \cup\{ (y_i, x):x\in V(T_v)\}$. For distinct vertices $v,w\in V(G)$, $X_v\cap X_w=\emptyset$. For each edge $vw\in E(G)$, since $v,w\in B_x$ for some node $x\in V(T)$, in fact $v\in B_{r_w}$ or $w\in B_{r_v}$. Say $v\in B_{r_w}$ and $i:=\col(v)$ and $j:=\col(w)$. Then
+% $\{(a,r_v):a\in V(S)\} \cup\{ (y_i, x):x\in V(T_v)\} \in X_v$
+% is adjacent to
+% $\{(a,r_v):a\in V(S)\} \cup\{ (y_i, x):x\in V(T_v)\} \in X_w$.
+% Thus $(X_v:v\in V(G))$ is a model of $G$ in $T_1 \boxprod T_2$.
+% % Let $y_1,\dots,y_k$ be distinct leaves of $T_1$.
+% % Let $S:=T_1-L$. So $S$ is a connected subtree of $T_1$.
+% % Let $(B_x:x\in V(T))$ be a spread $T_2$-decomposition of $G$.
+% % Let $h$ be the corresponding injection.
+% % Let $T_v:=[\{x\in V(T):v\in B_x\}]$ for each vertex $v$ in $G$.
+% % Fix a $(k+1)$-colouring of $G$, such that if $T_v\cap T_w\neq\emptyset$ then $\col(v)\neq\col(w)$. For each vertex $v$ of $G$, if $i:=\col(v)$ then let $X_v$ be the subgraph of $T_1 \boxprod T_2$ induced by $\{(a,h(v)):a\in V(S)\} \cup\{ (y_i, x):x\in V(T_v)\}$. Then $(X_v:v\in V(G))$ is a model of $G$ in $T_1 \boxprod T_2$.
+% \end{proof}
+
+
+% \begin{lem}
+% \label{BasicHomelyDecomp}
+% For any graph $G$ and for any tree $T$ with at least $|E(G)|$ leaves, $G$ has a homely $T$-decomposition with width $|V(G)|-1$.
+% \end{lem}
+
+% \begin{proof}
+% Let $B_x:=V(G)$ for each node $x$ of $T$. So $(B_x:x\in V(T))$ is a $T$-decomposition of $G$. So $T_v:=T$ for each vertex $v$ of $G$. Arbitrarily orient each edge $vw$ of $G$. Let $f$ be an injection from $E(G)$ to the set of leaves of $T$. For each vertex $v$ of $G$, let $H_v:=\{ f(uv): uv \in E(G)\}$. So $H_v\cap H_w=\emptyset$ for all distinct $v,w\in V(G)$. For each oriented edge $vw$ of $G$, if $x=f(vw)$ then $x\in H(w)$ and $v\in B_x$. Hence $(B_x:x\in V(T))$ is \defn{homely}.
+% \end{proof}
+
+\begin{lem}
+\label{BasicHomelyDecomp}
+For any graph $G$ and for any tree $T$ with at least $|E(G)|$ vertices, $G$ has a homely $T$-decomposition with width $|V(G)|-1$.
+\end{lem}
+
+\begin{proof}
+Let $B_x:=V(G)$ for each vertex $x$ of $T$. So $(B_x:x\in V(T))$ is a $T$-decomposition of $G$, and $T_v:=T$ for each vertex $v$ of $G$. Arbitrarily orient each edge $vw$ of $G$. Let $f$ be an injection from $E(G)$ to $V(T)$. For each vertex $v$ of $G$, let $H_v:=\{ f(\overrightarrow{uv}): u\in N_G^-(v)\}$. So $H_v\cap H_w=\emptyset$ for all distinct $v,w\in V(G)$. For each edge $\overrightarrow{uv}$ of $G$, if $x=f(\overrightarrow{uv})$ then $x\in H_v$ and $u\in B_x$. Hence $(B_x:x\in V(T))$ is \defn{homely}.
+\end{proof}
+
+\cref{Homely,BasicHomelyDecomp} imply:
+
+\begin{cor}
+\label{HomelyCor}
+For any connected graph $G$,
+for every tree $T_1$ with at least $|V(G)|$ leaves, and
+for every tree $T_2$ with at least $|E(G)|$ vertices,
+$G$ is a minor of $T_1 \boxprod T_2$.
+\end{cor}
+
+\begin{cor}
+\label{HomelyGrid}
+For every tree $T_1$ with $\ell_1$ leaves, and
+for every tree $T_2$ with $n_2$ vertices,
+$$\gm(T_1 \boxprod T_2)\geq \min\{ \ell_1,n_2/2 \}^{1/2}.$$
+\end{cor}
+
+% \begin{cor}
+% \label{DistinctRootsCor} \david{INVALID}
+% For every tree $T_1$ with at least $\ell_1$ leaves, and for every tree $T_2$ with at least $n_2$ vertices,
+% $$\gm(T_1\boxprod T_2)\geq \min\{ \ell_1,n_2\}^{1/2}.$$
+% \end{cor}
+
+% \begin{proof}
+% Let $n:=\min\{\ell_1,n_2\}$. Let $B_x:=V(K_n)$ for each $x\in V(T_2)$. Let $h$ be an arbitrary injection from $V(K_n)$ to $V(T_2)$. This defines a spread $T_2$-decomposition of $K_n$ with width $n-1$. By \cref{DistinctRoots}, $K_n$ is a minor of $T_1 \boxprod T_2$. Thus, the $\sqrt{n}\times \sqrt{n}$ grid is a minor of $T_1 \boxprod T_2$.
+% \end{proof}
+
+%What we need...
+
+% \begin{conj}
+% \label{DistinctRootsNeeded}
+% For every tree $T_1$ with at least $\ell_1$ leaves,
+% and for every tree $T_2$ with at least $n_2$ vertices,
+% $$\gm(T_1\boxprod T_2)\geq \min\{ \ell_1^{1/2},n_2^{1/3}\}.$$
+% \end{conj}
+
+% \begin{proof}
+% Let $m:=\min\{ \ell_1^{1/2},n_2^{1/3}\}$.
+% So $m^2\leq \ell_1$ and $m^3\leq n_2$.
+% Let $G$ be the $m\times m$ grid.
+% The result follows from \cref{DistinctRoots} if $G$ has a spread  $T_2$-decomposition of width $\ell_1$.
+
+% The result follows from \cref{Homely} if $G$ has a homely $T_2$-decomposition of width at most $\ell_1$.
+
+% \label{HomelyCorCor}
+% For every tree $T_1$ with $\ell_1$ leaves, and
+% for every tree $T_2$ with $n_2$ vertices,
+% $$\gm(T_1 \boxprod T_2)\geq \min\{ \sqrt{\ell_1},\sqrt{n_2/2}.$$
+
+
+% SEE NOTES, USE MULTI-NODE HOMES
+
+% If $T_2$ has a $m^2$-vertex path $P$, then $G$ has a spread $P$-decomposition of width $m<\ell_1$. Done
+
+% Note $G$ has tree-depth $4m$ or thereabouts. So $G$ has a spread $T$-decomposition of width $4m$, where $T$ is the complete 4-ary tree of height $\log_2 m$ (I think) with each edge subdivided $\leq 2m$ times.
+
+% \end{proof}
+
+
+% \begin{thm}
+% For all trees $T_1$ and $T_2$,
+% $$\tw(T_1\boxtimes T_2) < 2 \gm(T_1\boxprod T_2)^4.$$
+% \end{thm}
+
+% \begin{proof}
+% Let $n_i:=|V(T_i)|$. Note that $\tw(T_1\boxtimes T_2)< 2 \min\{n_1,n_2\}$. So it suffices to show that
+% $\gm(T_1\boxprod T_2)\geq\min\{n_1,n_2\}^{1/4}$.
+
+% Let $d_i$ be the diameter of $T_i$, and let $\ell_i$ be the number of leaves in $T_i$. Thus $n_i\leq d_i \ell_i$. Hence $d_i\geq n_i^{1/2}$ or $\ell_i\geq n_i^{1/2}$.
+
+% Case 1.
+% $d_1\geq n_1^{1/2}$ and $d_2\geq n_2^{1/2}$:
+% Then $T_1\boxprod T_2$ contains a $d_1\times d_2$ grid as a subgraph, and
+% $$\gm(T_1\boxprod T_2)\geq \min\{d_1,d_2\} \geq \min\{n_1^{1/2},n_2^{1/2}\}=\min\{n_1,n_2\}^{1/2}.$$
+
+% Case 2.
+% $d_1\geq n_1^{1/2}$ and $\ell_2\geq n_2^{1/2}$:
+% By \cref{GridMinorStarPathProduct},
+% $$\gm(T_1\boxprod T_2) \geq \min\{\ell_2-1,d_1^{1/2}\} \geq \min\{n_1,n_2\}^{1/4}.$$
+
+% Case 3.
+% $\ell_1\geq n_1^{1/2}$ and $d_2\geq n_2^{1/2}$:
+% By \cref{GridMinorStarPathProduct},
+% $$\gm(T_1\boxprod T_2) \geq \min\{\ell_1-1,d_2^{1/2}\}  \geq \min\{n_1,n_2\}^{1/4} .$$
+
+% Case 4.
+% $\ell_1\geq n_1^{1/2}$ and $\ell_2\geq n_2^{1/2}$:
+% Thus $T_i$ contains a star with at least $n_i^{1/2}$ leaves as a minor.
+% Hence $T_1\boxprod T_2$  contains $K_{m,m}$ as  minor, where $m\geq\min\{n_1,n_2\}^{1/2}$. Note that $K_{m,m}$ contains a $\ceil{\sqrt{m}}\times \ceil{\sqrt{m}}$ grid as a subgraph.
+% Therefore
+% $$\gm(T_1\boxprod T_2) \geq \min\{n_1,n_2\}^{1/4}.$$
+% \end{proof}
+
+\begin{thm}
+For all trees $T_1$ and $T_2$,
+$$\tw(T_1\boxtimes T_2) < 2^{5/2} \gm(T_1\boxprod T_2)^3.$$
+\end{thm}
+
+\begin{proof}
+Let $n_i:=|V(T_i)|$. Note that $\tw(T_1\boxtimes T_2)< 2 \min\{n_1,n_2\}$. So it suffices to show that
+$\min\{n_1,n_2\} \leq 2^{3/2} \gm(T_1\boxprod T_2)^3$;
+that is,
+$\gm(T_1\boxprod T_2)\geq 2^{-1/2} \min\{n_1,n_2\}^{1/3}$.
+Let $d_i$ be the diameter of $T_i$, and let $\ell_i$ be the number of leaves in $T_i$. Thus $n_i\leq d_i \ell_i$.
+
+%Case 1.
+First suppose that
+$d_1\geq n_1^{1/3}$ and $d_2\geq n_2^{1/3}$:
+Then $T_1\boxprod T_2$ contains a $d_1\times d_2$ grid as a subgraph, and $$\gm(T_1\boxprod T_2)\geq \min\{d_1,d_2\} \geq \min\{n_1^{1/3},n_2^{1/3}\}=\min\{n_1,n_2\}^{1/3}
+> 2^{-1/2} \min\{n_1,n_2\}^{1/3}.$$
+
+% Case 2.
+% $d_1\geq n_1^{2/3}$ and $d_2\leq n_2^{1/3}$:
+% Thus $\ell_2\geq n_2^{1/3}$:
+% By \cref{GridMinorStarPathProduct},
+% $$\gm(T_1\boxprod T_2) \geq \min\{\ell_2-1,d_1^{1/2}\} \geq \min\{n_1,n_2\}^{1/3}.$$ (IGNORE -1 FOR NOW)
+
+% Case 3.
+% $d_2\geq n_2^{2/3}$ and $d_1\leq n_1^{1/3}$:
+% Thus $\ell_1\geq n_1^{2/3}$:
+% By \cref{GridMinorStarPathProduct},
+% $$\gm(T_1\boxprod T_2) \geq \min\{\ell_1-1,d_2^{1/2}\} \geq \min\{n_1,n_2\}^{1/3}.$$ (IGNORE -1 FOR NOW)
+
+% Case 4.
+% $d_1\leq n_1^{1/3}$ and $d_2\leq n_2^{2/3}$:
+% Thus $\ell_1\geq n_1^{2/3}$ and $\ell_2\geq n_2^{2/3}$, and each $T_i$ contains a star with at least $n_i^{2/3}$ leaves as a minor.
+% Hence $T_1\boxprod T_2$  contains $K_{m,m}$ as  minor, where $m\geq\min\{n_1,n_2\}^{2/3}$. Note that $K_{m,m}$ contains a $\floor{\sqrt{2m}}\times \floor{\sqrt{2m}}$ grid as a subgraph.
+% Therefore
+% $$\gm(T_1\boxprod T_2) \geq \floor{\sqrt{m}} \geq \min\{n_1,n_2\}^{1/3}.$$
+
+Without loss of generality, now assume that $d_1\leq n_1^{1/3}$.
+Thus $\ell_1\geq n_1^{2/3}$.
+By \cref{HomelyGrid},
+$$\gm(T_1\boxprod T_2)\geq \min\{ \ell_1,n_2/2\}^{1/2}
+\geq 2^{-1/2}\min\{n_1,n_2\}^{1/3}.$$
+
+% need $(n_2/2)^{1/2} \geq x n_2^{1/3}$\\
+% need $(1/2)^{1/2} \geq x \\
+
+% need $(n_2/2)^{1/2} \geq \frac23 n_2^{1/3}$\\
+% need $3(n_2/2)^{1/2} \geq 2 n_2^{1/3}$\\
+% need $27 (n_2/2)^{3/2} \geq 8 n_2$\\
+% need $(27)^2 (n_2/2)^{3} \geq 8^2 n_2^2$\\
+% need $(27)^2 n_2 /8 \geq 8^2 $\\
+% need $(27)^2 n_2 \geq 8^3 $\\
+% true
+
+% Case 5. $d_1\leq n_1^{1/3}$. Thus $\ell_1\geq n_1^{2/3}$. By \cref{HomelyGrid},
+% $$\gm(T_1\boxprod T_2)\geq \min\{ \ell_1,n_2/2\}^{1/2} \geq \min\{n_1,n_2\}^{1/3}.$$
+
+% Case 6. $d_2\leq n_2^{1/3}$. Thus $\ell_2\geq n_2^{2/3}$. By \cref{HomelyGrid},
+% $$\gm(T_1\boxprod T_2)\geq \min\{ \ell_2,n_1/2\}^{1/2} \geq \min\{n_1,n_2\}^{1/3}.$$
+% \begin{tabular}{l|l|l|l}
+% \hline
+%               & $d_2$ small & $d_2$ medium & $d_2$ big \\\hline
+% $d_1$ small  & 5  / 6     & 5 &  5\\
+% $d_1$ medium  & 6         & 1 & 1\\
+% $d_1$ large  &  6       & 1 & 1 \\
+% \hline
+% \end{tabular}
+\end{proof}
+
+\david{Can this theorem be improved to:
+$$\tw(T_1\boxtimes T_2) < c \gm(T_1\boxprod T_2)^2 \polylog(\gm(T_1\boxprod T_2)).$$}
+
+\pat{Yes, see \cref{quadratic_grid_minor}.}
+
+\david{Is there a corresponding lower bound?
+That is, are there families of trees $T_1$ and $T_2$ such that
+$$\tw(T_1\boxtimes T_2) \geq  c \gm(T_1\boxprod T_2)^2 \polylog(\gm(T_1\boxprod T_2)).$$
+My first guess is to have $T_1=T_2=$ the complete binary tree of height $k$ with each edge at depth $i$ subdivided $2^{k-i}$ times.
+}
+
+\pat{Yes, $G:=S_n\boxtimes P_n$ has $\tw(G)=\Theta(n)$ and $\gm(G)=\Theta(\sqrt{n})$}
+
+\david{By my question, I meant: does there exist $c_1,c_2>0$ and families of trees $T_1$ and $T_2$ such that
+$$\tw(T_1\boxtimes T_2) \geq  c_1 \gm(T_1\boxprod T_2)^2 \log(\gm(T_1\boxprod T_2))^{c_2}?$$
+}
+
+
+
+
+
+\end{document}
+{\fontsize{10pt}{11pt}\selectfont
+\bibliographystyle{DavidNatbibStyle}
+\bibliography{DavidBibliography}}
+
+%%%%%%%%%%%%%%%%%%%%%
+\section{\Large Background}
+\label{Background}
+
+We consider simple, finite, undirected graphs~$G$ with vertex-set~${V(G)}$ and edge-set~${E(G)}$. A \defn{clique} in a graph is a set of pairwise adjacent vertices. A graph $G$ is \defn{contained} in a graph $X$ if $G$ is isomorphic to a subgraph of $X$. See \citep{Diestel5} for graph-theoretic definitions not given here.
+
+%Let~${\NN \coloneqq \{1,2,\dots\}}$ and~${\NN_0 \coloneqq \{0,1,\dots\}}$.
+
+For $m,n \in \mathbb{Z}$ with $m \leq n$, let $[m,n]:=\{m,m+1,\dots,n\}$ and $[n]:=[1,n]$.
+
+For graphs $F$ and $G$, an \defn{$F$-decomposition} of $G$ is a collection $(B_x :x\in V(F))$ of subsets of $V(G)$ (called \defn{bags}) indexed by the vertices of $F$, such that (a) for every edge $uv\in E(G)$, some bag $B_x$ contains both $u$ and $v$, and (b) for every vertex $v\in V(G)$, the set $\{x\in V(F):v\in B_x\}$ induces a non-empty connected subgraph of $F$. The \defn{adhesion} of $(B_x:x\in V(F))$ is $\max\{B_x\cap B_y \colon xy\in E(F)\}$. The \defn{width} of $(B_x:x\in V(F))$ is $\max\{B_x \colon x\in V(F)\}-1$. The \defn{torso} of a bag $B_x$ (with respect to $(B_x:x\in V(F))$), denoted by \defn{$\torso{G}{B_x}$}, is the graph obtained from the induced subgraph $G[B_x]$ by adding edges so that $B_x\cap B_y$ is a clique for each edge $xy\in E(F)$.
+
+A \defn{tree-decomposition} is a $T$-decomposition for any tree $T$. The \defn{treewidth} of a graph $G$, denoted by \defn{$\tw(G)$}, is the minimum width of a tree-decomposition of $G$. We say $(B_x:x\in V(T))$ is \defn{rooted} if $T$ is rooted. Then, for each $x\in V(T)$, a clique $C$ in the torso $\torso{G}{B_x}$ is a \defn{child-adhesion clique} if there is a child $y$ of $x$ such that $C\subseteq B_x\cap B_y$.
+
+A graph $H$ is a \defn{minor} of a graph $G$ if $H$ is isomorphic to a graph that can be obtained from a subgraph of $G$ by contracting edges. A graph~$G$ is \defn{$H$-minor-free} if~$H$ is not a minor of~$G$. The graph minor structure theorem of \citet{RS-XVI} shows that $K_t$-minor-free graphs has a tree-decomposition where each torso can be constructed using three ingredients: graphs on surfaces, vortices, and apex vertices. To describe this formally, we need the following definitions.
+
+The \defn{Euler genus} of a surface with~$h$ handles and~$c$ cross-caps is~${2h+c}$. The \defn{Euler genus} of a graph~$G$ is the minimum integer $g\geq 0$ such that there is an embedding of~$G$ in a surface of Euler genus~$g$; see \cite{MoharThom} for more about graph embeddings in surfaces.
+
+Let $G_0$ be a graph embedded in a surface $\Sigma$. Let $F$ be a facial cycle of $G_0$ (thought of as a subgraph of $G_0$). An \defn{$F$-vortex} is an $F$-decomposition $(B_x:x\in V(F))$ of a graph $H$ such that $V(G_0\cap H)=V(F)$ and $x\in B_x$ for each $x\in V(F)$. For $g,p,a\geq0$ and $k\geq1$, a graph $G$ is \defn{$(g,p,k,a)$-almost-embeddable} if for some set $A\subseteq V(G)$ with $|A|\leq a$, there are graphs $G_0,G_1,\dots,G_s$ for some $s\in\{0,\dots,p\}$ such that:
+\begin{itemize}
+	\item $G-A = G_{0} \cup G_{1} \cup \cdots \cup G_s$,
+	\item $G_{1}, \dots, G_s$ are pairwise vertex-disjoint,
+	\item $G_{0}$ is embedded in a surface of Euler genus at most $g$,
+	\item there are $s$ pairwise vertex-disjoint facial cycles $F_1,\dots,F_s$ of $G_0$, and
+	\item for $i\in\{1,\dots,s\}$, there is an $F_i$-vortex $(B_x:x\in V(F_i))$ of $G_i$ of width at most $k$.
+\end{itemize}
+The vertices in $A$ are called \defn{apex} vertices---they can be adjacent to any vertex in $G$. A graph is \defn{$k$-almost-embeddable} if it is $(k,k,k,k)$-almost-embeddable.
+
+We use the following version of the graph minor structure theorem, which is implied by a result of \citet[Theorem~4]{DKMW12}.
+
+\begin{thm}[\citep{DKMW12}]
+\label{GMSTimproved}
+For every integer $t\geq 1$ there exists an integer $k\geq 1$ such that every $K_t$-minor-free graph $G$ has a rooted tree decomposition $(B_x\colon x\in V(T))$ such that for every node $x\in V(T)$, the torso $\torso{G}{B_x}$ is $k$-almost-embeddable and if $A_x$ is the apex-set of $\torso{G}{B_x}$, then for every child-adhesion clique $C$ of $\torso{G}{B_x}$, either $C\setminus A_x$ is contained in a bag of a vortex of $\torso{G}{B_x}$, or $|C\setminus A_x|\leq 3$.
+\end{thm}
+
+% \pat{There is some ambiguity in the statement of \cref{GMSTimproved}.  The child-adhesion cliques of $\torso{G}{B_x}$ are well-defined, but what exactly are the child-adhesion cliques of $\torso{G}{B_x}-A$?  Where does a child-adhesion clique that contains vertices in $A$ and vertices not in $A$ fit in?  Does the theorem tell us that
+% \begin{enumerate}[(i)]
+%   \item such child-adhesion cliques don't exist;
+%   \item such child-adhesion cliques have size at most $3$; or
+%   \item there is no restriction on such child-adhesion cliques (maybe they are not contained in any vortex bag, maybe they contain vertices from more than one vortex, or maybe they're not even restricted to vortices).
+% \end{enumerate}}  \david{good point, okay now?}
+
+%\robert{I don't think there is any ambiguity with this theorem because of how child-adhesion clique is defined. The definition given is the following: `for each $x\in V(T)$, a clique $C$ in the torso $\torso{G}{B_x}$ is a \defn{child-adhesion clique} if there is a child $y$ of $x$ such that $C\subseteq B_y$.' I believe you are understanding a child adhesion clique to be equal to $B_y\cap B_x$ but our definition allows $C$ to be a subset of $B_x\cap B_y$. I've slightly adjusted the definition of child adhesion clique so that it is explicit that $C\subseteq B_x\cap B_y$.  }
+
+%\david{The child-adhesion cliques of $\torso{G}{B_x}$ are well-defined with respect to the given $k$-almost embeddable representation of $\torso{G}{B_x}$. But Pat's point (I believe) is that  there is no given $k$-almost embeddable representation of $\torso{G}{B_x}-A_x$, so the child-adhesion cliques of $\torso{G}{B_x}-A_x$ are not well-defined. It is a picky point, but still reasonable. The issue is more important later in the paper where we say ``every child-adhesion clique in $\torso{G}{B_x}-S_x$'' since there is no reason to assume that $\torso{G}{B_x}-S_x$ is $k$-almost embeddable. The key question is what version of \cref{GMSTimproved} is least likely to be misunderstood by our readers? The answer (I think) is the revised version in my comment above. Also, the current version of \cref{GMSTimproved}  does not define $A_x$.}
+
+%\robert{With regards to `there is no reason to assume that $\torso{G}{B_x}-S_x$ is $k$-almost embeddable,' isn't $k$-almost embeddable closed under subgraphs? \david{no} Looking into our later usage of child-adhesion clique, it isn't clear to me what the issue is. The only potential ambiguity I see would be fixed if we instead define a child adhesion clique as follows: `for each $x\in V(T)$, a clique $C$ in the torso $\torso{G}{B_x}$ is a \defn{child-adhesion clique} \emph{of $\torso{G}{B_x}$} if there is a child $y$ of $x$ such that $C\subseteq B_y$' and then add \emph{of $\torso{G}{B_x}$} to each of our usages of it.}
+
+%\david{This does not fix the problem of writing ``of child-adhesion-clique of $\torso{G}{B_x}-S_x$'', which we do later. As I said, the key question is what version of \cref{GMSTimproved} is least likely to be misunderstood by our readers? }
+
+The \defn{strong product} of graphs~$A$ and~$B$, denoted by~${A \boxtimes B}$, is the graph with vertex-set~${V(A) \times V(B)}$, where distinct vertices ${(v,x),(w,y) \in V(A) \times V(B)}$ are adjacent if
+	${v=w}$ and ${xy \in E(B)}$, or
+	${x=y}$ and ${vw \in E(A)}$, or
+	${vw \in E(A)}$ and~${xy \in E(B)}$.
+
+Let $G$ be a graph. A \defn{partition} of $G$ is a set $\PP$ of sets of vertices in $G$ such that each vertex of $G$ is in exactly one element of $\PP$. Each element of $\PP$ is called a \defn{part}. The \defn{width} of $\PP$ is the maximum number of vertices in a part. The \defn{quotient} of $\PP$ (with respect to $G$) is the graph, denoted by \defn{$G/\PP$}, with vertex set $\PP$ where distinct parts $A,B\in \PP$ are adjacent in $G/\PP$ if and only if some vertex in $A$ is adjacent in $G$ to some vertex in $B$. An \defn{$H$-partition} of $G$ is a partition $\PP$ of $G$ such that $G/\PP$ is contained in $H$. The following observation connects partitions to products.
+
+\begin{obs}[\citep{DJMMUW20}]
+\label{ObsPartitionProduct}
+For all graphs $G$ and $H$ and any integer $p\geq 1$, $G$ is contained in $H\boxtimes K_p$ if and only if $G$ has an $H$-partition with width at most $p$.
+\end{obs}
+
+A \defn{layering} of a graph $G$ is a partition $\PP$ of $G$, whose parts are ordered $\PP=(V_0,V_1,\dots)$ such that for each edge $vw\in E(G)$, if $v\in V_i$ and $w\in V_j$ then $|i-j|\leq 1$. Equivalently, a layering is a $P$-partition for some path $P$. Consider a connected graph $G$. Let $r\in V(G)$ and let $V_i:=\{v\in V(G):\dist_G(v,r)=i\}$ for each $i\geq 0$.
+Then $(V_0,V_1,\dots)$ is a \defn{\textsc{bfs}-layering} of $G$ rooted at $r$. Let $T$ be a spanning tree of $G$, where for each non-root vertex $v\in V_i$ there is an edge $vw$ in $T$ for some $w\in V_{i-1}$. Then $T$ is called a \defn{\textsc{bfs}-spanning tree} of $G$.
+
+If $T$ is a tree rooted at a vertex $r$, then a non-empty path $P$ in $T$ is \defn{vertical} if the vertex of $P$ closest to $r$ in $T$ is an end-vertex of $P$.
+
+Many recent results show that certain graphs can be described as subgraphs of the strong product of a graph with bounded treewidth and a path \citep{DJMMUW20,DHHW22,DMW,HW21b,DEMWW22,HJMW,UWY22}. For example, \citet{DHHW22} proved the following result (building on the work of \citet{DJMMUW20}).
+
+\begin{lem}[\citep{DHHW22}]
+\label{GenusPartition}
+Every connected graph $G$ of Euler genus at most $g$ is contained in $H\boxtimes P \boxtimes K_{\max\{2g,3\}}$ for some planar graph $H$ with treewidth 3, and for some path $P$. In particular, for every rooted spanning tree $T$ of $G$, there is a partition $\PP$ of $G$ such that $G/\PP$ is planar with treewidth at most $3$ and each part of $\PP$ is a subset of the union of at most $\max\{2g,3\}$ vertical paths in $T$.
+\end{lem}
+
+\david{I wonder if the cubic power here is tight.
+Here is a key example. Let $p$ be any positive integer.
+Let $T$ be the tree obtained from the $p^2$-leaf star by subdividing each edge $p$ times.
+So $n = p^3$ (roughly) and it is easily seen that $\tw(T \boxtimes T)$ is within a constant factor of $p^3$ (hint: construct the obvious bramble).
+Since $T$ has a path on $2p$ vertices, $T\boxprod T$ contains the $p\times p$ grid. The above theorem also shows $\gm(T\boxprod T) \geq 2p$, and in fact, both cases of the proof show that
+$\gm(T\boxprod T) \geq \Omega(p)$.
+Speculative Conjecture: $\gm(T \boxprod T) \leq O(p)$. \\
+This would improve the long-standing best known lower bound on the grid-minor-theorem of Robertson and Seymour.
+So I am probably wrong, but it is worth trying to work it out. }
+
+\pat{Unfortunately, it looks like $T\boxprod T$ contains an $\Omega(p^2) \times \Omega(p^2)$ grid minor, so we don't get any better upper bound for the Grid Minor Theorem. The idea is that $T*T$ contains $p^4$ $p\times p$ grids that are glued together along a total of $2p^2$ sides (the top and left side of each grid).  You can think of these as tiles and each one contains a $p/2 \times p/2$ grid model where each part of the model contains a vertex on the top row or left column.  I'm working through the details now just to make sure that it works so we can forget about it.\\
+This attached figure is an attempt to give an explanation.  If two squares are in the same column, then their top rows are identified. If two squares are in the same row then their left columns are identified.  Each of the $p^2$ squares on the diagonal will be identified with one $p/2 \times p/2$ subgrid.  The trick then is to include paths in the off-diagonal squares so that sides line up correctly.\\
+For example, A shares its left side with the right side of E so the parts of A include (orange) paths an off-diagonal grid to make these parts line up.  \\
+There are $p^2$ diagonal squares which is enough for us, and there seems to be tons of room on the off-diagonals to do the routing.
+}
+
+%\includegraphics[scale=0.8]{PatConstruction}

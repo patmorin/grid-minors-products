@@ -45,7 +45,7 @@
 \setlength{\headheight}{0.200in}
 \setlength{\headsep}{0.4in}
 \setlength{\footskip}{0.500in}
-%\setlength{\parskip}{1ex}
+\setlength{\parskip}{1ex}
 \setlength{\parindent}{.75cm}
 %\flushbottom
 
@@ -111,7 +111,7 @@
 
 %------------- Use this so pdflatex outputs US letter pages -------------
 \usepackage{hyperref}
-\usepackage[dvipsnames]{color}
+\usepackage[dvipsnames]{xcolor}
 \definecolor{linkblue}{named}{MidnightBlue}
 \hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
 	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
